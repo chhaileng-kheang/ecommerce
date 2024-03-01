@@ -128,7 +128,7 @@ class mobile extends StatelessWidget {
                   decoration: const InputDecoration(
                     enabled: false,
                     hintText: "Search",
-                    contentPadding: EdgeInsets.only(left: 10,right: 10,top: 0),
+                    contentPadding: EdgeInsets.only(left: 10,right: 10,top: 1),
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search),
                     prefixIconColor: Colors.black,
