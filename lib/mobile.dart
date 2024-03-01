@@ -23,59 +23,18 @@ class mobile extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-        if(constraints.maxWidth < 1000){
+        if(constraints.maxWidth < 800){
           width = MediaQuery.sizeOf(context).width;
-          return Scaffold(
-            backgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
-            body: SizedBox(
-              width: width,
-              height: MediaQuery.sizeOf(context).height,
-              child: Column(
-                children: [
-                  Header(width),
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: width,
-                    height: MediaQuery.sizeOf(context).height-60,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SearchBars(width),
-                          BannerSponsor(width),
-                          SizedBox(
-                            width: width*0.9,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                  
-                                    margin: const EdgeInsets.only(top: 12),
-                                    child: Text("Sponsor",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
-                              ],
-                            ),
-                          ),
-                          TrippleSponsor(width,context),
-                          BannerSponsorEx(width),
-                          bodyGid(width, context),
-                          const SizedBox(height: 60,)
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-                ],
-              ),
-            )
-          );
+          return mainscreen(width, context,2);
         }else{
-          width = 1000;
+          width = 800;
           return Scaffold(
-              backgroundColor: Colors.black,
+              backgroundColor: Colors.white,
               body: Center(
                 child: Container(
                   color: const Color.fromRGBO(255, 255, 255, 1.0),
                   width: width,
+                  child: mainscreen(width, context,3),
 
                 ),
               )
@@ -84,7 +43,51 @@ class mobile extends StatelessWidget {
       },)
     );
   }
+mainscreen(double width, BuildContext context,int Grid){
+    return Scaffold(
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
+        body: SizedBox(
+          width: width,
+          height: MediaQuery.sizeOf(context).height,
+          child: Column(
+            children: [
+              Header(width),
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  width: width,
+                  height: MediaQuery.sizeOf(context).height-60,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SearchBars(width),
+                        BannerSponsor(width),
+                        SizedBox(
+                          width: width*0.9,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
 
+                                  margin: const EdgeInsets.only(top: 12),
+                                  child: Text("Sponsor",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
+                            ],
+                          ),
+                        ),
+                        TrippleSponsor(width,context),
+                        BannerSponsorEx(width),
+                        bodyGid(width, context,Grid),
+                        const SizedBox(height: 60,)
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
+    );
+}
   Header(double width) {
     return Container(
       height: 50,
@@ -300,27 +303,22 @@ class mobile extends StatelessWidget {
 
    }
 
-   bodyGid(double width,BuildContext context){
+   bodyGid(double width,BuildContext context,int Grid){
 
     return Container(
       width: width*0.9 +8,
       margin: const EdgeInsets.only(top: 5),
       child: StaggeredGrid.count(
-        crossAxisCount: 2,
+        crossAxisCount: Grid,
         mainAxisSpacing: 2,
         crossAxisSpacing: 2,
         children: [
-
-
           ProductCard(context, "https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D", "pair of black air jordan", "200", "10111222", "sneaker", "20"),
           ProductCard(context, "https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "black computer keyboard", "60", "10111222", "Keyboard", "0"),
           ProductCard(context, "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "pair of black air jordan", "170", "10111222", "sneaker", "20"),
           ProductCard(context, "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "white crew neck long sleeve shirt", "35", "10111222", "T-shirt", "0"),
           ProductCard(context, "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "black gucci leather shoulder bag", "870", "10111222", "Bag", "5"),
           ProductCard(context, "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=2650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "pair of black air jordan", "80", "10111222", "sneaker", "0"),
-
-
-
 
         ],
 
