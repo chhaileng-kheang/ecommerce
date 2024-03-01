@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecomerce/leftmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 class mobile extends StatelessWidget {
    mobile({super.key});
+   GlobalKey<ScaffoldState> _key = GlobalKey();
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -21,33 +23,31 @@ class mobile extends StatelessWidget {
   Widget build(BuildContext context) {
     late double width;
     return Scaffold(
-      backgroundColor: Colors.black,
+      key: _key,
+      drawer: NavDrawer(),
+      backgroundColor: Colors.white,
       body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
         if(constraints.maxWidth < 800){
           width = MediaQuery.sizeOf(context).width;
           return mainscreen(width, context,2);
         }else{
           width = 800;
-          return Scaffold(
-              backgroundColor: Colors.white,
-              body: Center(
+          return Center(
                 child: Container(
                   color: const Color.fromRGBO(255, 255, 255, 1.0),
-                  width: width,
+                  width: MediaQuery.sizeOf(context).width,
                   child: mainscreen(width, context,3),
 
                 ),
-              )
+
           );
         }
       },)
     );
   }
 mainscreen(double width, BuildContext context,int Grid){
-    return Scaffold(
-        backgroundColor: const Color.fromRGBO(255, 255, 255, 1.0),
-        body: SizedBox(
-          width: width,
+    return SizedBox(
+          width: MediaQuery.sizeOf(context).width,
           height: MediaQuery.sizeOf(context).height,
           child: Column(
             children: [
@@ -85,7 +85,7 @@ mainscreen(double width, BuildContext context,int Grid){
               )
             ],
           ),
-        )
+
     );
 }
   Header(double width) {
@@ -95,7 +95,11 @@ mainscreen(double width, BuildContext context,int Grid){
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Icon(Icons.menu,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),),
+           InkWell(
+               onTap: (){
+                 _key.currentState!.openDrawer();
+               },
+               child: Icon(Icons.menu,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
           Text("App-Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
           ClipRRect(
             borderRadius: BorderRadius.circular(100),

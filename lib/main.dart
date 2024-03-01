@@ -11,6 +11,8 @@ void main() {
   setPathUrlStrategy();
   runApp(
     GetMaterialApp(
+        defaultTransition: Transition.noTransition, //this would be the solution
+        transitionDuration: Duration(seconds: 0),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: [
