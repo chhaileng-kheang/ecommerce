@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 class mobile extends StatelessWidget {
    mobile({super.key});
@@ -128,7 +130,7 @@ class mobile extends StatelessWidget {
                   decoration: const InputDecoration(
                     enabled: false,
                     hintText: "Search",
-                    contentPadding: EdgeInsets.only(left: 10,right: 10,top: 1),
+                    contentPadding: EdgeInsets.only(left: 10,right: 10,top: 0),
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search),
                     prefixIconColor: Colors.black,
@@ -308,6 +310,8 @@ class mobile extends StatelessWidget {
         mainAxisSpacing: 2,
         crossAxisSpacing: 2,
         children: [
+
+
           ProductCard(context, "https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D", "pair of black air jordan", "200", "10111222", "sneaker", "20"),
           ProductCard(context, "https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "black computer keyboard", "60", "10111222", "Keyboard", "0"),
           ProductCard(context, "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "pair of black air jordan", "170", "10111222", "sneaker", "20"),
@@ -327,6 +331,7 @@ class mobile extends StatelessWidget {
     double discountprice = double.parse(price) - (double.parse(price)*(double.parse(discount)/100));
      return InkWell(
        onTap: (){
+         Get.toNamed("/product?store=12345&product=28222");
 
        },
        child: Card(

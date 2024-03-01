@@ -1,17 +1,21 @@
+import 'package:ecomerce/detail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'home.dart';
 import 'staticdata.dart';
 import 'mobile.dart';
 import 'web.dart';
 void main() {
+  setPathUrlStrategy();
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: ()=>MyApp())
+        GetPage(name: '/', page: ()=>MyApp()),
+        GetPage(name: '/product', page: ()=>detail())
       ],
     )
   );
