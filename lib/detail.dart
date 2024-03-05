@@ -61,6 +61,7 @@ class detail extends StatelessWidget {
                             Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
                             SizedBox(height: 10,),
                             Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
+                            profile_store(width),
                             Contact(width,context),
                             Container(
                                 margin: EdgeInsets.only(top: 20),
@@ -141,7 +142,6 @@ class detail extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(top: 10),
       width: width*0.9,
-      height: 200,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
@@ -149,177 +149,101 @@ class detail extends StatelessWidget {
           SizedBox(
             width: width/3.35,
 
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
+            child: AspectRatio(
+              aspectRatio: 4/3,
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
                 ),
-              ),
-              elevation: 1,
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width/3.35,
+                elevation: 1,
+                color: Colors.white,
+                shadowColor: Colors.black,
+                child:Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: width/3.35,
 
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.network("https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-3515bce73e333a3a5bb3d9127bdc6d0c35c88a9cffed7da8425a7148.webp",fit: BoxFit.cover,  height: 200, width: MediaQuery.sizeOf(context).width, ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network("https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-3515bce73e333a3a5bb3d9127bdc6d0c35c88a9cffed7da8425a7148.webp",fit: BoxFit.cover,  height: 200, width: MediaQuery.sizeOf(context).width, ),
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
           SizedBox(
             width: width/3.35,
 
-            child: Card(
-              elevation: 1,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
+            child: AspectRatio(
+              aspectRatio: 4/3,
+              child: Card(
+                elevation: 1,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
                 ),
-              ),
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width/3.35,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.network("https://www.dhresource.com/webp/m/0x0/f2/albu/g19/M00/5F/C5/rBVap2DIXmGAaCmOAAGt0CgPIok342.jpg",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
+                color: Colors.white,
+                shadowColor: Colors.black,
+                child:Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: width/3.35,
+
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network("https://www.dhresource.com/webp/m/0x0/f2/albu/g19/M00/5F/C5/rBVap2DIXmGAaCmOAAGt0CgPIok342.jpg",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            width: width/3.35,
-        
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
+                    )
+                  ],
                 ),
-              ),
-              elevation: 1,
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width/3.35,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiNqZEHcC_DdFEzlsERkfVA1ikhe-SzwkgxVF4cbyBCeRLkxKvKwWO1aggj07BFPCBFIE&usqp=CAU",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
-                      ),
-                    ),
-                  )
-                ],
               ),
             ),
           ),
           SizedBox(
             width: width/3.35,
 
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
+            child: AspectRatio(
+              aspectRatio: 4/3,
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
+                  ),
                 ),
-              ),
-              elevation: 1,
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width/3.35,
+                elevation: 1,
+                color: Colors.white,
+                shadowColor: Colors.black,
+                child:Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox(
+                        width: width/3.35,
 
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.network("https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-3515bce73e333a3a5bb3d9127bdc6d0c35c88a9cffed7da8425a7148.webp",fit: BoxFit.cover,  height: 200, width: MediaQuery.sizeOf(context).width, ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiNqZEHcC_DdFEzlsERkfVA1ikhe-SzwkgxVF4cbyBCeRLkxKvKwWO1aggj07BFPCBFIE&usqp=CAU",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-          SizedBox(
-            width: width/3.35,
 
-            child: Card(
-              elevation: 1,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width/3.35,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.network("https://www.dhresource.com/webp/m/0x0/f2/albu/g19/M00/5F/C5/rBVap2DIXmGAaCmOAAGt0CgPIok342.jpg",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            width: width/3.35,
 
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              elevation: 1,
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width/3.35,
-                      height: 200,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiNqZEHcC_DdFEzlsERkfVA1ikhe-SzwkgxVF4cbyBCeRLkxKvKwWO1aggj07BFPCBFIE&usqp=CAU",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
         ],
         )
       ),
@@ -334,116 +258,120 @@ class detail extends StatelessWidget {
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints){
             if(constraints.maxWidth < 450){
-             return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                 if(constraints.maxWidth>350)...[
-                   Row(
-                     children: [
-                       Container(
-                         margin: EdgeInsets.only(top: 10),
-                         decoration: BoxDecoration(
-                             color: Colors.black,
-                             borderRadius: BorderRadius.circular(10)
-                         ),
-                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                         child: Row(
-                             children: [
-                               Icon(Icons.phone,color: Colors.white),
-                               SizedBox(width: 3,),
-                               Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 11,fontWeight: FontWeight.w600,color: Colors.white),),
+             return Container(
+               width: width*0.9,
+               child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                   if(constraints.maxWidth>350)...[
+                     Row(
+                       children: [
+                         Container(
+                           margin: EdgeInsets.only(top: 10),
+                           decoration: BoxDecoration(
+                               color: Colors.black,
+                               borderRadius: BorderRadius.circular(10)
+                           ),
+                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                           child: Row(
+                               children: [
+                                 Icon(Icons.phone,color: Colors.white),
+                                 SizedBox(width: 3,),
+                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                             ]
+                               ]
+                           ),
                          ),
-                       ),
-                       SizedBox(width: 10,),
-                       Container(
-                         margin: EdgeInsets.only(top: 10),
-                         decoration: BoxDecoration(
-                             color: Colors.black,
-                             borderRadius: BorderRadius.circular(10)
-                         ),
-                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                         child: Row(
-                             children: [
-                               Icon(Icons.phone,color: Colors.white),
-                               SizedBox(width: 3,),
-                               Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 11,fontWeight: FontWeight.w600,color: Colors.white),),
+                         SizedBox(width: 10,),
+                         Container(
+                           margin: EdgeInsets.only(top: 10),
+                           decoration: BoxDecoration(
+                               color: Colors.black,
+                               borderRadius: BorderRadius.circular(10)
+                           ),
+                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                           child: Row(
+                               children: [
+                                 Icon(Icons.phone,color: Colors.white),
+                                 SizedBox(width: 3,),
+                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                             ]
+                               ]
+                           ),
                          ),
-                       ),
-                     ],
-                   ),
-                 ]else...[
-                   Column(
-                     children: [
-                       Container(
-                         margin: EdgeInsets.only(top: 10),
-                         decoration: BoxDecoration(
-                             color: Colors.black,
-                             borderRadius: BorderRadius.circular(10)
-                         ),
-                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                         child: Row(
-                             children: [
-                               Icon(Icons.phone,color: Colors.white),
-                               SizedBox(width: 3,),
-                               Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 11,fontWeight: FontWeight.w600,color: Colors.white),),
+                       ],
+                     ),
+                   ]
+                   else...[
+                     Column(
+                       children: [
+                         Container(
+                           margin: EdgeInsets.only(top: 10),
+                           decoration: BoxDecoration(
+                               color: Colors.black,
+                               borderRadius: BorderRadius.circular(10)
+                           ),
+                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                           child: Row(
+                               children: [
+                                 Icon(Icons.phone,color: Colors.white),
+                                 SizedBox(width: 3,),
+                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                             ]
+                               ]
+                           ),
                          ),
-                       ),
-                       SizedBox(width: 10,),
-                       Container(
-                         margin: EdgeInsets.only(top: 10),
-                         decoration: BoxDecoration(
-                             color: Colors.black,
-                             borderRadius: BorderRadius.circular(10)
-                         ),
-                         padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                         child: Row(
-                             children: [
-                               Icon(Icons.phone,color: Colors.white),
-                               SizedBox(width: 3,),
-                               Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 11,fontWeight: FontWeight.w600,color: Colors.white),),
+                         Container(
+                           margin: EdgeInsets.only(top: 10),
+                           decoration: BoxDecoration(
+                               color: Colors.black,
+                               borderRadius: BorderRadius.circular(10)
+                           ),
+                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                           child: Row(
+                               children: [
+                                 Icon(Icons.phone,color: Colors.white),
+                                 SizedBox(width: 3,),
+                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                             ]
+                               ]
+                           ),
                          ),
-                       ),
-                     ],
-                   ),
-                 ],
-                  SizedBox(height: 5,),
-                  Row(children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 10,left: 5),
-                      width: 40,height: 40,
-                      decoration: BoxDecoration(color: Colors.black,
-                          borderRadius: BorderRadius.circular(100)
+                       ],
+                     ),
+                   ],
+                    SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                      Container(
+                        margin: EdgeInsets.only(top: 10,left: 10),
+                        width: 40,height: 40,
+                        decoration: BoxDecoration(color: Colors.black,
+                            borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: Icon(Icons.facebook, color: Colors.white,size: 22,),
                       ),
-                      child: Icon(Icons.facebook, color: Colors.white,size: 22,),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10,left: 5),
-                      width: 40,height: 40,
-                      decoration: BoxDecoration(color: Colors.black,
-                          borderRadius: BorderRadius.circular(100)
+                      Container(
+                        margin: EdgeInsets.only(top: 10,left: 10),
+                        width: 40,height: 40,
+                        decoration: BoxDecoration(color: Colors.black,
+                            borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: Icon(Icons.telegram, color: Colors.white,size: 22,),
                       ),
-                      child: Icon(Icons.telegram, color: Colors.white,size: 22,),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10,left: 5),
-                      width: 40,height: 40,
-                      decoration: BoxDecoration(color: Colors.black,
-                          borderRadius: BorderRadius.circular(100)
+                      Container(
+                        margin: EdgeInsets.only(top: 10,left: 10),
+                        width: 40,height: 40,
+                        decoration: BoxDecoration(color: Colors.black,
+                            borderRadius: BorderRadius.circular(100)
+                        ),
+                        child: Icon(Icons.message_outlined, color: Colors.white,size: 22,),
                       ),
-                      child: Icon(Icons.message_outlined, color: Colors.white,size: 22,),
-                    ),
-                  ],)
-                ],
-              );
+                    ],)
+                  ],
+                ),
+             );
             }else {
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -462,7 +390,7 @@ class detail extends StatelessWidget {
                             children: [
                               Icon(Icons.phone,color: Colors.white),
                               SizedBox(width: 3,),
-                              Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 11,fontWeight: FontWeight.w600,color: Colors.white),),
+                              Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
                             ]
                         ),
@@ -479,7 +407,7 @@ class detail extends StatelessWidget {
                             children: [
                               Icon(Icons.phone,color: Colors.white),
                               SizedBox(width: 3,),
-                              Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 11,fontWeight: FontWeight.w600,color: Colors.white),),
+                              Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
                             ]
                         ),
@@ -519,6 +447,44 @@ class detail extends StatelessWidget {
           },
         ),
       )
+    );
+  }
+
+  profile_store(double width) {
+    return Padding(
+      padding: EdgeInsets.only(left: 3,right: 3),
+      child: Container(
+        width: width,
+        height: 60,
+        margin: EdgeInsets.only(top: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+            color: Colors.black12,
+              offset: Offset(1,1),
+              blurRadius: 2,
+              spreadRadius: 1,
+          )]
+        ),
+        child: InkWell(
+          onTap: (){
+            Get.toNamed("/store?id=28222");
+          },
+          child: Row(
+            children: [
+              SizedBox(width: 10,),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 40,height: 40,fit: BoxFit.cover,),
+              ),
+              SizedBox(width: 10,),
+              Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),)
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
