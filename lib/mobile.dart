@@ -158,89 +158,90 @@ mainscreen(double width, BuildContext context,int Grid){
     return Container(
       margin: const EdgeInsets.only(top: 10),
       width: width*0.9,
-      height: 200,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: width/3.35,
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              elevation: 1,
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  SizedBox(
-                    width: width/3.35,
-                    height: 140,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5)),
-                      child: Image.network("https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-3515bce73e333a3a5bb3d9127bdc6d0c35c88a9cffed7da8425a7148.webp",fit: BoxFit.cover,  ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            width: width/3.35,
-            child: Card(
-              elevation: 1,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  SizedBox(
-                    width: width/3.35,
-                    height: 140,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5)),
-                      child: Image.network("https://www.dhresource.com/webp/m/0x0/f2/albu/g19/M00/5F/C5/rBVap2DIXmGAaCmOAAGt0CgPIok342.jpg",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            width: width/3.35,
-            child: Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-              ),
-              elevation: 1,
-              color: Colors.white,
-              shadowColor: Colors.black,
-              child:Column(
-                children: [
-                  SizedBox(
-                    width: width/3.35,
-                    height: 140,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(topRight: Radius.circular(5),topLeft: Radius.circular(5)),
-                      child: Image.network("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiNqZEHcC_DdFEzlsERkfVA1ikhe-SzwkgxVF4cbyBCeRLkxKvKwWO1aggj07BFPCBFIE&usqp=CAU",fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
+          SponsorCard(width, context, "https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-3515bce73e333a3a5bb3d9127bdc6d0c35c88a9cffed7da8425a7148.webp"),
+          SponsorCard(width, context, "https://www.dhresource.com/webp/m/0x0/f2/albu/g19/M00/5F/C5/rBVap2DIXmGAaCmOAAGt0CgPIok342.jpg"),
+
         ],
       ),
     );
 
+  }
+  SponsorCard(double width, BuildContext context, String img){
+    return SizedBox(
+      width: width/2.25,
+      child: Card(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5.0),
+          ),
+        ),
+        elevation: 1,
+        color: Colors.white,
+        shadowColor: Colors.black,
+        child:Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: 3/4,
+              child: SizedBox(
+                width: width/2,
+
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.network(img,fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,),
+                ),
+              ),
+            ),
+            AspectRatio(
+              aspectRatio: 3/4,
+              child: Container(
+                width: width/2.35,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.bottomRight,
+                      stops: [
+                        0.3,
+                        0.7
+                      ],
+                      colors: [
+                        Colors.black.withOpacity(.9),
+                        Colors.black.withOpacity(.3)
+                      ]),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+
+              ),
+            ),
+            Positioned(
+                left: 10,
+                bottom: 17,
+                child: Text("\$ 110",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.bold)),)
+            ),
+            Positioned(
+              left: 10,bottom: 5,
+              child:       Text("\$ 125",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.red,fontSize: 12,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red)),),
+            ),
+            Positioned(
+              bottom: 0,right: 0,
+              child:   Container(
+                padding: const EdgeInsets.only(left: 10,right: 10,bottom: 5,top: 5),
+                decoration: const BoxDecoration(
+                    color: Color.fromRGBO(255, 75, 75, 1.0),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomRight: Radius.circular(5))
+                ),
+                child: Row(
+                  children: [
+                    Text("-" + "10" + "%",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 12)),
+
+                  ],
+                ),
+              ),)
+          ],
+        ),
+      ),
+    );
   }
   BannerSponsor(double width) {
 
