@@ -4,7 +4,6 @@ import 'package:ecomerce/leftmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 class mobile extends StatelessWidget {
    mobile({super.key});
@@ -113,43 +112,49 @@ mainscreen(double width, BuildContext context,int Grid){
     );
   }
   SearchBars(double width){
-    return   Container(
-      margin: const EdgeInsets.only(top: 15),
-      width: width*0.9,
-      height: 35,
-      decoration: BoxDecoration(
-          color: const Color.fromRGBO(234, 234, 234, 1.0),
-          borderRadius: BorderRadius.circular(5)
-      ),
-      child: InkWell(
-        onTap: (){},
-        child: Row(
-          children: [
-            SizedBox(
-              width: width*0.8,
-              height: 35,
-              child: TextField(
-                  style: GoogleFonts.montserrat(
-                    textStyle: const TextStyle(
-                      fontSize: 14,
+    return   Hero(
+      tag: 'search',
+      child: Container(
+        margin: const EdgeInsets.only(top: 15),
+        width: width*0.9,
+        height: 35,
+        decoration: BoxDecoration(
+            color: const Color.fromRGBO(234, 234, 234, 1.0),
+            borderRadius: BorderRadius.circular(5)
+        ),
+        child: InkWell(
+          onTap: (){
+            Get.toNamed('/search');
+
+          },
+          child: Row(
+            children: [
+              SizedBox(
+                width: width*0.8,
+                height: 35,
+                child: TextField(
+                    style: GoogleFonts.montserrat(
+                      textStyle: const TextStyle(
+                        fontSize: 14,
+                      ),
                     ),
-                  ),
-                  decoration: const InputDecoration(
-                    enabled: false,
-                    hintText: "Search",
-                    contentPadding: EdgeInsets.only(left: 10,right: 10,top: 0),
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search),
-                    prefixIconColor: Colors.black,
-                  )
+                    decoration: const InputDecoration(
+                      enabled: false,
+                      hintText: "Search",
+                      contentPadding: EdgeInsets.only(left: 10,right: 10,top: 0),
+                      border: InputBorder.none,
+                      prefixIcon: Icon(Icons.search),
+                      prefixIconColor: Colors.black,
+                    )
+                ),
               ),
-            ),
-            Text("ALL",
-              style: GoogleFonts.montserrat(textStyle: const TextStyle(
-                  fontSize: 14
-              ),
-              ),)
-          ],
+              Text("ALL",
+                style: GoogleFonts.montserrat(textStyle: const TextStyle(
+                    fontSize: 14
+                ),
+                ),)
+            ],
+          ),
         ),
       ),
     );

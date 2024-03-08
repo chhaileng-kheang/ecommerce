@@ -1,4 +1,5 @@
 import 'package:ecomerce/detail.dart';
+import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/store.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,8 @@ void main() {
       getPages: [
         GetPage(name: '/', page: ()=>MyApp()),
         GetPage(name: '/product', page: ()=>detail()),
-        GetPage(name: '/store', page: ()=>store())
+        GetPage(name: '/store', page: ()=>store()),
+        GetPage(name: '/search', page: ()=>search()),
       ],
     )
   );
