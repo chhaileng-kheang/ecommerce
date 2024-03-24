@@ -6,25 +6,27 @@ class search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width;
-    return Scaffold(
-      body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-        if(constraints.maxWidth < 800){
-          width = MediaQuery.sizeOf(context).width;
-          return mainscreen(width, context,2);
-        }else{
-          width = 800;
-          return Center(
-            child: Container(
-              color: const Color.fromRGBO(255, 255, 255, 1.0),
-              width: MediaQuery.sizeOf(context).width,
-              child: mainscreen(width, context,3),
+    return SafeArea(
+      child: Scaffold(
+        body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+          if(constraints.maxWidth < 800){
+            width = MediaQuery.sizeOf(context).width;
+            return mainscreen(width, context,2);
+          }else{
+            width = 800;
+            return Center(
+              child: Container(
+                color: const Color.fromRGBO(255, 255, 255, 1.0),
+                width: MediaQuery.sizeOf(context).width,
+                child: mainscreen(width, context,3),
 
-            ),
+              ),
 
-          );
-        }
-      },)
-
+            );
+          }
+        },)
+      
+      ),
     );
   }
 
@@ -53,7 +55,7 @@ class search extends StatelessWidget {
                 },
                 child: Icon(Icons.menu,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             SizedBox(width: 15,),
-            SearchBars(width*0.9)
+            SearchBars(width*0.8)
           ],
 
         )
@@ -61,7 +63,7 @@ class search extends StatelessWidget {
   }
   SearchBars(double width){
     return   Hero(
-        tag: 'search',
+      tag: 'search',
       child: Container(
         margin: const EdgeInsets.only(top: 5),
         width: width*0.9,
@@ -75,7 +77,7 @@ class search extends StatelessWidget {
           child: Row(
             children: [
               SizedBox(
-                width: width*0.8,
+                width: width*0.75,
                 height: 35,
                 child: TextField(
                     style: GoogleFonts.montserrat(

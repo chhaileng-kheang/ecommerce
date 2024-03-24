@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/leftmenu.dart';
+import 'package:ecomerce/searchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -21,27 +22,29 @@ class mobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late double width;
-    return Scaffold(
-      key: _key,
-      drawer: NavDrawer(),
-      backgroundColor: Colors.white,
-      body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-        if(constraints.maxWidth < 800){
-          width = MediaQuery.sizeOf(context).width;
-          return mainscreen(width, context,2);
-        }else{
-          width = 800;
-          return Center(
-                child: Container(
-                  color: const Color.fromRGBO(255, 255, 255, 1.0),
-                  width: MediaQuery.sizeOf(context).width,
-                  child: mainscreen(width, context,3),
-
-                ),
-
-          );
-        }
-      },)
+    return SafeArea(
+      child: Scaffold(
+        key: _key,
+        drawer: NavDrawer(),
+        backgroundColor: Colors.white,
+        body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+          if(constraints.maxWidth < 800){
+            width = MediaQuery.sizeOf(context).width;
+            return mainscreen(width, context,2);
+          }else{
+            width = 800;
+            return Center(
+                  child: Container(
+                    color: const Color.fromRGBO(255, 255, 255, 1.0),
+                    width: MediaQuery.sizeOf(context).width,
+                    child: mainscreen(width, context,3),
+      
+                  ),
+      
+            );
+          }
+        },)
+      ),
     );
   }
 mainscreen(double width, BuildContext context,int Grid){
@@ -59,7 +62,7 @@ mainscreen(double width, BuildContext context,int Grid){
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        SearchBars(width),
+                        SearchBars(width,context),
                         BannerSponsor(width),
                         SizedBox(
                           width: width*0.9,
@@ -111,22 +114,24 @@ mainscreen(double width, BuildContext context,int Grid){
       )
     );
   }
-  SearchBars(double width){
+  SearchBars(double width,BuildContext context){
     return   Hero(
       tag: 'search',
-      child: Container(
-        margin: const EdgeInsets.only(top: 15),
-        width: width*0.9,
-        height: 35,
-        decoration: BoxDecoration(
-            color: const Color.fromRGBO(234, 234, 234, 1.0),
-            borderRadius: BorderRadius.circular(5)
-        ),
-        child: InkWell(
-          onTap: (){
-            Get.toNamed('/search');
-
-          },
+      child: InkWell(
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>search()),
+          );
+        },
+        child: Container(
+          margin: const EdgeInsets.only(top: 15),
+          width: width*0.9,
+          height: 35,
+          decoration: BoxDecoration(
+              color: const Color.fromRGBO(234, 234, 234, 1.0),
+              borderRadius: BorderRadius.circular(5)
+          ),
           child: Row(
             children: [
               SizedBox(

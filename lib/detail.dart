@@ -61,7 +61,7 @@ class detail extends StatelessWidget {
                             Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
                             SizedBox(height: 10,),
                             Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
-                            profile_store(width),
+                            width >= 500 ? profile_store(width) : SizedBox(width: 0,),
                             Contact(width,context),
                             Container(
                                 margin: EdgeInsets.only(top: 20),
@@ -261,186 +261,43 @@ class detail extends StatelessWidget {
              return Container(
                width: width*0.9,
                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                    if(constraints.maxWidth>350)...[
+                     //mobile
+                   phone_Contact_Row(width),
+                   SizedBox(height: 5,),
                      Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
-                         Container(
-                           margin: EdgeInsets.only(top: 10),
-                           decoration: BoxDecoration(
-                               color: Colors.black,
-                               borderRadius: BorderRadius.circular(10)
-                           ),
-                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                           child: Row(
-                               children: [
-                                 Icon(Icons.phone,color: Colors.white),
-                                 SizedBox(width: 3,),
-                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                               ]
-                           ),
-                         ),
-                         SizedBox(width: 10,),
-                         Container(
-                           margin: EdgeInsets.only(top: 10),
-                           decoration: BoxDecoration(
-                               color: Colors.black,
-                               borderRadius: BorderRadius.circular(10)
-                           ),
-                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                           child: Row(
-                               children: [
-                                 Icon(Icons.phone,color: Colors.white),
-                                 SizedBox(width: 3,),
-                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                               ]
-                           ),
-                         ),
+                         profile_store_mini(width*0.5),
+                         Social(40,40,22)
                        ],
-                     ),
+                     )
                    ]
                    else...[
-                     Column(
-                       children: [
-                         Container(
-                           margin: EdgeInsets.only(top: 10),
-                           decoration: BoxDecoration(
-                               color: Colors.black,
-                               borderRadius: BorderRadius.circular(10)
-                           ),
-                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                           child: Row(
-                               children: [
-                                 Icon(Icons.phone,color: Colors.white),
-                                 SizedBox(width: 3,),
-                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                               ]
-                           ),
-                         ),
-                         Container(
-                           margin: EdgeInsets.only(top: 10),
-                           decoration: BoxDecoration(
-                               color: Colors.black,
-                               borderRadius: BorderRadius.circular(10)
-                           ),
-                           padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                           child: Row(
-                               children: [
-                                 Icon(Icons.phone,color: Colors.white),
-                                 SizedBox(width: 3,),
-                                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                               ]
-                           ),
-                         ),
-                       ],
-                     ),
+                     //fold
+                     phone_Contact_Column(),
+                     SizedBox(height: 5,),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       profile_store_mini(width*0.45),
+                       Social(35,35,20),
+                     ],)
                    ],
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10,left: 10),
-                        width: 40,height: 40,
-                        decoration: BoxDecoration(color: Colors.black,
-                            borderRadius: BorderRadius.circular(100)
-                        ),
-                        child: Icon(Icons.facebook, color: Colors.white,size: 22,),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10,left: 10),
-                        width: 40,height: 40,
-                        decoration: BoxDecoration(color: Colors.black,
-                            borderRadius: BorderRadius.circular(100)
-                        ),
-                        child: Icon(Icons.telegram, color: Colors.white,size: 22,),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 10,left: 10),
-                        width: 40,height: 40,
-                        decoration: BoxDecoration(color: Colors.black,
-                            borderRadius: BorderRadius.circular(100)
-                        ),
-                        child: Icon(Icons.message_outlined, color: Colors.white,size: 22,),
-                      ),
-                    ],)
+
                   ],
                 ),
              );
             }else {
+              //pc & tab
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                        child: Row(
-                            children: [
-                              Icon(Icons.phone,color: Colors.white),
-                              SizedBox(width: 3,),
-                              Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                            ]
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-                        child: Row(
-                            children: [
-                              Icon(Icons.phone,color: Colors.white),
-                              SizedBox(width: 3,),
-                              Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                            ]
-                        ),
-                      ),
-                    ],
-                  ),
+                  phone_Contact_Row(width),
                   SizedBox(height: 5,),
-                  Row(children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 10,left: 5),
-                      width: 40,height: 40,
-                      decoration: BoxDecoration(color: Colors.black,
-                          borderRadius: BorderRadius.circular(100)
-                      ),
-                      child: Icon(Icons.facebook, color: Colors.white,size: 22,),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10,left: 5),
-                      width: 40,height: 40,
-                      decoration: BoxDecoration(color: Colors.black,
-                          borderRadius: BorderRadius.circular(100)
-                      ),
-                      child: Icon(Icons.telegram, color: Colors.white,size: 22,),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10,left: 5),
-                      width: 40,height: 40,
-                      decoration: BoxDecoration(color: Colors.black,
-                          borderRadius: BorderRadius.circular(100)
-                      ),
-                      child: Icon(Icons.message_outlined, color: Colors.white,size: 22,),
-                    ),
-                  ],)
+                  Social(40,40,22),
                 ],
               );
             }
@@ -480,7 +337,199 @@ class detail extends StatelessWidget {
                 child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 40,height: 40,fit: BoxFit.cover,),
               ),
               SizedBox(width: 10,),
-              Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),)
+              Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),)
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Social(double width, double height ,double size) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 10,left: 5),
+          width: width,height: height,
+          decoration: BoxDecoration(color: Colors.black,
+              borderRadius: BorderRadius.circular(100)
+          ),
+          child: Icon(Icons.facebook, color: Colors.white,size: size,),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10,left: 5),
+          width: width,height: height,
+          decoration: BoxDecoration(color: Colors.black,
+              borderRadius: BorderRadius.circular(100)
+          ),
+          child: Icon(Icons.telegram, color: Colors.white,size: size,),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 10,left: 5),
+          width: width,height: height,
+          decoration: BoxDecoration(color: Colors.black,
+              borderRadius: BorderRadius.circular(100)
+          ),
+          child: Icon(Icons.message_outlined, color: Colors.white,size: size,),
+        ),
+      ],);
+  }
+
+  phone_Contact_Row(double width) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        if(width>=500)...[
+          Container(
+
+            margin: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+            child: Row(
+                children: [
+                  Icon(Icons.phone,color: Colors.white),
+                  SizedBox(width: 3,),
+                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                ]
+            ),
+          ),
+          SizedBox(width: 10,),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+            child: Row(
+                children: [
+                  Icon(Icons.phone,color: Colors.white),
+                  SizedBox(width: 3,),
+                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                ]
+            ),
+          ),
+        ]else...[
+          Container(
+            width:  width * 0.42,
+            margin: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+            child: Row(
+                children: [
+                  Icon(Icons.phone,color: Colors.white),
+                  SizedBox(width: 3,),
+                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                ]
+            ),
+          ),
+          SizedBox(width: 10,),
+          Container(
+
+            width: width * 0.42,
+            margin: EdgeInsets.only(top: 10),
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+            child: Row(
+                children: [
+                  Icon(Icons.phone,color: Colors.white),
+                  SizedBox(width: 3,),
+                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                ]
+            ),
+          ),
+    ]
+      ],
+    );
+  }
+
+  phone_Contact_Column() {
+    return Column(
+      children: [
+        Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+              child: Row(
+                  children: [
+                    Icon(Icons.phone,color: Colors.white),
+                    SizedBox(width: 3,),
+                    Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                  ]
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+              child: Row(
+                  children: [
+                    Icon(Icons.phone,color: Colors.white),
+                    SizedBox(width: 3,),
+                    Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                  ]
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  profile_store_mini(double width) {
+    return Padding(
+      padding: EdgeInsets.only(left: 3,right: 3),
+      child: Container(
+        width: width,
+        height: 40,
+        margin: EdgeInsets.only(top: 10),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(100),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(1,1),
+                blurRadius: 1,
+                spreadRadius: 0.5,
+              )]
+        ),
+        child: InkWell(
+          onTap: (){
+            Get.toNamed("/store?id=28222");
+          },
+          child: Row(
+            children: [
+              SizedBox(width: 5,),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 27,height: 27,fit: BoxFit.cover,),
+              ),
+              SizedBox(width: 5,),
+              Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 9),)
             ],
           ),
         ),
