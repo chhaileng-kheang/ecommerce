@@ -1,4 +1,6 @@
 import 'package:ecomerce/detail.dart';
+import 'package:ecomerce/login.dart';
+import 'package:ecomerce/merchant.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/store.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,15 @@ void main() {
         GetPage(name: '/product', page: ()=>detail()),
         GetPage(name: '/store', page: ()=>store()),
         GetPage(name: '/search', page: ()=>search()),
+        GetPage(name: '/login', page: ()=>login()),
+        GetPage(name: '/signup', page: ()=>search()),
+        GetPage(name: '/merchant', page: ()=>merchant()),
+        GetPage(name: '/storelist', page: ()=>search()),
+
+
+
+
+
       ],
     )
   );

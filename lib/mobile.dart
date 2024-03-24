@@ -103,11 +103,16 @@ mainscreen(double width, BuildContext context,int Grid){
                },
                child: Icon(Icons.menu,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
           Text("App-Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: const Image(
-              image: NetworkImage("https://pics.craiyon.com/2023-10-13/45c8f06467d74d7d8949ddadffc5b2c8.webp",),
-              height: 40,width: 40,
+          InkWell(
+            onTap: (){
+              Get.toNamed("/login");
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: const Image(
+                image: NetworkImage("https://pics.craiyon.com/2023-10-13/45c8f06467d74d7d8949ddadffc5b2c8.webp",),
+                height: 40,width: 40,
+              ),
             ),
           )
         ],
