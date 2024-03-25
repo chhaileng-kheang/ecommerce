@@ -1,3 +1,4 @@
+import 'package:ecomerce/uploadimage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class merchantReg extends StatefulWidget {
@@ -513,18 +514,26 @@ class _merchantRegState extends State<merchantReg> {
                         ],
                       ),
                     ),
-                    Container(
-                      width:  width*0.9,
-                      padding: EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
-                      margin: EdgeInsets.only(left: 5,top: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(5)
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Next",
-                          style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => uploadImage()),
+                        );
+                      },
+                      child: Container(
+                        width:  width*0.9,
+                        padding: EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
+                        margin: EdgeInsets.only(left: 5,top: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(5)
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Next",
+                            style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                          ),
                         ),
                       ),
                     ),
