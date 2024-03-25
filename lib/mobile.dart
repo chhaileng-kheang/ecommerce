@@ -324,7 +324,6 @@ mainscreen(double width, BuildContext context,int Grid){
    }
 
    bodyGid(double width,BuildContext context,int Grid){
-
     return Container(
       width: width*0.9 +8,
       margin: const EdgeInsets.only(top: 5),

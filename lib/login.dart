@@ -1,3 +1,4 @@
+import 'package:ecomerce/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -52,19 +53,23 @@ class login extends StatelessWidget {
                 ),
                 Positioned(
                   top: 100,
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 100,width: 100,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.network("https://plus.unsplash.com/premium_photo-1661914978519-52a11fe159a7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
+                  child: Hero(
+                    tag: "heads",
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 100,
+                            width: 100,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: Image.network("https://plus.unsplash.com/premium_photo-1661914978519-52a11fe159a7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -77,12 +82,14 @@ class login extends StatelessWidget {
             child:Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Login",style: GoogleFonts.montserrat(
-                    textStyle : TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.w500
-                 )
-                )
-               ),
+                Hero(
+                  tag: "text",
+                  child: Text("Login",style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontSize: 16, fontWeight: FontWeight.w500
+                  )
+
+                  ),
+                ),
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   width: width*0.9,
@@ -174,16 +181,24 @@ class login extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(top: 80),
                   width: width*0.9,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Create New Account!",style: GoogleFonts.montserrat(textStyle: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14
+                  child: Column(
 
-                      )),),
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => signup()),
+                          );
+                        },
+                        child: Text("Create New Account!",style: GoogleFonts.montserrat(textStyle: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14
+
+                        )),),
+                      ),
                       Container(
-                        margin: EdgeInsets.only(left: 30,right: 30),
+                        margin: EdgeInsets.only(top: 30,bottom: 30),
                         width: 5,
                         height: 20,
                         decoration: BoxDecoration(
