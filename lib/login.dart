@@ -1,3 +1,5 @@
+import 'package:ecomerce/createmerchant.dart';
+import 'package:ecomerce/merchant.dart';
 import 'package:ecomerce/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -206,11 +208,19 @@ class login extends StatelessWidget {
                           color: Colors.black
                         ),
                       ),
-                      Text("Register As Merchant!",style: GoogleFonts.montserrat(textStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (_) => merchantReg()),
+                          );
+                        },
+                        child: Text("Register As Merchant!",style: GoogleFonts.montserrat(textStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14
 
-                      )),),
+                        )),),
+                      ),
                     ],
                   ),
                 )
