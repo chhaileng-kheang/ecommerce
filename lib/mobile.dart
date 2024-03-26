@@ -1,14 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-class mobile extends StatelessWidget {
+class mobile extends StatefulWidget {
    mobile({super.key});
+
+  @override
+  State<mobile> createState() => _mobileState();
+}
+
+class _mobileState extends State<mobile> {
    GlobalKey<ScaffoldState> _key = GlobalKey();
+   int _selectedIndex = 0;
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -18,36 +26,92 @@ class mobile extends StatelessWidget {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
 
-
   @override
   Widget build(BuildContext context) {
     late double width;
+    final ScrollController _homeController = ScrollController();
+   List<Widget> _pages = <Widget>[
+
+    ];
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.store),
+              label: 'Store',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble),
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Whitelist',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          unselectedItemColor: Colors.black,
+          selectedFontSize: 10,
+          unselectedFontSize: 10,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.amber[800],
+          onTap: _onItemTapped,
+        ),
         key: _key,
         drawer: NavDrawer(),
         backgroundColor: Colors.white,
         body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
           if(constraints.maxWidth < 800){
             width = MediaQuery.sizeOf(context).width;
-            return mainscreen(width, context,2);
+            _pages = <Widget>[
+              mainscreen(width, context,2),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+
+            ];
+            return _pages.elementAt(_selectedIndex);
           }else{
             width = 800;
+            _pages = <Widget>[
+              mainscreen(width, context,2),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+              Icon(Icons.add),
+
+            ];
             return Center(
                   child: Container(
                     color: const Color.fromRGBO(255, 255, 255, 1.0),
                     width: MediaQuery.sizeOf(context).width,
-                    child: mainscreen(width, context,3),
-      
+                    child:  _pages.elementAt(_selectedIndex)
+
                   ),
-      
+
             );
           }
         },)
       ),
     );
   }
+   void _onItemTapped(int index) {
+     setState(() {
+       _selectedIndex = index;
+     });
+   }
 mainscreen(double width, BuildContext context,int Grid){
+
     return SizedBox(
           width: MediaQuery.sizeOf(context).width,
           height: MediaQuery.sizeOf(context).height,
@@ -90,6 +154,7 @@ mainscreen(double width, BuildContext context,int Grid){
 
     );
 }
+
   Header(double width) {
     return Container(
       height: 50,
@@ -119,6 +184,7 @@ mainscreen(double width, BuildContext context,int Grid){
       )
     );
   }
+
   SearchBars(double width,BuildContext context){
     return   Hero(
       tag: 'search',
@@ -166,6 +232,7 @@ mainscreen(double width, BuildContext context,int Grid){
       ),
     );
   }
+
   TrippleSponsor(double width,BuildContext context){
     return Container(
       margin: const EdgeInsets.only(top: 10),
@@ -181,6 +248,7 @@ mainscreen(double width, BuildContext context,int Grid){
     );
 
   }
+
   SponsorCard(double width, BuildContext context, String img){
     return SizedBox(
       width: width/2.25,
@@ -255,6 +323,7 @@ mainscreen(double width, BuildContext context,int Grid){
       ),
     );
   }
+
   BannerSponsor(double width) {
 
     return Container(
@@ -287,6 +356,7 @@ mainscreen(double width, BuildContext context,int Grid){
     );
 
   }
+
    BannerSponsorEx(double width) {
 
      return Container(
@@ -341,6 +411,7 @@ mainscreen(double width, BuildContext context,int Grid){
       ),
     );
    }
+
    ProductCard(BuildContext context,String img, String title, String price,String id,String category, String discount) {
     double discountprice = double.parse(price) - (double.parse(price)*(double.parse(discount)/100));
      return InkWell(

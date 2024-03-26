@@ -73,11 +73,11 @@ class _uploadImageState extends State<uploadImage> {
                           width: 200,
                           height: 200,
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: Colors.black12,
                               borderRadius: BorderRadius.circular(100)
                           ),
                           child: Container(
-                            margin: EdgeInsets.all(2),
+                            margin: EdgeInsets.all(1),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(100)
@@ -85,12 +85,24 @@ class _uploadImageState extends State<uploadImage> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(1000),
                               child: Container(
-                                margin: EdgeInsets.only(top: 150,left: 10,right: 10),
+
+                                margin: EdgeInsets.only(top: 0,left: 0,right: 0),
                                 decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.1),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomRight,
+                                        stops: [
+                                          0.1,
+                                          0.9
+                                        ],
+                                        colors: [
+                                          Colors.black.withOpacity(.8),
+                                          Colors.white.withOpacity(.3)
+                                        ]),
                                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
                                 ),
-                                child: Center(child: Icon(Icons.camera_alt_outlined)),
+                                child: Container(
+                                    margin: EdgeInsets.only(top: 150),
+                                    child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
                               ),
                             ),
                           ),
