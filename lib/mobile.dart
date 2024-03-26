@@ -124,10 +124,7 @@ mainscreen(double width, BuildContext context,int Grid){
       tag: 'search',
       child: InkWell(
         onTap: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) =>search()),
-          );
+          Get.toNamed("/profilesetting");
         },
         child: Container(
           margin: const EdgeInsets.only(top: 15),

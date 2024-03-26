@@ -1,6 +1,9 @@
+import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/detail.dart';
+import 'package:ecomerce/editStore.dart';
 import 'package:ecomerce/login.dart';
 import 'package:ecomerce/merchant.dart';
+import 'package:ecomerce/profileSetting.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/store.dart';
@@ -29,6 +32,9 @@ void main() {
         GetPage(name: '/signup', page: ()=>signup()),
         GetPage(name: '/merchant', page: ()=>merchant()),
         GetPage(name: '/storelist', page: ()=>search()),
+        GetPage(name: "/profilesetting", page:()=> profileSetting()),
+        GetPage(name: "/editinfo", page:()=> editStore()),
+        GetPage(name: "/changepassword", page:()=> changePassword1()),
 
 
 
