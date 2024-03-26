@@ -47,7 +47,7 @@ class _mobileState extends State<mobile> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_bubble),
-              label: 'Chat',
+              label: 'Notification',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.favorite),

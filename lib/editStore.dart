@@ -1,14 +1,17 @@
+import 'package:ecomerce/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class editStore extends StatefulWidget {
-  const editStore({super.key});
+  editStore({super.key});
 
   @override
   State<editStore> createState() => _editStoreState();
+
 }
 
 class _editStoreState extends State<editStore> {
   @override
+  final TextEditingController _emailController = TextEditingController();
   Widget build(BuildContext context) {
     late double width;
     return SafeArea(
@@ -35,6 +38,8 @@ class _editStoreState extends State<editStore> {
     );
   }
   mainscreen(double width, BuildContext context, int g){
+
+    List<String> suggest_s = [];
     return Column(
       children: [
         Header(width),
@@ -201,20 +206,44 @@ class _editStoreState extends State<editStore> {
             children: [
               Container(
                 width: width*0.8,
-                child: TextField(
-                    style: GoogleFonts.montserrat(
-                      textStyle: const TextStyle(
-                        fontSize: 12,
+                child:   Autocomplete<String>(
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    if (textEditingValue.text == '') {
+                      return const Iterable<String>.empty();
+                    }
+                    suggest_s.clear();
+                    if(!textEditingValue.text.contains("@")) {
+                      for (String i in Data.suggest) {
+                        suggest_s.add(textEditingValue.text + i);
+                      }
+                      return suggest_s;
+                    }else{
+                      return const Iterable<String>.empty();
+                    }
+                  },
+                  fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+                    return TextFormField(
+                      controller: textEditingController,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
+                          border: InputBorder.none,
+                          prefixIconColor: Colors.black,
+                        hintText: 'E-Mail',
+                        hintStyle: GoogleFonts.montserrat(
+                          fontSize: 12
+                        )
                       ),
-                    ),
-                    decoration: const InputDecoration(
-                      enabled: true,
-                      hintText: "E-mail",
-                      contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
-                      border: InputBorder.none,
-                      prefixIconColor: Colors.black,
-                    )
-                ),
+                      focusNode: focusNode,
+                      onFieldSubmitted: (String value) {
+                        onFieldSubmitted();
+                        print('You just typed a new entry  $value');
+                      },
+                    );
+                  },
+                  onSelected: (String selection) {
+                    print('You just selected $selection');
+                  },
+                )
               ),
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:ecomerce/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class signup extends StatefulWidget {
@@ -165,21 +166,46 @@ class _signupState extends State<signup> {
                       child: Row(
                         children: [
                           Container(
-                            width: width*0.8,
-                            child: TextField(
-                                style: GoogleFonts.montserrat(
-                                  textStyle: const TextStyle(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                decoration: const InputDecoration(
-                                  enabled: true,
-                                  hintText: "Email",
-                                  contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
-                                  border: InputBorder.none,
-                                  prefixIconColor: Colors.black,
-                                )
-                            ),
+                              width: width*0.8,
+                              child:   Autocomplete<String>(
+                                optionsBuilder: (TextEditingValue textEditingValue) {
+                                  List<String> suggest_s = [];
+                                  if (textEditingValue.text == '') {
+                                    return const Iterable<String>.empty();
+                                  }
+                                  suggest_s.clear();
+                                  if(!textEditingValue.text.contains("@")) {
+                                    for (String i in Data.suggest) {
+                                      suggest_s.add(textEditingValue.text + i);
+                                    }
+                                    return suggest_s;
+                                  }else{
+                                    return const Iterable<String>.empty();
+                                  }
+                                },
+                                fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
+                                  return TextFormField(
+                                    controller: textEditingController,
+                                    decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
+                                        border: InputBorder.none,
+                                        prefixIconColor: Colors.black,
+                                        hintText: 'E-Mail',
+                                        hintStyle: GoogleFonts.montserrat(
+                                            fontSize: 14
+                                        )
+                                    ),
+                                    focusNode: focusNode,
+                                    onFieldSubmitted: (String value) {
+                                      onFieldSubmitted();
+                                      print('You just typed a new entry  $value');
+                                    },
+                                  );
+                                },
+                                onSelected: (String selection) {
+                                  print('You just selected $selection');
+                                },
+                              )
                           ),
                         ],
                       ),

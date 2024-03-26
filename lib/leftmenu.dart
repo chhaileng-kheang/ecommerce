@@ -21,7 +21,8 @@ class NavDrawer extends StatelessWidget {
                 color: Colors.green,
                 image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage('https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=2676&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))),
+                    image: NetworkImage('https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?q=80&w=2676&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'))
+            ),
             child: Text(
               'Chhaileng',
               style: TextStyle(fontSize: 25,
@@ -31,13 +32,13 @@ class NavDrawer extends StatelessWidget {
                   ..style = PaintingStyle.stroke,
                 shadows: const <Shadow>[
                 Shadow(
-                  offset: Offset(10.0, 10.0),
-                  blurRadius: 3.0,
+                  offset: Offset(1.0, 1.0),
+                  blurRadius: 5.0,
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
                 Shadow(
-                  offset: Offset(10.0, 10.0),
-                  blurRadius: 3.0,
+                  offset: Offset(1.0, 1.0),
+                  blurRadius: 5.0,
                   color: Color.fromARGB(125, 0, 0, 0),
                 ),
               ],),
