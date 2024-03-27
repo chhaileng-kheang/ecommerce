@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/leftmenu.dart';
+import 'package:ecomerce/merchanttab.dart';
 import 'package:ecomerce/searchPage.dart';
+import 'package:ecomerce/storelist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -74,10 +76,10 @@ class _mobileState extends State<mobile> {
             width = MediaQuery.sizeOf(context).width;
             _pages = <Widget>[
               mainscreen(width, context,2),
+             storeList(),
               Icon(Icons.add),
               Icon(Icons.add),
-              Icon(Icons.add),
-              Icon(Icons.add),
+              merchantTab(),
 
             ];
             return _pages.elementAt(_selectedIndex);
@@ -85,10 +87,10 @@ class _mobileState extends State<mobile> {
             width = 800;
             _pages = <Widget>[
               mainscreen(width, context,2),
+              storeList(),
               Icon(Icons.add),
               Icon(Icons.add),
-              Icon(Icons.add),
-              Icon(Icons.add),
+              merchantTab(),
 
             ];
             return Center(
