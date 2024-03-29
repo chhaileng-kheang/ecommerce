@@ -112,7 +112,7 @@ class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
     );
   }
   Future<void> _pickImageFromGallery_cover() async {
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       cover = File(pickedFile!.path);
     });

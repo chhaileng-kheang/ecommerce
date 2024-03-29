@@ -265,13 +265,13 @@ class _uploadImageState extends State<uploadImage> {
     );
   }
   Future<void> _pickImageFromGallery() async {
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       _image = File(pickedFile!.path);
     });
   }
   Future<void> _pickImageFromGallery_cover() async {
-    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       cover = File(pickedFile!.path);
     });
