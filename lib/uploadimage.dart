@@ -1,6 +1,11 @@
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class uploadImage extends StatefulWidget {
   const uploadImage({super.key});
@@ -10,8 +15,28 @@ class uploadImage extends StatefulWidget {
 }
 
 class _uploadImageState extends State<uploadImage> {
+  String androidVersion = 'Unknown';
+  int sdkInt = 0 ;
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
+  File? _image,cover;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkAndroidVersion();
+  }
+
+  Future<void> checkAndroidVersion() async {
+    var androidInfo = await DeviceInfoPlugin().androidInfo;
+
+    sdkInt = androidInfo.version.sdkInt;
+    print(sdkInt);
+    // Android 9 (SDK 28), Xiaomi Redmi Note 7
+  }
   @override
   Widget build(BuildContext context) {
+
+
     double width;
     return SafeArea(
         child: Scaffold(
@@ -43,6 +68,7 @@ class _uploadImageState extends State<uploadImage> {
   }
 
   mainscreen(double width, BuildContext context, int g) {
+
     return Container(
       child: Column(
         children: [
@@ -57,9 +83,43 @@ class _uploadImageState extends State<uploadImage> {
                     color: const Color.fromRGBO(234, 234, 234, 1.0),
                     borderRadius: BorderRadius.circular(10)
                   ),
-                  child: AspectRatio(
-                    aspectRatio: 4/3,
-                    child: Text(""),
+                  child: InkWell(
+                    onTap: () async{
+                      if(Platform.isAndroid) {
+
+                        if (sdkInt < 33) {
+                          print("android 12");
+                          var photo = await Permission.manageExternalStorage.status;
+                          if (photo.isGranted) {
+                            _pickImageFromGallery_cover();
+                          } else if (photo.isPermanentlyDenied) {
+                            openAppSettings();
+                          } else {
+                            await Permission.manageExternalStorage.request();
+                            _pickImageFromGallery_cover();
+                          }
+                        }else{
+                          print("android 13");
+                          var photo = await Permission
+                              .photos.status;
+                          if (photo.isGranted) {
+                            _pickImageFromGallery_cover();
+                             } else if (photo.isPermanentlyDenied) {
+                            openAppSettings();
+                          } else {
+                            await Permission.photos.request();
+                            _pickImageFromGallery_cover();
+                          }
+                        }
+                      }
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: AspectRatio(
+                        aspectRatio: 4/3,
+                        child: cover == null ? Text("") : Image.file(cover!,fit: BoxFit.cover,),
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -73,36 +133,67 @@ class _uploadImageState extends State<uploadImage> {
                           width: 200,
                           height: 200,
                           decoration: BoxDecoration(
-                              color: Colors.black12,
+                              color: Colors.black,
                               borderRadius: BorderRadius.circular(100)
                           ),
                           child: Container(
-                            margin: EdgeInsets.all(1),
+                            margin: EdgeInsets.all(2),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(100)
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(1000),
-                              child: Container(
+                            child: InkWell(
+                              onTap: () async {
+                                if(Platform.isAndroid) {
 
-                                margin: EdgeInsets.only(top: 0,left: 0,right: 0),
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.bottomRight,
-                                        stops: [
-                                          0.1,
-                                          0.9
-                                        ],
-                                        colors: [
-                                          Colors.black.withOpacity(.8),
-                                          Colors.white.withOpacity(.3)
-                                        ]),
-                                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
-                                ),
-                                child: Container(
-                                    margin: EdgeInsets.only(top: 150),
-                                    child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
+                                  if (sdkInt < 33) {
+                                    print("android 12");
+                                    var photo = await Permission.manageExternalStorage.status;
+                                    if (photo.isGranted) {
+                                      _pickImageFromGallery();
+                                    } else if (photo.isPermanentlyDenied) {
+                                      openAppSettings();
+                                    } else {
+                                      await Permission.manageExternalStorage.request();
+                                      _pickImageFromGallery();
+                                    }
+                                  }else{
+                                    print("android 13");
+                                    var photo = await Permission
+                                        .photos.status;
+                                    if (photo.isGranted) {
+                                      _pickImageFromGallery();
+                                    } else if (photo.isPermanentlyDenied) {
+                                      openAppSettings();
+                                    } else {
+                                      await Permission.photos.request();
+                                      _pickImageFromGallery();
+                                    }
+                                  }
+                                }
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(1000),
+                                child: _image == null ? Container(
+
+                                  margin: EdgeInsets.only(top: 0,left: 0,right: 0),
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.bottomRight,
+                                          stops: [
+                                            0.1,
+                                            0.9
+                                          ],
+                                          colors: [
+                                            Colors.black.withOpacity(.8),
+                                            Colors.white.withOpacity(.3)
+                                          ]),
+                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
+                                  ),
+                                  child: Container(
+                                      margin: EdgeInsets.only(top: 150),
+                                      child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
+                                ) : Image.file(_image!,fit: BoxFit.cover,),
                               ),
                             ),
                           ),
@@ -114,7 +205,19 @@ class _uploadImageState extends State<uploadImage> {
                 ),
                 Positioned(
                     right: 10,top: 10,
-                    child: Icon(Icons.edit_rounded))
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [BoxShadow(
+                            color: Colors.black38,
+                            blurRadius: 1,
+                            spreadRadius: 1,
+                            offset: Offset(1,1)
+                          )]
+                        ),
+                        child: Icon(Icons.edit_rounded)))
               ],
             ),
           ),
@@ -160,5 +263,17 @@ class _uploadImageState extends State<uploadImage> {
           ],
         )
     );
+  }
+  Future<void> _pickImageFromGallery() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(pickedFile!.path);
+    });
+  }
+  Future<void> _pickImageFromGallery_cover() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      cover = File(pickedFile!.path);
+    });
   }
 }

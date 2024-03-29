@@ -554,20 +554,25 @@ class merchantTab extends StatelessWidget {
       child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
-                  SizedBox(width: 5,),
-                  Text("Add Product",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+          InkWell(
+            onTap: (){
+              Get.toNamed("/uploadproduct");
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              child: Row(
+                  children: [
+                    Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
+                    SizedBox(width: 5,),
+                    Text("Add Product",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                ]
+                  ]
+              ),
             ),
           ),
           Container(

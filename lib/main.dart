@@ -7,6 +7,7 @@ import 'package:ecomerce/profileSetting.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/store.dart';
+import 'package:ecomerce/uploadProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,6 +36,7 @@ void main() {
         GetPage(name: "/profilesetting", page:()=> profileSetting()),
         GetPage(name: "/editinfo", page:()=> editStore()),
         GetPage(name: "/changepassword", page:()=> changePassword1()),
+        GetPage(name: "/uploadproduct", page:()=> uploadProduct()),
 
 
 
