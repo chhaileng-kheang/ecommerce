@@ -102,60 +102,20 @@ class merchant extends StatelessWidget {
     );
   }
   Contact(double width, context) {
-    return Container(
-        child: Container(
-          margin: EdgeInsets.only(top: 5),
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints){
-              if(constraints.maxWidth < 650){
-                return Container(
-                  width: width*0.9,
-                  child: Column(
-                    children: [
-                      if(constraints.maxWidth>350)...[
-                        //mobile
-                        phone_Contact_Row(width),
-                        SizedBox(height: 5,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Social(40,40,22),
-                          ],
-                        )
-                      ]
-                      else...[
-                        //fold
-                        phone_Contact_Column(),
-                        SizedBox(height: 5,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Social(35,35,20),
-                          ],)
-                      ],
+      return Container(
+      width: width *0.9,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            phone_Contact_Row(width),
+            SizedBox(width: 10,),
+            Social(35,35,20),
 
-                    ],
-                  ),
-                );
-              }else {
-                //pc & tab
-                return Container(
-                  width: width *0.9,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      phone_Contact_Row(width),
-                      SizedBox(height: 5,),
-                      Social(40,40,22),
-
-                    ],
-                  ),
-                );
-              }
-            },
-          ),
-        )
+          ],
+        ),
+      ),
     );
   }
   Social(double width, double height ,double size) {
@@ -179,20 +139,11 @@ class merchant extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(top: 10,left: 5),
-          height: height,
+          width: width,height: height,
           decoration: BoxDecoration(color: Colors.black,
               borderRadius: BorderRadius.circular(100)
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15,right: 15),
-            child: Row(
-              children: [
-                Icon(Icons.message_outlined, color: Colors.white,size: size,),
-                SizedBox(width: 10,),
-                Text("Message",style: TextStyle(color: Colors.white,fontSize: 11),)
-              ],
-            ),
-          ),
+          child: Icon(Icons.message_outlined, color: Colors.white,size: size,),
         ),
       ],);
   }
@@ -200,126 +151,40 @@ class merchant extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if(width>=650)...[
-          Container(
+        Container(
 
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(10)
           ),
-          SizedBox(width: 10,),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+          padding: EdgeInsets.all(12),
+          child: Row(
+              children: [
+                Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                ]
-            ),
+              ]
           ),
-        ]else...[
-          Container(
-            width:  width * 0.42,
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(10)
           ),
-          SizedBox(width: 10,),
-          Container(
+          padding: EdgeInsets.all(12),
+          child: Row(
+              children: [
+                Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-            width: width * 0.42,
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
+              ]
           ),
-
-        ]
-      ],
-    );
-  }
-
-  phone_Contact_Column() {
-    return Column(
-      children: [
-        Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-              child: Row(
-                  children: [
-                    Icon(Icons.phone,color: Colors.white),
-                    SizedBox(width: 3,),
-                    Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                  ]
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-              child: Row(
-                  children: [
-                    Icon(Icons.phone,color: Colors.white),
-                    SizedBox(width: 3,),
-                    Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                  ]
-              ),
-            ),
-          ],
         ),
       ],
     );
   }
+
 
   profile_store_mini(double width) {
     return Padding(
@@ -385,7 +250,7 @@ class merchant extends StatelessWidget {
           margin: EdgeInsets.only(top: 15),
           decoration: BoxDecoration(
             color: Color(0XFFFFF0BE),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             children: [
@@ -398,7 +263,7 @@ class merchant extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: width*0.5,
-                  height: width <410 ? 100 : 60,
+                  height: width <420 ? 100 : 60,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -542,7 +407,7 @@ class merchant extends StatelessWidget {
   uploadAndSub(double width) {
     return Container(
       width: width*0.9,
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(top: 0),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
