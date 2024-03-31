@@ -144,8 +144,9 @@ class store extends StatelessWidget {
                 return Container(
                   width: width*0.9,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if(constraints.maxWidth>370)...[
+                      if(constraints.maxWidth>350)...[
                         //mobile
                         phone_Contact_Row(width,9),
                         SizedBox(height: 5,),
@@ -337,12 +338,12 @@ class store extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                          child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),)),
+                        flex: 0,
+                        child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),),
+                      ),
                       Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
-                          ),
+                        flex: 0,
+                        child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
                         ),
                       ),
 
@@ -467,15 +468,6 @@ class store extends StatelessWidget {
   profileControl_nobg(double width, double height, double size) {
     return Row(
       children: [
-
-        Container(
-          margin: EdgeInsets.only(top: 10,left: 2),
-          width: width,height: height,
-          decoration: BoxDecoration(color: Colors.transparent,
-              borderRadius: BorderRadius.circular(100)
-          ),
-          child: Icon(Icons.link, color: Colors.black,size: size+10,),
-        ),
         Container(
           margin: EdgeInsets.only(top: 10,left: 2),
           width: width,height: height,
