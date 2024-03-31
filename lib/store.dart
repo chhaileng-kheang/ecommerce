@@ -153,7 +153,7 @@ class store extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Social(40,40,22),
+                            Social(38,38,26),
                           ],
                         )
                       ]
@@ -167,7 +167,7 @@ class store extends StatelessWidget {
                          Row(
                            mainAxisAlignment: MainAxisAlignment.end,
                            children: [
-                             Social(35,35,20),
+                             Social(32,32,18),
                            ],)
                        ],
                      )
@@ -302,7 +302,7 @@ class store extends StatelessWidget {
                 children: [
                   Icon(Icons.messenger_outline, color: Colors.white,size: 20,),
                   SizedBox(width: 10,),
-                  Text("Chat",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white,fontSize: 10)),)
+                  Text("Chat",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white,fontSize: 11)),)
                 ],
               ),
             ),
@@ -362,7 +362,7 @@ class store extends StatelessWidget {
         ]else...[
           Positioned(
               right: 10,
-              bottom: 1,
+              top: 10,
               child:  profileControl_nobg(35, 35, 20))
         ]
       ],
