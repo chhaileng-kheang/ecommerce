@@ -45,15 +45,16 @@ class NavDrawer extends StatelessWidget {
             ),
           ),
 
-          ListTile(
-            leading: const Icon(Icons.exit_to_app,color: Colors.red),
-            title: const Text('Logout',style: TextStyle(color: Colors.red,fontWeight: FontWeight.w800)),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
           Container(
             margin: EdgeInsets.only(top: 10),
             width: MediaQuery.sizeOf(context).width,
-              child: Center(child: Text("Categories",style: GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.w800,color: Colors.black),)))
+              child: Center(child: Text("Categories",style: GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.w800,color: Colors.black),))),
+          Container(
+            height: 3,
+            width:10,
+            margin: EdgeInsets.only(left: 50,right: 50,top: 12),
+            decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(50)),
+          ),
         ],
       ),
     );

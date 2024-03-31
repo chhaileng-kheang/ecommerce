@@ -102,7 +102,6 @@ class store extends StatelessWidget {
       ),
     );
   }
-
   BannerSponsor(double width) {
 
     return Container(
@@ -275,7 +274,6 @@ class store extends StatelessWidget {
       ],
     );
   }
-
   Header(double width) {
     return Container(
         height: 50,
@@ -464,7 +462,6 @@ class store extends StatelessWidget {
       ),
     );
   }
-
   profileControl_nobg(double width, double height, double size) {
     return Row(
       children: [

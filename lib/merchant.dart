@@ -184,8 +184,6 @@ class merchant extends StatelessWidget {
       ],
     );
   }
-
-
   profile_store_mini(double width) {
     return Padding(
       padding: EdgeInsets.only(left: 3,right: 3),
@@ -386,7 +384,6 @@ class merchant extends StatelessWidget {
       ),
     );
   }
-
   profileControl_nobg(double width, double height, double size) {
     return Row(
       children: [
@@ -403,28 +400,32 @@ class merchant extends StatelessWidget {
       ],);
 
   }
-
   uploadAndSub(double width) {
     return Container(
       width: width*0.9,
-      margin: EdgeInsets.only(top: 0),
+      margin: EdgeInsets.only(top: 10),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
-                  SizedBox(width: 5,),
-                  Text("Add Product",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+          InkWell(
+            onTap: (){
+              Get.toNamed("/uploadproduct");
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              child: Row(
+                  children: [
+                    Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
+                    SizedBox(width: 5,),
+                    Text("Add Product",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                ]
+                  ]
+              ),
             ),
           ),
           Container(
