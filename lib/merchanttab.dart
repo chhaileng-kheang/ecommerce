@@ -232,9 +232,9 @@ class merchantTab extends StatelessWidget {
                 onTap: (){
                   Get.back();
                 },
-                child: SizedBox(width: 30,)),
-            Text("Profile",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-            profileControl_nobg(40,40,24)
+                child: Text("")),
+            Text("Profle",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
+            Text("")
           ],
         )
     );
@@ -389,6 +389,7 @@ class merchantTab extends StatelessWidget {
       children: [
 
         Container(
+          margin: EdgeInsets.only(top: 10,left: 2),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.transparent,
               borderRadius: BorderRadius.circular(100)
@@ -402,6 +403,7 @@ class merchantTab extends StatelessWidget {
   uploadAndSub(double width) {
     return Container(
       width: width*0.9,
+      margin: EdgeInsets.only(top: 0),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -448,4 +450,6 @@ class merchantTab extends StatelessWidget {
     );
 
   }
+
+
 }

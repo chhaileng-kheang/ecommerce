@@ -102,6 +102,7 @@ class store extends StatelessWidget {
       ),
     );
   }
+
   BannerSponsor(double width) {
 
     return Container(
@@ -145,14 +146,14 @@ class store extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if(constraints.maxWidth>350)...[
+                      if(constraints.maxWidth>370)...[
                         //mobile
                         phone_Contact_Row(width,9),
                         SizedBox(height: 5,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Social(38,38,26),
+                            Social(40,40,22),
                           ],
                         )
                       ]
@@ -161,12 +162,12 @@ class store extends StatelessWidget {
                      Column(
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: [
-                         phone_Contact_Row(width,7),
+                         phone_Contact_Row(width,9),
                          SizedBox(height: 5,),
                          Row(
                            mainAxisAlignment: MainAxisAlignment.end,
                            children: [
-                             Social(32,32,18),
+                             Social(35,35,20),
                            ],)
                        ],
                      )
@@ -274,6 +275,7 @@ class store extends StatelessWidget {
       ],
     );
   }
+
   Header(double width) {
     return Container(
         height: 50,
@@ -300,7 +302,7 @@ class store extends StatelessWidget {
                 children: [
                   Icon(Icons.messenger_outline, color: Colors.white,size: 20,),
                   SizedBox(width: 10,),
-                  Text("Chat",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white,fontSize: 11)),)
+                  Text("Chat",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white,fontSize: 10)),)
                 ],
               ),
             ),
@@ -336,12 +338,12 @@ class store extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        flex: 0,
-                        child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),),
-                      ),
+                          child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),)),
                       Expanded(
-                        flex: 0,
-                        child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 5),
+                          child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
+                          ),
                         ),
                       ),
 
@@ -462,6 +464,7 @@ class store extends StatelessWidget {
       ),
     );
   }
+
   profileControl_nobg(double width, double height, double size) {
     return Row(
       children: [

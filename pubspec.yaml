@@ -46,6 +46,7 @@ dependencies:
   package_info_plus: ^6.0.0
   device_info_plus: ^10.0.1
   image_picker: ^1.0.7
+  easy_autocomplete: ^1.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

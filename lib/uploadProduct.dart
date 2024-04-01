@@ -1,3 +1,4 @@
+import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:ecomerce/customWidget/widgetSize.dart';
 import 'package:ecomerce/imageManager.dart';
 import 'package:ecomerce/staticdata.dart';
@@ -481,12 +482,10 @@ class _uploadProductState extends State<uploadProduct> {
                               if (textEditingValue.text == '') {
                                 return Data.category;
                               }
-
                               return Data.category.where((element) {
-                                return element.contains(textEditingValue.text);
+                                return element.contains(textEditingValue.text.toLowerCase());
                               }
                               );
-
                             },
                             fieldViewBuilder: (BuildContext context, TextEditingController textEditingController, FocusNode focusNode, VoidCallback onFieldSubmitted) {
                               return TextFormField(
@@ -512,10 +511,10 @@ class _uploadProductState extends State<uploadProduct> {
                             },
                           )
                       ),
+
                     ],
                   ),
                 ),
-
                 Container(width: width*0.9,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -605,6 +604,7 @@ class _uploadProductState extends State<uploadProduct> {
                     ],
                   ),
                 ),
+
                 Container(
                   width: width*0.9,
                   margin: EdgeInsets.only(top: 15),
@@ -771,7 +771,7 @@ class _uploadProductState extends State<uploadProduct> {
                 SizedBox(height: 150,)
               ],
             ),
-          ))
+          ) )
         ],
 
       ),

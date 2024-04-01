@@ -20,6 +20,7 @@ void main() {
   setPathUrlStrategy();
   runApp(
     GetMaterialApp(
+      color: Colors.white,
         defaultTransition: Transition.noTransition, //this would be the solution
         transitionDuration: Duration(seconds: 0),
       debugShowCheckedModeBanner: false,
