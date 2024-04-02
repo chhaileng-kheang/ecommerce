@@ -428,21 +428,26 @@ class merchantTab extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          InkWell(
+            onTap: (){
+              Get.toNamed("/subscription");
+            },
+            child: Container(
 
-            margin: EdgeInsets.only(top: 10,left: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 18,),
-                  SizedBox(width: 5,),
-                  Text("Subscription",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+              margin: EdgeInsets.only(top: 10,left: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              child: Row(
+                  children: [
+                    Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 18,),
+                    SizedBox(width: 5,),
+                    Text("Subscription",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                ]
+                  ]
+              ),
             ),
           ),
         ],

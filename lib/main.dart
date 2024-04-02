@@ -7,6 +7,7 @@ import 'package:ecomerce/profileSetting.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/store.dart';
+import 'package:ecomerce/subcription.dart';
 import 'package:ecomerce/uploadProduct.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,6 @@ import 'package:url_strategy/url_strategy.dart';
 import 'home.dart';
 import 'staticdata.dart';
 import 'mobile.dart';
-import 'web.dart';
 void main() {
   setPathUrlStrategy();
   runApp(
@@ -38,6 +38,7 @@ void main() {
         GetPage(name: "/editinfo", page:()=> editStore()),
         GetPage(name: "/changepassword", page:()=> changePassword1()),
         GetPage(name: "/uploadproduct", page:()=> uploadProduct()),
+        GetPage(name: "/subscription", page:()=> subscrption()),
 
 
 

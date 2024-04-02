@@ -5,6 +5,7 @@ import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/merchanttab.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/storelist.dart';
+import 'package:ecomerce/whitelist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -48,10 +49,6 @@ class _mobileState extends State<mobile> {
               label: 'Store',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble),
-              label: 'Notification',
-            ),
-            BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
               label: 'Whitelist',
             ),
@@ -77,8 +74,7 @@ class _mobileState extends State<mobile> {
             _pages = <Widget>[
               mainscreen(width, context,2),
              storeList(),
-              Icon(Icons.add),
-              Icon(Icons.add),
+              whitelist(),
               merchantTab(),
 
             ];
@@ -88,8 +84,7 @@ class _mobileState extends State<mobile> {
             _pages = <Widget>[
               mainscreen(width, context,2),
               storeList(),
-              Icon(Icons.add),
-              Icon(Icons.add),
+              whitelist(),
               merchantTab(),
 
             ];
