@@ -5,15 +5,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 class store extends StatelessWidget {
   store({super.key});
   final List<String> imgList = [
-    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-    'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-    'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+    'https://i.ibb.co/0BwmgQ5/Untitled-3.png',
   ];
   List<String> categorylst =['Sneaker', 'Clothing', "Kid's Clothing", 'Other','Sneaker', 'Clothing', "Kid's Clothing", 'Other'];
 
@@ -114,7 +110,7 @@ class store extends StatelessWidget {
           aspectRatio: 4/1,
           child: CarouselSlider(
             options: CarouselOptions(
-              autoPlay: true,
+              autoPlay: false,
               viewportFraction: 1,
               enlargeCenterPage: false,
               // autoPlay: false,
@@ -146,32 +142,45 @@ class store extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      if(constraints.maxWidth>370)...[
-                        //mobile
-                        phone_Contact_Row(width,9),
-                        SizedBox(height: 5,),
+                      if(constraints.maxWidth > 480)...[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Social(40,40,22),
+                            Social(45,45,24,12),
                           ],
-                        )
+                        ),
+                        SizedBox(height: 5,),
+                        phone_Contact_Row(width,12),
                       ]
-                      else...[
-                        //fold
-                     Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         phone_Contact_Row(width,9),
-                         SizedBox(height: 5,),
+                      else if(constraints.maxWidth>350)...[
+                        //mobile
                          Row(
                            mainAxisAlignment: MainAxisAlignment.end,
                            children: [
-                             Social(35,35,20),
-                           ],)
-                       ],
-                     )
-                      ],
+                             Social(38,20,18,8),
+                           ],
+                         ),
+                         SizedBox(height: 5,),
+                         phone_Contact_Row(width,8.5),
+                      ]
+                      else...[
+                        //fold
+                          Container(
+                            width: width*0.9,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Social(38,20,18,8),
+                                  SizedBox(width: 10,),
+                                  phone_Contact_Row(width,8.5),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                        ],
 
                     ],
                   ),
@@ -182,24 +191,41 @@ class store extends StatelessWidget {
         )
     );
   }
-  Social(double width, double height ,double size) {
+  Social(double width, double height ,double size,double fontsize) {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
+          margin: EdgeInsets.only(top: 10),
+          height: width-7,
+          padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(10)
           ),
-          child: Icon(Icons.facebook, color: Colors.white,size: size,),
+          child: Row(
+            children: [
+              Icon(Icons.facebook, color: Colors.white,size: size-2,),
+              Text("  Facebook",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+            ],
+          ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
+          margin: EdgeInsets.only(top: 10,left: 10),
+          height: width-7,
+          padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(10)
           ),
-          child: Icon(Icons.telegram, color: Colors.white,size: size,),
+          child: InkWell(
+            onTap: (){
+              _launchDeepLink();
+            },
+            child: Row(
+              children: [
+                Icon(Icons.telegram, color: Colors.white,size: size-2,),
+                Text("  Telegram",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+              ],
+            ),
+          ),
         ),
 
       ],);
@@ -208,7 +234,6 @@ class store extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if(width>=650)...[
           Container(
 
             margin: EdgeInsets.only(top: 10),
@@ -219,7 +244,7 @@ class store extends StatelessWidget {
             padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
             child: Row(
                 children: [
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
+                  Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
 
                 ]
             ),
@@ -234,44 +259,12 @@ class store extends StatelessWidget {
             padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
             child: Row(
                 children: [
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
-          ),
-        ]else...[
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
-          ),
-          SizedBox(width: 10,),
-          Container(
-
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
+                  Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
 
                 ]
             ),
           ),
 
-        ]
       ],
     );
   }
@@ -289,22 +282,13 @@ class store extends StatelessWidget {
                 },
                 child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Container(
-                margin: EdgeInsets.only(left: 50),
                 child: Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),)),
-            Container(
-              margin: EdgeInsets.only(top: 0,left: 5),
-              height: 35,
-              padding: EdgeInsets.only(left: 15,right: 15),
-              decoration: BoxDecoration(color: Colors.black,
-                  borderRadius: BorderRadius.circular(100)
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.messenger_outline, color: Colors.white,size: 20,),
-                  SizedBox(width: 10,),
-                  Text("Chat",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white,fontSize: 10)),)
-                ],
-              ),
+            Row(
+              children: [
+                ClipRRect(
+                  child: Image.network("https://flagsapi.com/KH/flat/64.png",height: 24,fit: BoxFit.fitHeight,),
+                )
+              ],
             ),
           ],
         )
@@ -318,7 +302,7 @@ class store extends StatelessWidget {
           width: width*0.9,
           margin: EdgeInsets.only(top: 15),
           decoration: BoxDecoration(
-            color: Color(0XFFFFF0BE),
+            color: Color(0XFFEAEAEA),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -332,14 +316,16 @@ class store extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: width*0.5,
-                  height: width <412 ? 100 : 60,
+                  height: width <415 ? 100 : 60,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
+                        flex:0,
                           child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),)),
                       Expanded(
+                        flex:0,
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 5),
                           child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
@@ -425,7 +411,7 @@ class store extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
-                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16))),
+                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
 
                     ],
                   )
@@ -479,6 +465,14 @@ class store extends StatelessWidget {
 
       ],);
 
+  }
+  void _launchDeepLink() async {
+    const deepLink = 'https://t.me/chhailengkc';
+    if (await canLaunchUrl(Uri.parse(deepLink))) {
+      await launchUrl(Uri.parse(deepLink), mode: LaunchMode.inAppBrowserView,);
+    } else {
+      throw 'Could not launch $deepLink';
+    }
   }
 }
 

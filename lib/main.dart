@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/detail.dart';
 import 'package:ecomerce/editStore.dart';
 import 'package:ecomerce/login.dart';
 import 'package:ecomerce/merchant.dart';
+import 'package:ecomerce/productOwn.dart';
 import 'package:ecomerce/profileSetting.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/signup.dart';
@@ -13,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:http/http.dart' as http;
 import 'home.dart';
 import 'staticdata.dart';
 import 'mobile.dart';
@@ -39,6 +43,7 @@ void main() {
         GetPage(name: "/changepassword", page:()=> changePassword1()),
         GetPage(name: "/uploadproduct", page:()=> uploadProduct()),
         GetPage(name: "/subscription", page:()=> subscrption()),
+        GetPage(name: "/productOwner", page:()=> detailOwn()),
 
 
 
@@ -79,6 +84,12 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

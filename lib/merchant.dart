@@ -314,7 +314,7 @@ class merchant extends StatelessWidget {
     double discountprice = double.parse(price) - (double.parse(price)*(double.parse(discount)/100));
     return InkWell(
       onTap: (){
-        Get.toNamed("/product?store=12345&product=28222");
+        Get.toNamed("/productOwner?store=12345&product=28222");
 
       },
       child: Card(
@@ -345,7 +345,7 @@ class merchant extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
-                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16))),
+                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
 
                     ],
                   )

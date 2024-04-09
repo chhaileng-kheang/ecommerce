@@ -1,14 +1,19 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/merchanttab.dart';
 import 'package:ecomerce/searchPage.dart';
+import 'package:ecomerce/staticdata.dart';
 import 'package:ecomerce/storelist.dart';
 import 'package:ecomerce/whitelist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:google_fonts/google_fonts.dart';
 class mobile extends StatefulWidget {
    mobile({super.key});
@@ -20,6 +25,12 @@ class mobile extends StatefulWidget {
 class _mobileState extends State<mobile> {
    GlobalKey<ScaffoldState> _key = GlobalKey();
    int _selectedIndex = 0;
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchData();
+  }
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -28,7 +39,24 @@ class _mobileState extends State<mobile> {
     'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
+   Future<void> fetchData() async {
+     final response = await http.get(Uri.parse(Data.ip +'/eiivanapiserver/category.php'),
+       headers: <String, String>{
+       'Content-Type': 'application/json; charset=UTF-8',
+       'accesstoken_auth': '0cB!d*oKx291-D8%D&Ji+a2I!KcqSJn\$-#ns2j2%lmowH2H1NjdK3*jd2n3sd3xHS291e+uj2^!dfcfh-*hjd\$8#dhbhc-)uAh+!@lJ7-#LzV4jx%1k!k1ow-#ns2j2%9e+ujf\$8#df='
+     });
 
+     if (response.statusCode == 200) {
+       final jsonData = json.decode(response.body);
+       final List<dynamic> categoryList = jsonData['data'][0]['category'];
+       setState(() {
+         Data.category = categoryList.map((category) => category.toString()).toList();
+         print(Data.category);
+       });
+     } else {
+       throw Exception('Failed to load data');
+     }
+   }
   @override
   Widget build(BuildContext context) {
     late double width;
@@ -355,33 +383,18 @@ mainscreen(double width, BuildContext context,int Grid){
   }
 
    BannerSponsorEx(double width) {
-
      return Container(
-       margin: const EdgeInsets.only(top: 10),
        width: width*0.9,
-       child: ClipRRect(
-         borderRadius: BorderRadius.circular(5),
-         child: AspectRatio(
-           aspectRatio: 4/1,
-           child: CarouselSlider(
-             options: CarouselOptions(
-               autoPlay: false,
-               viewportFraction: 1,
-               enlargeCenterPage: false,
-               // autoPlay: false,
+       margin: EdgeInsets.only(top: 5,bottom: 2),
+       child: AspectRatio(aspectRatio: 4/1,
+           child: ClipRRect(
+             borderRadius: BorderRadius.circular(5),
+             child: Image.network(
+               "https://i.ibb.co/0BwmgQ5/Untitled-3.png",
+               fit: BoxFit.fitWidth,
+               width: width,
              ),
-             items: imgList
-                 .map((item) => Container(
-               child: Center(
-                   child: Image.network(
-                     item,
-                     fit: BoxFit.fitWidth,
-                     width: width,
-                   )),
-             ))
-                 .toList(),
-           ),
-         ),
+           )
        ),
      );
 
@@ -444,7 +457,7 @@ mainscreen(double width, BuildContext context,int Grid){
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: [
 
-                       Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16))),
+                       Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
 
                      ],
                    )

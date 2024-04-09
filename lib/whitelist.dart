@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-class whitelist extends StatelessWidget {
-  const whitelist({super.key});
+class whitelist extends StatefulWidget {
+  whitelist({super.key});
+
+  @override
+  State<whitelist> createState() => _whitelistState();
+}
+
+class _whitelistState extends State<whitelist> {
+  final items = List<String>.generate(20, (i) => 'Item ${i + 1}');
 
   @override
   Widget build(BuildContext context) {
@@ -55,24 +62,31 @@ class whitelist extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 10,left: width*0.025),
               width: width*0.9,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(height: 10,),
-                    favCard(width,"img","title","price"),
-                    favCard(width,"img","title","price"),
-                    favCard(width,"img","title","price"),
-                    favCard(width,"img","title","price"),
-                    favCard(width,"img","title","price"),
-                    favCard(width,"img","title","price"),
-                    favCard(width,"img","title","price"),
-                    SizedBox(height: 100,)
+              color: Colors.transparent,
+              child: ListView.builder(
+                itemCount: items.length, itemBuilder: (context,index){
+                final item = items[index];
+                return Dismissible(
+                    key: Key(item),
+                    onDismissed: (direction){
+                      setState(() {
+                        items.removeAt(index);
+                      });
+                      Get.snackbar("Removed", "message",margin: EdgeInsets.only(top: MediaQuery.sizeOf(context).height*0.8,left: 50,right: 50));
+                    },
+                    background: Container(
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.red), child: Center(child: Text("Remove"),),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 10,top: 1),
+                decoration: BoxDecoration(),
+                child : favCard(width,"img","title","price"))
+                );
 
-                  ],
-                ),
-              ),
+              },)
             ),
           )
         ],
@@ -80,6 +94,7 @@ class whitelist extends StatelessWidget {
     );
 
   }
+
   Header(double width) {
     return Container(
         height: 50,
@@ -109,9 +124,9 @@ class whitelist extends StatelessWidget {
   favCard(double width, String img, String title, String price) {
     return Container(
       width: width*0.85,
-      margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(
+        boxShadow: [
+          BoxShadow(
           color: Colors.black38,
           blurRadius: 0.1,
           spreadRadius: 0.1,
@@ -151,7 +166,7 @@ class whitelist extends StatelessWidget {
               ],
             ),
           )
-          
+
         ],
       ),
     );

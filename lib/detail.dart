@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 class detail extends StatelessWidget {
   const detail({super.key});
 
@@ -61,7 +63,7 @@ class detail extends StatelessWidget {
                             Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
                             SizedBox(height: 10,),
                             Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
-                            width >= 500 ? profile_store(width) : SizedBox(width: 0,),
+                            sponsor(width),
                             Contact(width,context),
                             Container(
                                 margin: EdgeInsets.only(top: 20),
@@ -253,60 +255,91 @@ class detail extends StatelessWidget {
 
   Contact(double width, context) {
     return Container(
-      child: Container(
-        margin: EdgeInsets.only(top: 5),
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints){
-            if(constraints.maxWidth < 450){
-             return Container(
-               width: width*0.9,
-               child: Column(
-                  children: [
-                   if(constraints.maxWidth>350)...[
-                     //mobile
-                   phone_Contact_Row(width),
-                   SizedBox(height: 5,),
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                       children: [
-                         profile_store_mini(width*0.5),
-                         Social(40,40,22)
-                       ],
-                     )
-                   ]
-                   else...[
-                     //fold
-                     phone_Contact_Column(),
-                     SizedBox(height: 5,),
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       profile_store_mini(width*0.45),
-                       Social(35,35,20),
-                     ],)
-                   ],
+      margin: EdgeInsets.only(top: 5),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints){
+          return Container(
+            width: width*0.9,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                profile_store_mini(width, 14, 50),
+                if(constraints.maxWidth > 480)...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Social(45,45,24,12),
+                      SizedBox(width: 5,),
+                      phone_Contact_Row(width,12),
+                    ],
+                  ),
+                ]
+                else if(constraints.maxWidth>400)...[
+                  //mobile
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Social(45,20,18,12),
+                      SizedBox(width: 5,),
+                      phone_Contact_Row(width,12),
+                    ],
+                  ),
+
+                ]
+                else if(constraints.maxWidth>350)...[
+                  //mobile
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Social(38,20,18,9),
+                      SizedBox(width: 5,),
+                      phone_Contact_Row(width,9),
+                    ],
+                  ),
+
+                ]
+                else...[
+                    //fold
+                    Container(
+                      width: width*0.9,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Social(38,20,18,8),
+                            SizedBox(width: 10,),
+                            phone_Contact_Row(width,8.5),
+                          ],
+                        ),
+                      ),
+                    ),
 
                   ],
-                ),
-             );
-            }else {
-              //pc & tab
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  phone_Contact_Row(width),
-                  SizedBox(height: 5,),
-                  Social(40,40,22),
-                ],
-              );
-            }
-          },
-        ),
-      )
+
+              ],
+            ),
+          );
+
+        },
+      ),
     );
   }
-
+  sponsor(double width){
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      child: AspectRatio(aspectRatio: 4/1,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(
+            "https://i.ibb.co/0BwmgQ5/Untitled-3.png",
+            fit: BoxFit.fitWidth,
+            width: width,
+          ),
+        )
+      ),
+    );
+  }
   profile_store(double width) {
     return Padding(
       padding: EdgeInsets.only(left: 3,right: 3),
@@ -345,113 +378,81 @@ class detail extends StatelessWidget {
     );
   }
 
-  Social(double width, double height ,double size) {
+  Social(double width, double height ,double size,double fontsize) {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
+          margin: EdgeInsets.only(top: 10),
+          height: width-7,
+          padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(10)
           ),
-          child: Icon(Icons.facebook, color: Colors.white,size: size,),
+          child: Row(
+            children: [
+              Icon(Icons.facebook, color: Colors.white,size: size-2,),
+              Text("  Facebook",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+            ],
+          ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
+          margin: EdgeInsets.only(top: 10,left: 10),
+          height: width-7,
+          padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(10)
           ),
-          child: Icon(Icons.telegram, color: Colors.white,size: size,),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
-          decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+          child: InkWell(
+            onTap: (){
+              _launchDeepLink();
+            },
+            child: Row(
+              children: [
+                Icon(Icons.telegram, color: Colors.white,size: size-2,),
+                Text("  Telegram",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+              ],
+            ),
           ),
-          child: Icon(Icons.message_outlined, color: Colors.white,size: size,),
         ),
+
       ],);
   }
 
-  phone_Contact_Row(double width) {
+  phone_Contact_Row(double width,double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if(width>=500)...[
-          Container(
+        Container(
 
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(10)
           ),
-          SizedBox(width: 10,),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+          padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+          child: Row(
+              children: [
+                Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                ]
-            ),
+              ]
           ),
-        ]else...[
-          Container(
-            width:  width * 0.42,
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
+        ),
+        SizedBox(width: 10,),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(10)
           ),
-          SizedBox(width: 10,),
-          Container(
+          padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+          child: Row(
+              children: [
+                Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
 
-            width: width * 0.42,
-            margin: EdgeInsets.only(top: 10),
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(10)
-            ),
-            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
-            child: Row(
-                children: [
-                  Icon(Icons.phone,color: Colors.white),
-                  SizedBox(width: 3,),
-                  Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
-
-                ]
-            ),
+              ]
           ),
-    ]
+        ),
+
       ],
     );
   }
@@ -472,7 +473,7 @@ class detail extends StatelessWidget {
                   children: [
                     Icon(Icons.phone,color: Colors.white),
                     SizedBox(width: 3,),
-                    Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+                    Text("027 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
                   ]
               ),
@@ -488,7 +489,7 @@ class detail extends StatelessWidget {
                   children: [
                     Icon(Icons.phone,color: Colors.white),
                     SizedBox(width: 3,),
-                    Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+                    Text("027 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
                   ]
               ),
@@ -499,41 +500,60 @@ class detail extends StatelessWidget {
     );
   }
 
-  profile_store_mini(double width) {
+  profile_store_mini(double width,double fontSize,double height) {
     return Padding(
-      padding: EdgeInsets.only(left: 3,right: 3),
+      padding: EdgeInsets.only(left: 1,right: 1,bottom: 5),
       child: Container(
         width: width,
-        height: 40,
+        height: height,
         margin: EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(100),
+            borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
-                color: Colors.black26,
-                offset: Offset(1,1),
-                blurRadius: 1,
-                spreadRadius: 0.5,
+                color: Colors.black38,
+                offset: Offset(0,0),
+                blurRadius: 0.2,
+                spreadRadius: 0.2,
               )]
         ),
         child: InkWell(
           onTap: (){
             Get.toNamed("/store?id=28222");
           },
-          child: Row(
-            children: [
-              SizedBox(width: 5,),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 27,height: 27,fit: BoxFit.cover,),
-              ),
-              SizedBox(width: 5,),
-              Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 9),)
-            ],
+          child: Container(
+            margin: EdgeInsets.only(right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(width: 5,),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 35,height: 35,fit: BoxFit.cover,),
+                    ),
+                    SizedBox(width: 5,),
+                    Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: fontSize),)
+                  ],
+                ),
+                ClipRRect(
+                  child: Image.network("https://flagsapi.com/KH/flat/64.png",height: 24,fit: BoxFit.fitHeight,),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+  void _launchDeepLink() async {
+    const deepLink = 'https://t.me/chhailengkc';
+    if (await canLaunchUrl(Uri.parse(deepLink))) {
+      await launchUrl(Uri.parse(deepLink), mode: LaunchMode.inAppBrowserView,);
+    } else {
+      throw 'Could not launch $deepLink';
+    }
   }
 }

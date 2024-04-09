@@ -1,11 +1,22 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecomerce/api/productAPI.dart';
+import 'package:ecomerce/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-class merchantTab extends StatelessWidget {
+import 'package:http/http.dart' as http;
+class merchantTab extends StatefulWidget {
   merchantTab({super.key});
+
+  @override
+  State<merchantTab> createState() => _merchantTabState();
+}
+
+class _merchantTabState extends State<merchantTab> {
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -14,7 +25,14 @@ class merchantTab extends StatelessWidget {
     'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
+  late Future<List<Product>>data;
   List<String> categorylst =['Sneaker', 'Clothing', "Kid's Clothing", 'Other','Sneaker', 'Clothing', "Kid's Clothing", 'Other'];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    data = fetchData('http://192.168.100.25/eiivanapiserver/productlst.php');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +65,18 @@ class merchantTab extends StatelessWidget {
         )
     );
   }
+
+  maintest (double width, BuildContext context,int grid ){
+   return FutureBuilder<List<Product>>(future: data, builder: (context,snapshot){
+     if(snapshot.hasData){
+       return Text(snapshot.data![0].productTitle);
+     }else{
+       return Text("failed");
+     }
+
+   });
+  }
+
   mainscreen(double width, BuildContext context,int grid ){
     return SafeArea(
         child: Scaffold(
@@ -101,6 +131,7 @@ class merchantTab extends StatelessWidget {
       ),
     );
   }
+
   Contact(double width, context) {
     return Container(
       width: width *0.9,
@@ -118,6 +149,7 @@ class merchantTab extends StatelessWidget {
       ),
     );
   }
+
   Social(double width, double height ,double size) {
     return Row(
       children: [
@@ -147,6 +179,7 @@ class merchantTab extends StatelessWidget {
         ),
       ],);
   }
+
   phone_Contact_Row(double width) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,6 +217,7 @@ class merchantTab extends StatelessWidget {
       ],
     );
   }
+
   profile_store_mini(double width) {
     return Padding(
       padding: EdgeInsets.only(left: 3,right: 3),
@@ -221,6 +255,7 @@ class merchantTab extends StatelessWidget {
       ),
     );
   }
+
   Header(double width) {
     return Container(
         height: 50,
@@ -239,6 +274,7 @@ class merchantTab extends StatelessWidget {
         )
     );
   }
+
   Store_info(double width, BuildContext context) {
     return Stack(
       children: [
@@ -288,6 +324,7 @@ class merchantTab extends StatelessWidget {
       ],
     );
   }
+
   bodyGid(double width,BuildContext context,int Grid){
 
     return Container(
@@ -310,11 +347,12 @@ class merchantTab extends StatelessWidget {
       ),
     );
   }
+
   ProductCard(BuildContext context,String img, String title, String price,String id,String category, String discount) {
     double discountprice = double.parse(price) - (double.parse(price)*(double.parse(discount)/100));
     return InkWell(
       onTap: (){
-        Get.toNamed("/product?store=12345&product=28222");
+        Get.toNamed("/productOwner?store=12345&product=28222");
 
       },
       child: Card(
@@ -345,7 +383,7 @@ class merchantTab extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
-                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16))),
+                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
 
                     ],
                   )
@@ -384,6 +422,7 @@ class merchantTab extends StatelessWidget {
       ),
     );
   }
+
   profileControl_nobg(double width, double height, double size) {
     return Row(
       children: [
@@ -400,6 +439,7 @@ class merchantTab extends StatelessWidget {
       ],);
 
   }
+
   uploadAndSub(double width) {
     return Container(
       width: width*0.9,
@@ -455,6 +495,4 @@ class merchantTab extends StatelessWidget {
     );
 
   }
-
-
 }
