@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/api/productAPI.dart';
 import 'package:ecomerce/staticdata.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 class merchantTab extends StatefulWidget {
   merchantTab({super.key});
 
@@ -27,6 +30,9 @@ class _merchantTabState extends State<merchantTab> {
   ];
   late Future<List<Product>>data;
   List<String> categorylst =['Sneaker', 'Clothing', "Kid's Clothing", 'Other','Sneaker', 'Clothing', "Kid's Clothing", 'Other'];
+  bool isExpand = false;
+  String _image = "";
+  String cover = "";
   @override
   void initState() {
     // TODO: implement initState
@@ -81,25 +87,32 @@ class _merchantTabState extends State<merchantTab> {
     return SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          body: Container(
-            width: MediaQuery.sizeOf(context).width,
-            height: MediaQuery.sizeOf(context).height,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Header(width),
-                  Store_info(width,context),
-                  Contact(width, context),
-                  SizedBox(height: 5,),
-                  category(categorylst, width),
-                  SizedBox(height: 5,),
-                  uploadAndSub(width),
-                  SizedBox(height: 5,),
-                  bodyGid(width, context, grid)
-                ],
+          body: Column(
+            children: [
+              Header(width),
+              Store_info(width, context),
+              SizedBox(height: 5,),
+              uploadAndSub(width),
+              SizedBox(height: 5,),
+              category(categorylst, width),
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 5,),
+                        bodyGid(width, context, grid),
+                        SizedBox(height: 100,),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
+
         )
     );
   }
@@ -134,53 +147,106 @@ class _merchantTabState extends State<merchantTab> {
 
   Contact(double width, context) {
     return Container(
-      width: width *0.9,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            phone_Contact_Row(width),
-            SizedBox(width: 10,),
-            Social(35,35,20),
+        child: Container(
+          margin: EdgeInsets.only(top: 5),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints){
+              return Container(
+                width: width*0.9,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if(constraints.maxWidth > 480)...[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Social(45,45,24,12),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      phone_Contact_Row(width,12),
+                    ]
+                    else if(constraints.maxWidth>350)...[
+                      //mobile
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Social(38,20,18,8),
+                        ],
+                      ),
+                      SizedBox(height: 5,),
+                      phone_Contact_Row(width,8.5),
+                    ]
+                    else...[
+                        //fold
+                        Container(
+                          width: width*0.9,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Social(38,20,18,8),
+                                SizedBox(width: 10,),
+                                phone_Contact_Row(width,8.5),
+                              ],
+                            ),
+                          ),
+                        ),
 
-          ],
-        ),
-      ),
+                      ],
+
+                  ],
+                ),
+              );
+
+            },
+          ),
+        )
     );
   }
 
-  Social(double width, double height ,double size) {
+
+  Social(double width, double height ,double size,double fontsize) {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
+          margin: EdgeInsets.only(top: 10),
+          height: width-7,
+          padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(10)
           ),
-          child: Icon(Icons.facebook, color: Colors.white,size: size,),
+          child: Row(
+            children: [
+              Icon(Icons.facebook, color: Colors.white,size: size-2,),
+              Text("  Facebook",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+            ],
+          ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
+          margin: EdgeInsets.only(top: 10,left: 10),
+          height: width-7,
+          padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+              borderRadius: BorderRadius.circular(10)
           ),
-          child: Icon(Icons.telegram, color: Colors.white,size: size,),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
-          width: width,height: height,
-          decoration: BoxDecoration(color: Colors.black,
-              borderRadius: BorderRadius.circular(100)
+          child: InkWell(
+            onTap: (){
+              _launchDeepLink();
+            },
+            child: Row(
+              children: [
+                Icon(Icons.telegram, color: Colors.white,size: size-2,),
+                Text("  Telegram",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+              ],
+            ),
           ),
-          child: Icon(Icons.message_outlined, color: Colors.white,size: size,),
         ),
+
       ],);
   }
-
-  phone_Contact_Row(double width) {
+  phone_Contact_Row(double width,double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -191,10 +257,10 @@ class _merchantTabState extends State<merchantTab> {
               color: Colors.black,
               borderRadius: BorderRadius.circular(10)
           ),
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
           child: Row(
               children: [
-                Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+                Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
 
               ]
           ),
@@ -206,14 +272,15 @@ class _merchantTabState extends State<merchantTab> {
               color: Colors.black,
               borderRadius: BorderRadius.circular(10)
           ),
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
           child: Row(
               children: [
-                Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+                Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
 
               ]
           ),
         ),
+
       ],
     );
   }
@@ -267,14 +334,24 @@ class _merchantTabState extends State<merchantTab> {
                 onTap: (){
                   Get.back();
                 },
-                child: Text("")),
+                child: Text("            ")),
             Text("Profle",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-            Text("")
+           IconButton(onPressed: (){
+             Get.toNamed("/profilesetting");
+
+           }, icon: Icon(Icons.settings))
           ],
         )
     );
   }
-
+  void _launchDeepLink() async {
+    const deepLink = 'https://t.me/chhailengkc';
+    if (await canLaunchUrl(Uri.parse(deepLink))) {
+      await launchUrl(Uri.parse(deepLink), mode: LaunchMode.inAppBrowserView,);
+    } else {
+      throw 'Could not launch $deepLink';
+    }
+  }
   Store_info(double width, BuildContext context) {
     return Stack(
       children: [
@@ -444,53 +521,79 @@ class _merchantTabState extends State<merchantTab> {
     return Container(
       width: width*0.9,
       margin: EdgeInsets.only(top: 0),
-      child:Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          InkWell(
-            onTap: (){
-              Get.toNamed("/uploadproduct");
-            },
-            child: Container(
-              margin: EdgeInsets.only(top: 10),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-              child: Row(
-                  children: [
-                    Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
-                    SizedBox(width: 5,),
-                    Text("Add Product",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+      child:SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: (){
+                Get.toNamed("/uploadproduct");
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                child: Row(
+                    children: [
+                      Icon(Icons.add_business_outlined,color: Colors.white,size: 16,),
+                      SizedBox(width: 5,),
+                      Text("Add Product",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                  ]
+                    ]
+                ),
               ),
             ),
-          ),
-          InkWell(
-            onTap: (){
-              Get.toNamed("/subscription");
-            },
-            child: Container(
+            InkWell(
+              onTap: (){
+                Get.toNamed("/delivery");
+              },
+              child: Container(
 
-              margin: EdgeInsets.only(top: 10,left: 10),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10)
-              ),
-              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-              child: Row(
-                  children: [
-                    Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 18,),
-                    SizedBox(width: 5,),
-                    Text("Subscription",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
+                margin: EdgeInsets.only(top: 10,left: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                child: Row(
+                    children: [
+                      Icon(Icons.delivery_dining,color: Colors.white,size: 16,),
+                      SizedBox(width: 5,),
+                      Text("Delivery",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
-                  ]
+                    ]
+                ),
               ),
             ),
-          ),
-        ],
+            InkWell(
+              onTap: (){
+                Get.toNamed("/subscription");
+              },
+              child: Container(
+
+                margin: EdgeInsets.only(top: 10,left: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                child: Row(
+                    children: [
+                      Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 16,),
+                      SizedBox(width: 5,),
+                      Text("Subscription",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                    ]
+                ),
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
 

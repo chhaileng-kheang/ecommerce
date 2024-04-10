@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
@@ -122,24 +123,29 @@ class profileSetting extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: width*0.9,
-                  margin: EdgeInsets.only(top: 12),
-                  padding: EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            offset: Offset(0,0),
-                            blurRadius: 0.5,
-                            spreadRadius: 0.5
-                        )]
-                  ),
-                  child: Text(
-                    "Change Name",
-                    style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed("/emailchange");
+                  },
+                  child: Container(
+                    width: width*0.9,
+                    margin: EdgeInsets.only(top: 12),
+                    padding: EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0,0),
+                              blurRadius: 0.5,
+                              spreadRadius: 0.5
+                          )]
+                    ),
+                    child: Text(
+                      "Change Email",
+                      style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+                    ),
                   ),
                 ),
                 InkWell(

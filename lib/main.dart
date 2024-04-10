@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:ecomerce/changeEmail.dart';
 import 'package:ecomerce/changePassword.dart';
+import 'package:ecomerce/delivery/dvHome.dart';
 import 'package:ecomerce/detail.dart';
 import 'package:ecomerce/editStore.dart';
 import 'package:ecomerce/login.dart';
@@ -43,7 +45,9 @@ void main() {
         GetPage(name: "/changepassword", page:()=> changePassword1()),
         GetPage(name: "/uploadproduct", page:()=> uploadProduct()),
         GetPage(name: "/subscription", page:()=> subscrption()),
+        GetPage(name: "/delivery", page:()=> dvHome()),
         GetPage(name: "/productOwner", page:()=> detailOwn()),
+        GetPage(name: "/emailchange", page:()=> changeEmail()),
 
 
 

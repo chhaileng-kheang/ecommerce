@@ -156,12 +156,20 @@ mainscreen(double width, BuildContext context,int Grid){
                         SizedBox(
                           width: width*0.9,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-
                                   margin: const EdgeInsets.only(top: 12),
                                   child: Text("Sponsor",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
+                              Container(
+                                  margin: const EdgeInsets.only(top: 12,right: 10),
+                                  child: Tooltip(
+                                      showDuration: Duration(seconds: 5),
+                                      margin: EdgeInsets.only(left: 10,right: 10),
+                                      triggerMode: TooltipTriggerMode.tap,
+                                      message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
+                                      child: Icon(Icons.info_outline))),
+
                             ],
                           ),
                         ),
@@ -426,8 +434,8 @@ mainscreen(double width, BuildContext context,int Grid){
     double discountprice = double.parse(price) - (double.parse(price)*(double.parse(discount)/100));
      return InkWell(
        onTap: (){
-         Get.toNamed("/product?store=12345&product=28222");
 
+         Get.toNamed("/product?store=12345&product=28222");
        },
        child: Card(
          color: Colors.white,
