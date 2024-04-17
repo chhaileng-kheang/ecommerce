@@ -12,8 +12,10 @@ import 'package:ecomerce/whitelist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +29,7 @@ class mobile extends StatefulWidget {
 }
 
 class _mobileState extends State<mobile> {
+  bool status = false;
    GlobalKey<ScaffoldState> _key = GlobalKey();
    int _selectedIndex = 0;
    @override
@@ -65,73 +68,81 @@ class _mobileState extends State<mobile> {
   @override
   Widget build(BuildContext context) {
     late double width;
+
     final ScrollController _homeController = ScrollController();
    List<Widget> _pages = <Widget>[
 
     ];
     return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.store),
-              label: 'Store',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Whitelist',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          unselectedItemColor: Colors.black,
-          selectedFontSize: 10,
-          unselectedFontSize: 10,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
+
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
         ),
-        key: _key,
-        drawer: NavDrawer(),
-        backgroundColor: Colors.white,
-        body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-          if(constraints.maxWidth < 800){
-            width = MediaQuery.sizeOf(context).width;
-            _pages = <Widget>[
-              mainscreen(width, context,2),
-             storeList(),
-              whitelist(),
-              merchantTab(),
+        child: Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.store),
+                label: 'Store',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Whitelist',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+            ] ,
+            currentIndex: _selectedIndex,
+            unselectedItemColor: Colors.black,
+            selectedFontSize: 10,
+            unselectedFontSize: 10,
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
+          ),
+          key: _key,
+          drawer: NavDrawer(),
+          backgroundColor: Color.fromRGBO(234, 234, 234, 1.0),
+          body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+            if(constraints.maxWidth < 800){
+              width = MediaQuery.sizeOf(context).width;
+              _pages = <Widget>[
+                mainscreen(width, context,2),
+               storeList(),
+                whitelist(),
+                merchantTab(),
 
-            ];
-            return _pages.elementAt(_selectedIndex);
-          }else{
-            width = 800;
-            _pages = <Widget>[
-              mainscreen(width, context,2),
-              storeList(),
-              whitelist(),
-              merchantTab(),
+              ];
+              return _pages.elementAt(_selectedIndex);
+            }else{
+              width = 800;
+              _pages = <Widget>[
+                mainscreen(width, context,2),
+                storeList(),
+                whitelist(),
+                merchantTab(),
 
-            ];
-            return Center(
-                  child: Container(
-                    color: const Color.fromRGBO(255, 255, 255, 1.0),
-                    width: MediaQuery.sizeOf(context).width,
-                    child:  _pages.elementAt(_selectedIndex)
+              ];
+              return Center(
+                    child: Container(
+                      color: const Color.fromRGBO(255, 255, 255, 1.0),
+                      width: MediaQuery.sizeOf(context).width,
+                      child:  _pages.elementAt(_selectedIndex)
 
-                  ),
+                    ),
 
-            );
-          }
-        },)
+              );
+            }
+          },)
+        ),
       ),
     );
   }
@@ -146,56 +157,100 @@ mainscreen(double width, BuildContext context,int Grid){
           height: MediaQuery.sizeOf(context).height,
           child: Stack(
             children: [
-              Column(
-                children: [
-                  Header(width),
-                  Expanded(
-                    flex: 1,
-                    child: SizedBox(
-                      width: width,
-                      height: MediaQuery.sizeOf(context).height-60,
-                      child: SingleChildScrollView(
-                        child: Column(
+
+              Container(
+                margin: EdgeInsets.only(top: 49),
+                width: width,
+                height: MediaQuery.sizeOf(context).height,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      storepath(width,context),
+                      SizedBox(height: 8,),
+                      RegisterMerchant(width,context),
+                      SizedBox(height: 5,),
+                      BannerSponsorEx(width),
+                      SizedBox(
+                        width: width*0.9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SearchBars(width,context),
-                            SizedBox(height: 15,),
-                            storepath(width,context),
-                            RegisterMerchant(width,context),
-                            SizedBox(height: 5,),
-                            BannerSponsorEx(width),
-                            SizedBox(
-                              width: width*0.9,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Container(
+                                margin: const EdgeInsets.only(top: 12),
+                                child: Text("Sponsor",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
+                            Container(
+                                margin: const EdgeInsets.only(top: 12,right: 10),
+                                child: Tooltip(
+                                    showDuration: Duration(seconds: 5),
+                                    margin: EdgeInsets.only(left: 10,right: 10),
+                                    triggerMode: TooltipTriggerMode.tap,
+                                    message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
+                                    child: Icon(Icons.info_outline))),
+
+                          ],
+                        ),
+                      ),
+                      TrippleSponsor(width,context),
+                      BannerSponsor(width),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        width: width*0.9,
+                        height: 45,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10,right: 10 ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
                                 children: [
+                                  Text("Show Hidden Price", style: GoogleFonts.montserrat(
+                                    textStyle: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  ),
                                   Container(
-                                      margin: const EdgeInsets.only(top: 12),
-                                      child: Text("Sponsor",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
-                                  Container(
-                                      margin: const EdgeInsets.only(top: 12,right: 10),
+                                      margin: const EdgeInsets.only(left: 10),
                                       child: Tooltip(
                                           showDuration: Duration(seconds: 5),
                                           margin: EdgeInsets.only(left: 10,right: 10),
                                           triggerMode: TooltipTriggerMode.tap,
-                                          message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
+                                          message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
                                           child: Icon(Icons.info_outline))),
-
                                 ],
                               ),
-                            ),
-                            TrippleSponsor(width,context),
-                            BannerSponsor(width),
-                            bodyGid(width, context,Grid),
-                            const SizedBox(height: 60,)
-                          ],
+                              FlutterSwitch(
+                                width: 50.0,
+                                height: 30.0,
+                                valueFontSize: 25.0,
+                                toggleSize: 25.0,
+                                value: status,
+                                activeColor: Colors.black,
+                                inactiveColor: Colors.black12,
+                                inactiveToggleColor: Colors.black,
+                                activeToggleColor: Colors.white,
+                                borderRadius: 30.0,
+                                showOnOff: false,
+                                onToggle: (val) {
+                                  setState(() {
+                                    status = val;
+                                  });
+                                },
+                              ),
+
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                      bodyGid(width, context,Grid),
+                      const SizedBox(height: 60,)
+                    ],
+                  ),
+                ),
               ),
+              Header(width),
               Positioned(
-                top:  isExpanded == false ? 20 : 10,
+                top:  isExpanded == false ? 15 : 10,
                 left: isExpanded == false ? 15 : 10,
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: 250),
@@ -349,23 +404,21 @@ mainscreen(double width, BuildContext context,int Grid){
   Header(double width) {
     return Container(
       height: 50,
-      margin: const EdgeInsets.only(left: 15,right: 15,top: 10),
+      color: Colors.white,
+      padding: const EdgeInsets.only(left: 15,right: 15,top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(width: 40,),
           Text("App-Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-          InkWell(
+          GestureDetector(
             onTap: (){
               Get.toNamed("/login");
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: const Image(
-                image: NetworkImage("https://pics.craiyon.com/2023-10-13/45c8f06467d74d7d8949ddadffc5b2c8.webp",),
-                height: 40,width: 40,
-              ),
-            ),
+              child: Icon(Icons.search)
+            )
           )
         ],
       )
@@ -384,7 +437,7 @@ mainscreen(double width, BuildContext context,int Grid){
           width: width*0.9,
           height: 35,
           decoration: BoxDecoration(
-              color: const Color.fromRGBO(234, 234, 234, 1.0),
+              color: Colors.white,
               borderRadius: BorderRadius.circular(5)
           ),
           child: Row(
@@ -600,6 +653,7 @@ mainscreen(double width, BuildContext context,int Grid){
        child: Card(
          color: Colors.white,
          surfaceTintColor: Colors.white,
+         elevation: 0,
          shape: const RoundedRectangleBorder(
              borderRadius: BorderRadius.all(Radius.circular(5))
          ),
@@ -664,7 +718,6 @@ mainscreen(double width, BuildContext context,int Grid){
        ),
      );
    }
-
   RegisterMerchant(double width, BuildContext context) {
      return Container(
        width: width*0.9,
@@ -710,11 +763,11 @@ mainscreen(double width, BuildContext context,int Grid){
      );
 
   }
-
   storepath(double width, BuildContext context) {
      return Container(
-       margin: EdgeInsets.only(top: 5,bottom: 10),
-       width: width*0.9,
+       padding: EdgeInsets.only(top: 20,bottom: 20),
+       color: Colors.white,
+       width: width,
        child: Column(
          crossAxisAlignment: CrossAxisAlignment.start,
          children: [
@@ -729,12 +782,16 @@ mainscreen(double width, BuildContext context,int Grid){
              scrollDirection:Axis.horizontal,
              child: Row(
                children: [
+                 SizedBox(width: 20,),
                 store("https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                  store("https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                  store("https://images.unsplash.com/photo-1564510715156-793609f9e8b5?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                  store("https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                  store("https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                  store("https://plus.unsplash.com/premium_photo-1677451335829-c863209d463b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                 store("https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                 store("https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+
                ],
              ),
            ),
@@ -743,12 +800,11 @@ mainscreen(double width, BuildContext context,int Grid){
      );
 
   }
-
   store(String img) {
    return Container(
      margin: EdgeInsets.only(right: 10),
-      height: 80,
-      width: 80,
+      height: 70,
+      width: 70,
       padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
