@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 class dvHome extends StatelessWidget {
@@ -8,32 +10,38 @@ class dvHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width;
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-              if(constraints.maxWidth < 800){
-                width = MediaQuery.sizeOf(context).width;
-                if(constraints.maxWidth<350) {
-                  return mainscreen(width, context, 1);
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Color(0XFFFFF0BE),
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.white,
+              body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+                if(constraints.maxWidth < 800){
+                  width = MediaQuery.sizeOf(context).width;
+                  if(constraints.maxWidth<350) {
+                    return mainscreen(width, context, 1);
+                  }else{
+                    return mainscreen(width, context, 2);
+                  }
                 }else{
-                  return mainscreen(width, context, 2);
+                  width = 800;
+                  return Center(
+                    child: Container(
+                      color: const Color.fromRGBO(255, 255, 255, 1.0),
+                      width: MediaQuery.sizeOf(context).width,
+                      child: mainscreen(width, context,3),
+
+                    ),
+
+                  );
                 }
-              }else{
-                width = 800;
-                return Center(
-                  child: Container(
-                    color: const Color.fromRGBO(255, 255, 255, 1.0),
-                    width: MediaQuery.sizeOf(context).width,
-                    child: mainscreen(width, context,3),
-
-                  ),
-
-                );
               }
-            }
-            )
-        )
+              )
+          )
+      ),
     );
   }
 
@@ -45,7 +53,7 @@ class dvHome extends StatelessWidget {
         children: [
          Container(
            decoration: BoxDecoration(
-             color: Color.fromRGBO(253, 194, 0, 1.0),
+               color: Color(0XFFFFF0BE),
              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30))
            ),
            padding: EdgeInsets.only(bottom: 30),
@@ -160,29 +168,34 @@ class dvHome extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 80,
-                  height: 60,
-                  margin: EdgeInsets.only(left: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0,0),
-                            spreadRadius: 0.5,
-                            blurRadius: 0.5
-                        )
-                      ]
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.delivery_dining_outlined,size: 26,),
-                      Text("Package",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed("/customerinfo");
+                  },
+                  child: Container(
+                    width: 80,
+                    height: 60,
+                    margin: EdgeInsets.only(left: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0,0),
+                              spreadRadius: 0.5,
+                              blurRadius: 0.5
+                          )
+                        ]
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.delivery_dining_outlined,size: 26,),
+                        Text("Package",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
 
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Container(

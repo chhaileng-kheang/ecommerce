@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:ecomerce/changeEmail.dart';
 import 'package:ecomerce/changePassword.dart';
+import 'package:ecomerce/delivery/customerinfo.dart';
 import 'package:ecomerce/delivery/dvHome.dart';
 import 'package:ecomerce/detail.dart';
 import 'package:ecomerce/editStore.dart';
@@ -14,6 +15,7 @@ import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/store.dart';
 import 'package:ecomerce/subcription.dart';
 import 'package:ecomerce/uploadProduct.dart';
+import 'package:ecomerce/viewimg.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,6 +50,8 @@ void main() {
         GetPage(name: "/delivery", page:()=> dvHome()),
         GetPage(name: "/productOwner", page:()=> detailOwn()),
         GetPage(name: "/emailchange", page:()=> changeEmail()),
+        GetPage(name: "/customerinfo", page:()=> customerInfo()),
+        GetPage(name: "/imgview", page:()=> viewImg()),
 
 
 

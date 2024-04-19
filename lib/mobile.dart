@@ -128,18 +128,16 @@ class mobile extends StatelessWidget {
 
             Container(
               margin: EdgeInsets.only(top: 49),
-              width: MediaQuery
-                  .sizeOf(context)
-                  .width,
-              height: MediaQuery
-                  .sizeOf(context)
-                  .height,
+              width: MediaQuery.sizeOf(context).width,
+              height: MediaQuery.sizeOf(context).height,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     storepath(width, context),
                     SizedBox(height: 8,),
                     RegisterMerchant(width, context),
+                    SizedBox(height: 5,),
+                    uploadAndSub(width),
                     SizedBox(height: 5,),
                     BannerSponsorEx(width),
                     SizedBox(
@@ -392,7 +390,87 @@ class mobile extends StatelessWidget {
 
     });
   }
+  uploadAndSub(double width) {
+    return Container(
+      width: width*0.9,
+      margin: EdgeInsets.only(top: 0),
+      child:SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: (){
+                Get.toNamed("/uploadproduct");
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                child: Column(
+                    children: [
+                      Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
+                      SizedBox(height: 5,),
+                      Text("Upload",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
+                    ]
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                Get.toNamed("/delivery");
+              },
+              child: Container(
+
+                margin: EdgeInsets.only(top: 10,left: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                child: Column(
+                    children: [
+                      Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
+                      SizedBox(height: 5,),
+                      Text("Delivery",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                    ]
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: (){
+                Get.toNamed("/subscription");
+              },
+              child: Container(
+
+                margin: EdgeInsets.only(top: 10,left: 10),
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                child: Column(
+                    children: [
+                      Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
+                      SizedBox(height: 5,),
+                      Text("Upgrade",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                    ]
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    );
+
+  }
   Header(double width) {
     return Container(
         height: 50,
@@ -700,27 +778,19 @@ class mobile extends StatelessWidget {
           children: [
             Column(
               children: [
-                ConstrainedBox(
-                  constraints: new BoxConstraints(
-                      maxHeight: 300
-                  ),
-                  child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(5),
-                          topLeft: Radius.circular(5)),
-                      child: AspectRatio(
-                        aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
-                        child: FadeInImage(
-                            placeholder: AssetImage('asset/aas.png'),
-                            fadeInDuration: Duration(milliseconds: 50),
-                            image: NetworkImage(img),
-                            fit: BoxFit.cover,
-                            width: MediaQuery
-                                .sizeOf(context)
-                                .width
-                        ),
-                      )
-                  ),
+                ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(5),
+                        topLeft: Radius.circular(5)),
+                    child: AspectRatio(
+                      aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
+                      child: FadeInImage(
+                          placeholder: AssetImage('asset/aas.png'),
+                          fadeInDuration: Duration(milliseconds: 50),
+                          image: NetworkImage(img),
+                          fit: BoxFit.cover,
+                      ),
+                    )
                 ),
                 Container(
                   padding: const EdgeInsets.all(5),

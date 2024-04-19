@@ -537,11 +537,11 @@ class _merchantTabState extends State<merchantTab> {
                     borderRadius: BorderRadius.circular(10)
                 ),
                 padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-                child: Row(
+                child: Column(
                     children: [
-                      Icon(Icons.add_business_outlined,color: Colors.white,size: 16,),
-                      SizedBox(width: 5,),
-                      Text("Add Product",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+                      Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
+                      SizedBox(height: 5,),
+                      Text("Upload",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                     ]
                 ),
@@ -559,10 +559,10 @@ class _merchantTabState extends State<merchantTab> {
                     borderRadius: BorderRadius.circular(10)
                 ),
                 padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-                child: Row(
+                child: Column(
                     children: [
-                      Icon(Icons.delivery_dining,color: Colors.white,size: 16,),
-                      SizedBox(width: 5,),
+                      Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
+                      SizedBox(height: 5,),
                       Text("Delivery",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                     ]
@@ -581,11 +581,11 @@ class _merchantTabState extends State<merchantTab> {
                     borderRadius: BorderRadius.circular(10)
                 ),
                 padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
-                child: Row(
+                child: Column(
                     children: [
-                      Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 16,),
-                      SizedBox(width: 5,),
-                      Text("Subscription",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+                      Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
+                      SizedBox(height: 5,),
+                      Text("Upgrade",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                     ]
                 ),

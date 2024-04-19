@@ -180,15 +180,20 @@ class detail extends StatelessWidget {
   }
 
   thumnnail(double width,String imgthm) {
-    return Container(
-      width: width * 0.9,
-      margin: EdgeInsets.only(top: 10),
-      child: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(5),
-          child: AspectRatio(
-            aspectRatio: 16/9,
-            child: Image.network(imgthm,width: width*0.9,fit: BoxFit.cover,),
+    return GestureDetector(
+      onTap: (){
+        Get.toNamed("/imgview");
+      },
+      child: Container(
+        width: width * 0.9,
+        margin: EdgeInsets.only(top: 10),
+        child: Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: AspectRatio(
+              aspectRatio: 16/9,
+              child: Image.network(imgthm,width: width*0.9,fit: BoxFit.cover,),
+            ),
           ),
         ),
       ),
