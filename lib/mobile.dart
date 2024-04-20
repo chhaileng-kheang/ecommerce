@@ -139,7 +139,7 @@ class mobile extends StatelessWidget {
                     SizedBox(height: 5,),
                     uploadAndSub(width),
                     SizedBox(height: 5,),
-                    BannerSponsorEx(width),
+                    BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
                     SizedBox(
                       width: width * 0.9,
                       child: Row(
@@ -163,7 +163,7 @@ class mobile extends StatelessWidget {
                       ),
                     ),
                     TrippleSponsor(width, context),
-                    BannerSponsor(width),
+                    BannerSponsorEx(width,"https://i.ibb.co/YkPqdLk/Untitled-4.png"),
                     Container(
                       margin: const EdgeInsets.only(top: 10),
                       width: width * 0.9,
@@ -595,9 +595,20 @@ class mobile extends StatelessWidget {
 
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: Image.network(img, fit: BoxFit.cover, width: MediaQuery
-                      .sizeOf(context)
-                      .width,),
+
+                  child: FadeInImage(
+                    placeholder: AssetImage("asset/aas.png"),
+                    image: NetworkImage(img),
+                    fit: BoxFit.cover,
+                    imageErrorBuilder: (context,error,StackTrace){
+                      return Container(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: Center(
+                          child: Icon(Icons.error,color: Colors.black,),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -664,57 +675,30 @@ class mobile extends StatelessWidget {
     );
   }
 
-  BannerSponsor(double width) {
-    final List<String> imgList = [
-      'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-      'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-      'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-      'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-      'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-    ];
+  BannerSponsorEx(double width, String img) {
     return Container(
-      margin: const EdgeInsets.only(top: 15),
       width: width * 0.9,
-      child: ClipRRect(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        child: AspectRatio(
-          aspectRatio: 4 / 1,
-          child: CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: false,
-              viewportFraction: 1,
-              enlargeCenterPage: false,
-              // autoPlay: false,
-            ),
-            items: imgList
-                .map((item) =>
-                Container(
-                  child: Center(
-                      child: Image.network(
-                        item,
-                        fit: BoxFit.fitWidth,
-                        width: width,
-                      )),
-                ))
-                .toList(),
-          ),
-        ),
-      ),
-    );
-  }
 
-  BannerSponsorEx(double width) {
-    return Container(
-      width: width * 0.9,
+        color: Colors.grey,
+      ),
       margin: EdgeInsets.only(top: 5, bottom: 2),
       child: AspectRatio(aspectRatio: 4 / 1,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
-            child: Image.network(
-              "https://i.ibb.co/0BwmgQ5/Untitled-3.png",
-              fit: BoxFit.fitWidth,
-              width: width,
+            child: FadeInImage(
+              placeholder: AssetImage("asset/aas.png"),
+              image: NetworkImage(img),
+              fit: BoxFit.cover,
+              imageErrorBuilder: (context,error,StackTrace){
+                return Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  child: Center(
+                    child: Icon(Icons.error,color: Colors.black,),
+                  ),
+                );
+              },
             ),
           )
       ),
@@ -786,9 +770,22 @@ class mobile extends StatelessWidget {
                       aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
                       child: FadeInImage(
                           placeholder: AssetImage('asset/aas.png'),
-                          fadeInDuration: Duration(milliseconds: 50),
+                          fadeInDuration: Duration(milliseconds: 100),
                           image: NetworkImage(img),
+                          fadeOutDuration: Duration(milliseconds: 1),
+                          fadeInCurve: Curves.linear,
                           fit: BoxFit.cover,
+                        imageErrorBuilder: (context,error,StackTrace){
+                            return Container(
+                              width: MediaQuery.sizeOf(context).width,
+                              child: AspectRatio(
+                                aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
+                                child: Center(
+                                  child: Icon(Icons.error),
+                                ),
+                              ),
+                            );
+                        },
                       ),
                     )
                 ),
@@ -967,8 +964,18 @@ class mobile extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: Image.network(img,
+        child: FadeInImage(
+          placeholder: AssetImage("asset/aas.png"),
+          image: NetworkImage(img),
           fit: BoxFit.cover,
+          imageErrorBuilder: (context,error,StackTrace){
+            return Container(
+              width: MediaQuery.sizeOf(context).width,
+              child: Center(
+                child: Icon(Icons.error,color: Colors.white,),
+              ),
+            );
+          },
         ),
       ),
     );

@@ -25,6 +25,8 @@ class uploadProduct extends StatefulWidget {
 class _uploadProductState extends State<uploadProduct> {
   @override
   bool status = false;
+
+  var status2 = false;
   Widget build(BuildContext context) {
     double width;
     return SafeArea(
@@ -440,42 +442,6 @@ class _uploadProductState extends State<uploadProduct> {
                   child: Row(
                     children: [
                       Container(
-                        width: width*0.8,
-                        child: TextField(
-                            style: GoogleFonts.montserrat(
-                              textStyle: const TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                            decoration: const InputDecoration(
-                              enabled: true,
-                              hintText: "Price",
-                              contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
-                              border: InputBorder.none,
-                              prefixIconColor: Colors.black,
-                            )
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  width: width*0.9,
-                  height: 45,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [BoxShadow(
-                          color: Colors.black38,
-                          blurRadius: 0.5,
-                          spreadRadius: 0.5,
-                          offset: Offset(0,0)
-                      )],
-                      borderRadius: BorderRadius.circular(5)
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
                           width: width*0.4,
                           child:   Autocomplete<String>(
                             optionsBuilder: (TextEditingValue textEditingValue) {
@@ -515,96 +481,122 @@ class _uploadProductState extends State<uploadProduct> {
                     ],
                   ),
                 ),
-                Container(width: width*0.9,
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  width: width*0.9,
+                  height: 45,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(
+                          color: Colors.black38,
+                          blurRadius: 0.5,
+                          spreadRadius: 0.5,
+                          offset: Offset(0,0)
+                      )],
+                      borderRadius: BorderRadius.circular(5)
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        width: width*0.38,
-                        height: 45,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [BoxShadow(
-                                color: Colors.black38,
-                                blurRadius: 0.5,
-                                spreadRadius: 0.5,
-                                offset: Offset(0,0)
-                            )],
-                            borderRadius: BorderRadius.circular(5)
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10,right: 10 ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FlutterSwitch(
-                                width: 50.0,
-                                height: 30.0,
-                                valueFontSize: 25.0,
-                                toggleSize: 25.0,
-                                value: status,
-                                activeColor: Colors.black,
-                                inactiveColor: Colors.black12,
-                                inactiveToggleColor: Colors.black,
-                                activeToggleColor: Colors.white,
-                                borderRadius: 30.0,
-                                showOnOff: false,
-                                onToggle: (val) {
-                                  setState(() {
-                                    status = val;
-                                  });
-                                },
+                        width: width*0.6,
+                        child: TextField(
+                            style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                fontSize: 14,
                               ),
-                              Text("Discount", style: GoogleFonts.montserrat(
-                                textStyle: const TextStyle(
-                                  fontSize: 12,
-                                ),
-                              ),)
-                            ],
-                          ),
+                            ),
+                            decoration: const InputDecoration(
+                              enabled: true,
+                              hintText: "Price",
+                              contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
+                              border: InputBorder.none,
+                              prefixIconColor: Colors.black,
+                            )
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        width: width*0.5,
-                        height: 45,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [BoxShadow(
-                                color: Colors.black38,
-                                blurRadius: 0.5,
-                                spreadRadius: 0.5,
-                                offset: Offset(0,0)
-                            )],
-                            borderRadius: BorderRadius.circular(5)
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: width*0.4,
-                              child: TextField(
-                                  style: GoogleFonts.montserrat(
-                                    textStyle: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  decoration: const InputDecoration(
-                                    enabled: true,
-                                    hintText: "Discount Price",
-                                    contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
-                                    border: InputBorder.none,
-                                    prefixIconColor: Colors.black,
-                                  )
-                              ),
-                            ),
-                          ],
+                        margin: EdgeInsets.only(right: 10),
+                        child: FlutterSwitch(
+                          width: 50.0,
+                          height: 30.0,
+                          valueFontSize: 25.0,
+                          toggleSize: 25.0,
+                          value: status2,
+                          activeColor: Colors.black,
+                          inactiveColor: Colors.black12,
+                          inactiveToggleColor: Colors.black,
+                          activeToggleColor: Colors.white,
+                          borderRadius: 30.0,
+                          showOnOff: false,
+                          onToggle: (val) {
+                            setState(() {
+                              status2 = val;
+                            });
+                          },
                         ),
                       ),
                     ],
                   ),
                 ),
-
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  width: width*0.9,
+                  height: 45,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [BoxShadow(
+                          color: Colors.black38,
+                          blurRadius: 0.5,
+                          spreadRadius: 0.5,
+                          offset: Offset(0,0)
+                      )],
+                      borderRadius: BorderRadius.circular(5)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: width*0.6,
+                        child: TextField(
+                            style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                            decoration: const InputDecoration(
+                              enabled: true,
+                              hintText: "Discount Price",
+                              contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
+                              border: InputBorder.none,
+                              prefixIconColor: Colors.black,
+                            )
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 10),
+                        child: FlutterSwitch(
+                          width: 50.0,
+                          height: 30.0,
+                          valueFontSize: 25.0,
+                          toggleSize: 25.0,
+                          value: status,
+                          activeColor: Colors.black,
+                          inactiveColor: Colors.black12,
+                          inactiveToggleColor: Colors.black,
+                          activeToggleColor: Colors.white,
+                          borderRadius: 30.0,
+                          showOnOff: false,
+                          onToggle: (val) {
+                            setState(() {
+                              status = val;
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                   width: width*0.9,
                   margin: EdgeInsets.only(top: 15),

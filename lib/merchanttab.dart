@@ -90,11 +90,6 @@ class _merchantTabState extends State<merchantTab> {
           body: Column(
             children: [
               Header(width),
-              Store_info(width, context),
-              SizedBox(height: 5,),
-              uploadAndSub(width),
-              SizedBox(height: 5,),
-              category(categorylst, width),
               Expanded(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
@@ -102,6 +97,11 @@ class _merchantTabState extends State<merchantTab> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        Store_info(width, context),
+                        SizedBox(height: 5,),
+                        uploadAndSub(width),
+                        SizedBox(height: 5,),
+                        category(categorylst, width),
                         SizedBox(height: 5,),
                         bodyGid(width, context, grid),
                         SizedBox(height: 100,),

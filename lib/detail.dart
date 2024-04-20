@@ -199,7 +199,6 @@ class detail extends StatelessWidget {
       ),
     );
   }
-
   SubImage(double width,BuildContext context,List<String> imgsub) {
     return FutureBuilder<List<ImageInfo>>(future: getImageinfoList(imgsub), builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -215,7 +214,7 @@ class detail extends StatelessWidget {
       } else {
         // Return the ProductCard widget with the obtained ImageInfo
         return   Container(
-          margin: const EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 5),
           width: width*0.9,
           child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -259,7 +258,6 @@ class detail extends StatelessWidget {
     );
 
   }
-
   Contact(double width, context) {
     return Container(
       margin: EdgeInsets.only(top: 5),
@@ -275,9 +273,9 @@ class detail extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Social(45,45,24,12),
+                      Social(45,45,24,11),
                       SizedBox(width: 5,),
-                      phone_Contact_Row(width,12),
+                      phone_Contact_Row(width,11),
                     ],
                   ),
                 ]
@@ -286,9 +284,9 @@ class detail extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Social(45,20,18,12),
+                      Social(45,20,18,11),
                       SizedBox(width: 5,),
-                      phone_Contact_Row(width,12),
+                      phone_Contact_Row(width,11),
                     ],
                   ),
 
@@ -400,7 +398,6 @@ class detail extends StatelessWidget {
       ),
     );
   }
-
   Social(double width, double height ,double size,double fontsize) {
     return Row(
       children: [
@@ -440,7 +437,6 @@ class detail extends StatelessWidget {
 
       ],);
   }
-
   phone_Contact_Row(double width,double size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -479,7 +475,6 @@ class detail extends StatelessWidget {
       ],
     );
   }
-
   phone_Contact_Column() {
     return Column(
       children: [
@@ -522,7 +517,6 @@ class detail extends StatelessWidget {
       ],
     );
   }
-
   profile_store_mini(double width,double fontSize,double height) {
     return Padding(
       padding: EdgeInsets.only(left: 1,right: 1,bottom: 5),

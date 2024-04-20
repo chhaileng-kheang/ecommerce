@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class ProductObj{
   String product_title;
   String img;
@@ -8,4 +10,7 @@ class ProductObj{
   String disbool;
   String derection;
   ProductObj({required this.product_title,required this.id,required this.img,required this.price,required this.category,required this.discount,required this.disbool,required this.derection});
+}
+class getxData extends GetxController{
+  bool isshow = true;
 }
