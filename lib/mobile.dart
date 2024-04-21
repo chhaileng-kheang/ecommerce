@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/changePassword.dart';
@@ -125,7 +124,6 @@ class mobile extends StatelessWidget {
             .height,
         child: Stack(
           children: [
-
             Container(
               margin: EdgeInsets.only(top: 49),
               width: MediaQuery.sizeOf(context).width,
@@ -139,7 +137,23 @@ class mobile extends StatelessWidget {
                     SizedBox(height: 5,),
                     uploadAndSub(width),
                     SizedBox(height: 5,),
-                    BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
+
+                    FutureBuilder(future: getImageInfo(Image.network("https://i.ibb.co/0BwmgQ5/Untitled-3.png")) , builder: (context,snapshot){
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Return a placeholder widget while waiting for the future to complete
+                        return Container(
+                          child: Text(""),
+
+                        );
+                      } else
+                      if (snapshot.hasError) {
+                        // Return an error widget if the future encounters an error
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // Return the ProductCard widget with the obtained ImageInfo
+                        return  BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png");
+                      }
+                    }),
                     SizedBox(
                       width: width * 0.9,
                       child: Row(
@@ -163,62 +177,85 @@ class mobile extends StatelessWidget {
                       ),
                     ),
                     TrippleSponsor(width, context),
-                    BannerSponsorEx(width,"https://i.ibb.co/YkPqdLk/Untitled-4.png"),
-                    Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      width: width * 0.9,
-                      height: 45,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    FutureBuilder(future: getImageInfo(Image.network("https://i.ibb.co/YkPqdLk/Untitled-4.png")) , builder: (context,snapshot){
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Return a placeholder widget while waiting for the future to complete
+                        return Container(
+                            width: width,
+                            child: Center(child: Container(width: 200,height: 100, child: Lottie.asset("asset/Animation - 1713422112684.json",height: 200,width: 200)
+                            )
+                            )
+
+                      );
+                      } else
+                      if (snapshot.hasError) {
+                        // Return an error widget if the future encounters an error
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // Return the ProductCard widget with the obtained ImageInfo
+                        return Column(
                           children: [
-                            Row(
-                              children: [
-                                Text("Show Hidden Price",
-                                  style: GoogleFonts.montserrat(
-                                    textStyle: const TextStyle(
-                                      fontSize: 14,
+                            BannerSponsorEx(width,"https://i.ibb.co/YkPqdLk/Untitled-4.png"),
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              width: width * 0.9,
+                              height: 45,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10, right: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text("Show Hidden Price",
+                                          style: GoogleFonts.montserrat(
+                                            textStyle: const TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            margin: const EdgeInsets.only(left: 10),
+                                            child: Tooltip(
+                                                showDuration: Duration(seconds: 5),
+                                                margin: EdgeInsets.only(
+                                                    left: 10, right: 10),
+                                                triggerMode: TooltipTriggerMode.tap,
+                                                message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
+                                                child: Icon(Icons.info_outline))),
+                                      ],
                                     ),
-                                  ),
+                                    FlutterSwitch(
+                                      width: 50.0,
+                                      height: 30.0,
+                                      valueFontSize: 25.0,
+                                      toggleSize: 25.0,
+                                      value: controller.status,
+                                      activeColor: Colors.black,
+                                      inactiveColor: Colors.black12,
+                                      inactiveToggleColor: Colors.black,
+                                      activeToggleColor: Colors.white,
+                                      borderRadius: 30.0,
+                                      showOnOff: false,
+                                      onToggle: (val) {
+
+                                        controller.status = val;
+                                        controller.update();
+
+                                      },
+                                    ),
+
+                                  ],
                                 ),
-                                Container(
-                                    margin: const EdgeInsets.only(left: 10),
-                                    child: Tooltip(
-                                        showDuration: Duration(seconds: 5),
-                                        margin: EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        triggerMode: TooltipTriggerMode.tap,
-                                        message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
-                                        child: Icon(Icons.info_outline))),
-                              ],
+                              ),
                             ),
-                            FlutterSwitch(
-                              width: 50.0,
-                              height: 30.0,
-                              valueFontSize: 25.0,
-                              toggleSize: 25.0,
-                              value: controller.status,
-                              activeColor: Colors.black,
-                              inactiveColor: Colors.black12,
-                              inactiveToggleColor: Colors.black,
-                              activeToggleColor: Colors.white,
-                              borderRadius: 30.0,
-                              showOnOff: false,
-                              onToggle: (val) {
-
-                                controller.status = val;
-                                controller.update();
-
-                              },
-                            ),
-
+                            bodyGid(width, context, Grid),
+                            const SizedBox(height: 60,)
                           ],
-                        ),
-                      ),
-                    ),
-                    bodyGid(width, context, Grid),
-                    const SizedBox(height: 60,)
+                        );
+                      }
+                    }),
+
                   ],
                 ),
               ),
@@ -676,6 +713,7 @@ class mobile extends StatelessWidget {
   }
 
   BannerSponsorEx(double width, String img) {
+
     return Container(
       width: width * 0.9,
       decoration: BoxDecoration(
@@ -742,7 +780,15 @@ class mobile extends StatelessWidget {
       ),
     );
   }
-
+  Future<ImageInfo> getImageInfo(Image img) async {
+    final c = new Completer<ImageInfo>();
+    img.image
+        .resolve(new ImageConfiguration())
+        .addListener(new ImageStreamListener((ImageInfo i, bool _) {
+      c.complete(i);
+    }));
+    return c.future;
+  }
   ProductCard(BuildContext context, String img, String title, String price,
       String id, String category, String discount, double width, String dire) {
     double discountprice = double.parse(price) -

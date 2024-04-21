@@ -5,6 +5,7 @@ import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/staticdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -57,26 +58,32 @@ class _loginState extends State<login> {
   Widget build(BuildContext context) {
     double width;
 
-    return SafeArea(
-        child: Scaffold(
-            body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-              if(constraints.maxWidth < 800){
-                width = MediaQuery.sizeOf(context).width;
-                return mainscreen(width, context,2);
-              }else{
-                width = 800;
-                return Center(
-                  child: Container(
-                    color: const Color.fromRGBO(255, 255, 255, 1.0),
-                    width: MediaQuery.sizeOf(context).width,
-                    child: mainscreen(width, context,3),
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarIconBrightness: Brightness.light,
+      ),
+      child: SafeArea(
+          child: Scaffold(
+              body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+                if(constraints.maxWidth < 800){
+                  width = MediaQuery.sizeOf(context).width;
+                  return mainscreen(width, context,2);
+                }else{
+                  width = 800;
+                  return Center(
+                    child: Container(
+                      color: const Color.fromRGBO(255, 255, 255, 1.0),
+                      width: MediaQuery.sizeOf(context).width,
+                      child: mainscreen(width, context,3),
 
-                  ),
+                    ),
 
-                );
-              }
-            },)
-    )
+                  );
+                }
+              },)
+      )
+      ),
     );
   }
 
@@ -114,7 +121,7 @@ class _loginState extends State<login> {
                               width: 100,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.network("https://plus.unsplash.com/premium_photo-1661914978519-52a11fe159a7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
+                                child: Image.asset("asset/logo1.png",fit: BoxFit.cover,),
                               ),
                             ),
                           ],
