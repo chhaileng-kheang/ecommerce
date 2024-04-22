@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,9 +18,16 @@ class ProductObj{
 }
 class getxData extends GetxController{
   bool isshow = true;
+  bool isshowtemp = false;
   String code = "";
   Color b_color = Colors.white;
+  String imgpath = "";
+  Widget? dynamicContainer;
   bool buttonEnabled = true;
+  Uint8List? imageFile = Uint8List.fromList([11]);
+  int showingElement = 0;
+  bool isloading = false;
+  String path = "";
     int countdown = 60;
   late Timer timer;
   void colorChanged(){
@@ -29,6 +38,7 @@ class getxData extends GetxController{
     }
     update();
   }
+
   void disableButton() {
       buttonEnabled = false;
 
@@ -38,6 +48,17 @@ class getxData extends GetxController{
 
         buttonEnabled = true;
     });
+
+  }
+  void showcard() {
+    isshowtemp = true;
+    // Set a timer for 3 minutes
+    Timer(Duration(seconds: 5), () {
+
+      isshowtemp = false;
+      update();
+    });
+    update();
   }
   void startTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {

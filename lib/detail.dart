@@ -117,7 +117,7 @@ class detail extends StatelessWidget {
                                       Text("1,695 view",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w200),),
                                     ],
                                   ),
-
+                                  profile_store_mini(width, 14, 50),
                                   Contact(width,context),
                                   sponsor(width),
                                   Container(

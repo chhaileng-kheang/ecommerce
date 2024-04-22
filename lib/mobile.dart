@@ -827,7 +827,11 @@ class mobile extends StatelessWidget {
                               child: AspectRatio(
                                 aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
                                 child: Center(
-                                  child: Icon(Icons.error),
+                                  child: GestureDetector(
+                                      onTap: (){
+                                        //reload error image
+                                      },
+                                      child: Icon(Icons.error)),
                                 ),
                               ),
                             );

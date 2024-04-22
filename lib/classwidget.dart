@@ -168,7 +168,7 @@ import 'object.dart';
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              profile_store_mini(width, 14, 50),
+
               if(constraints.maxWidth > 480)...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
