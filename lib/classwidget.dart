@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
@@ -179,7 +181,7 @@ import 'object.dart';
                   ],
                 ),
               ]
-              else if(constraints.maxWidth>400)...[
+              else if(constraints.maxWidth>430)...[
                 //mobile
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -364,4 +366,14 @@ void _launchDeepLink() async {
   } else {
     throw 'Could not launch $deepLink';
   }
+}
+
+Future<ImageInfo> getImageInfo(Image img) async {
+  final c = new Completer<ImageInfo>();
+  img.image
+      .resolve(new ImageConfiguration())
+      .addListener(new ImageStreamListener((ImageInfo i, bool _) {
+    c.complete(i);
+  }));
+  return c.future;
 }

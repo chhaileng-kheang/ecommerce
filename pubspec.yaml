@@ -56,6 +56,8 @@ dependencies:
   screenshot: ^2.3.0
   image_gallery_saver: ^2.0.3
   open_file: ^3.3.2
+  custom_qr_generator: ^0.1.2
+  swipe_image_gallery: ^0.8.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

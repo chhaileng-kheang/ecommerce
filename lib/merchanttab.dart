@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 import 'classwidget.dart';
+import 'customWidget/widgetSize.dart';
 import 'object.dart';
 class merchantTab extends StatefulWidget {
   merchantTab({super.key});
@@ -89,7 +90,7 @@ class _merchantTabState extends State<merchantTab> {
   mainscreen(double width, BuildContext context,int grid ){
     return Column(
       children: [
-        Header(width),
+        StoreInFo(width, context),
         Expanded(
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -97,7 +98,7 @@ class _merchantTabState extends State<merchantTab> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Store_info(width, context),
+
                   uploadAndSub(width),
                   category(categorylst, width),
                   SizedBox(height: 5,),
@@ -287,48 +288,20 @@ class _merchantTabState extends State<merchantTab> {
     );
   }
 
-  profile_store_mini(double width) {
-    return Padding(
-      padding: EdgeInsets.only(left: 3,right: 3),
-      child: Container(
-        width: width,
-        height: 40,
-        margin: EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(100),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black26,
-                offset: Offset(1,1),
-                blurRadius: 1,
-                spreadRadius: 0.5,
-              )]
-        ),
-        child: InkWell(
-          onTap: (){
-            Get.toNamed("/store?id=28222");
-          },
-          child: Row(
-            children: [
-              SizedBox(width: 5,),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 27,height: 27,fit: BoxFit.cover,),
-              ),
-              SizedBox(width: 5,),
-              Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 9),)
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   Header(double width) {
     return Container(
-        height: 50,
-        color: Colors.white,
+        height: 70,
+        decoration: BoxDecoration(
+            gradient:  LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomLeft,
+              colors: [
+                Colors.black,
+                Colors.transparent,
+              ],
+            )
+        ),
         padding: const EdgeInsets.only(left: 15,right: 15,top: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -338,11 +311,11 @@ class _merchantTabState extends State<merchantTab> {
                   Get.back();
                 },
                 child: Text("            ")),
-            Text("Profle",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
+            Text("Profle",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16)),),
            IconButton(onPressed: (){
              Get.toNamed("/profilesetting");
 
-           }, icon: Icon(Icons.settings))
+           }, icon: Icon(Icons.settings,color: Colors.white,))
           ],
         )
     );
@@ -355,62 +328,107 @@ class _merchantTabState extends State<merchantTab> {
       throw 'Could not launch $deepLink';
     }
   }
-  Store_info(double width, BuildContext context) {
+  StoreInFo(double width, BuildContext context){
+
     return Container(
       width: width,
+      height: 260,
       color: Colors.white,
-      child: Center(
-        child: Stack(
-          children: [
-            Container(
-
-              padding: EdgeInsets.only(top: 20,bottom: 20,left: 10,right: 10),
-              width: width*0.9,
-              margin: EdgeInsets.only(top: 15),
-              decoration: BoxDecoration(
-                color: Color(0XFFFFF0BE),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 10,),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 65,height: 65,fit: BoxFit.cover,),
-                  ),
-                  SizedBox(width: 10,),
-                  Expanded(
+      child: Stack(
+        children: [
+          Container(
+            width: width,
+            height: 200,
+            decoration: BoxDecoration(
+                color: Color(0xFFFFF0BE),
+                image: DecorationImage(
+                  image: NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                  fit: BoxFit.cover,
+                  onError: (exception, stackTrace) {
+                    Container(
+                      color: Color(0xFFFFF0BE),
+                    );
+                  },
+                )
+            ),
+            child: Column(
+              children: [
+                Container(
+                    width: width,
+                    child: Header(width)
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            right:  20,
+            top: 160,
+            child: LayoutBuilder(
+                builder : (context,constraint){
+                  return Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius: BorderRadius.circular(100)
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 80,height: 80,fit: BoxFit.cover,),
+                    ),
+                  );
+                }
+            ),
+          ),
+          Positioned(
+            top: 210,
+            left: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                    flex:0,
                     child: Container(
-                      width: width*0.5,
-                      height: width <420 ? 100 : 60,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              flex: 0,
-                              child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),)),
-                          Expanded(
-                            flex: 0,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                          ),
-
-                        ],
+                        width: width*0.7,
+                        child: Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.bold,fontSize: 18),))),
+                Expanded(
+                  flex:0,
+                  child: Container(
+                    width: width*0.7,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Text("Russey Kao, Phnom Penh, Cambodia",style: GoogleFonts.montserrat(fontWeight: FontWeight.w400),
                       ),
                     ),
-                  )
-                ],
+                  ),
+                ),
+
+              ],
+            ),),
+          Positioned(
+            top: 160,
+            left: 10,
+            child: Container(
+              padding: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(179, 252, 255, 1.0),
+                  borderRadius: BorderRadius.circular(5),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black12,
+                        spreadRadius: 0.2,
+                        offset: Offset(0,0),
+                        blurRadius: 0.2
+                    )
+                  ]
               ),
+              child: Text("D",style: TextStyle(fontWeight: FontWeight.bold),),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        ],
+      ),);
   }
+
 
 
 

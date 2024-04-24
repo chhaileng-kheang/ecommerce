@@ -27,6 +27,8 @@ class getxData extends GetxController{
   Uint8List? imageFile = Uint8List.fromList([11]);
   int showingElement = 0;
   bool isloading = false;
+  double x = 0;
+  double y = 0;
   String path = "";
     int countdown = 60;
   late Timer timer;

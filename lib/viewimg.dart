@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
+import 'package:custom_qr_generator/custom_qr_generator.dart';
+import 'package:custom_qr_generator/options/options.dart';
+import 'package:custom_qr_generator/qr_painter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -77,6 +80,7 @@ class viewImg extends StatelessWidget {
       return Container(
           width: width,
           height: MediaQuery.sizeOf(context).height,
+          color: Colors.black,
           child: Stack(
             children: [
               GestureDetector(
@@ -89,43 +93,29 @@ class viewImg extends StatelessWidget {
                   controller.update();
 
                 },
-                child: Container(
-                  width: width,
-                  color: Colors.black,
-                  height: MediaQuery.sizeOf(context).height,
-                  child: Screenshot(
-                    controller: screenshotController,
-                    child: Container(
-                      width: width,
-                      child: SingleChildScrollView(
-                        physics: PageScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children:imgList
-                              .map((item) => Container(
-                            width: width,
-                            height: MediaQuery.sizeOf(context).height,
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                    width: width,
-                                    child: PhotoView(
-                                      imageProvider: NetworkImage(
-                                        item,
-                                      ),
-                                      enableRotation: false,
-                                      enablePanAlways: false,
-                                      minScale: PhotoViewComputedScale.contained,
-                                      maxScale: PhotoViewComputedScale.contained, // Disable zoom out
-                                    )
-                                ),
+                child: Screenshot(
+                  controller: screenshotController,
+                  child: Container(
+                    width: width,
 
-                              ],
-                            ),
-                          )
+                    child: SingleChildScrollView(
+                      physics: PageScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children:imgList
+                            .map((item) => SizedBox(
+                                width: width,
+                                child: PhotoView(
+                                  imageProvider: NetworkImage(
+                                    item,
+                                  ),
+                                  enableRotation: false,
+                                  minScale: PhotoViewComputedScale.contained,
+                                  maxScale: PhotoViewComputedScale.contained, // Disable zoom out
+                                )
+                            )
 
-                          ).toList(),
-                        ),
+                        ).toList(),
                       ),
                     ),
                   ),
@@ -193,44 +183,80 @@ class viewImg extends StatelessWidget {
                               color: Colors.white,
                                 child: AspectRatio(
                                   aspectRatio: 3/4,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width: 1000,
-                                          padding: EdgeInsets.all(5),
-                                          child: AspectRatio(aspectRatio: 1/1,
-                                            child: Image.memory(controller.imageFile!,fit: BoxFit.cover,),
+                                  child: Stack(
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.all(5),
+                                              child: AspectRatio(aspectRatio: 1/1,
+                                                child: Image.memory(controller.imageFile!,fit: BoxFit.cover),
+                                                ),
                                             ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(left: 20,top: 20,right: 20),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                            Container(
+                                              margin: EdgeInsets.only(left: 20,top: 20,right: 20),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  Text("ID: 100541242",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w400)),),
-                                                  Text("Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
-                                                  Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text("ID: 100541242",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.w400)),),
+                                                      Text("Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
+                                                      Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400)),),
+                                                      Row(
+                                                        children: [
+                                                          Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                                          SizedBox(width: 10,),
+                                                          Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.redAccent),),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                   Row(
                                                     children: [
-                                                      Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                                      SizedBox(width: 10,),
-                                                      Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.redAccent),),
+                                                      CustomPaint(
+                                                        // painter: Painter(),
+                                                        painter: QrPainter(
+                                                            data: 'https://youtube.com',
+                                                            options:  QrOptions(
+                                                                shapes: QrShapes(
+                                                                    darkPixel: QrPixelShapeRoundCorners(cornerFraction: .5),
+                                                                    frame:  QrFrameShapeRoundCorners(cornerFraction: .25),
+                                                                    ball: QrBallShapeRoundCorners(cornerFraction: .25)
+                                                                ),
+                                                                colors: QrColors(
+                                                                    dark: QrColorLinearGradient(
+                                                                        colors: [
+                                                                          Color(0xFF444100),
+                                                                          Color(0xFF0a2108)
+                                                                        ],
+                                                                        orientation: GradientOrientation.leftDiagonal
+                                                                    )
+                                                                )
+                                                            )),
+                                                        size: const Size(80, 80),
+                                                      ),
                                                     ],
                                                   ),
                                                 ],
                                               ),
-                                              ClipRRect(
-                                                borderRadius: BorderRadius.circular(100),
-                                                child: Image.asset("asset/logo1.png",width: 60,height: 60,fit: BoxFit.cover,),
-                                              ),
+                                            ),
                                             ],
+                                      ),
+                                      Positioned(
+                                        top: 340,
+                                        child:   Container(
+                                          width: 380,
+                                          child: Center(
+                                            child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(100),
+                                            child: Image.asset("asset/logo1.png",width: 60,height: 60,fit: BoxFit.cover,),
+                                            ),
                                           ),
-                                        ),
-                                        ],
+                                        ),)
+                                    ],
                                   ),
                                 ),
                             )).then((value) => {

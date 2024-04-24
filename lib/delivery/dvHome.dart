@@ -198,57 +198,67 @@ class dvHome extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  width: 80,
-                  height: 60,
-                  margin: EdgeInsets.only(left: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0,0),
-                            spreadRadius: 0.5,
-                            blurRadius: 0.5
-                        )
-                      ]
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 1/1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.list_alt,size: 26,),
-                        Text("Track",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed("/trackinglist");
+                  },
+                  child: Container(
+                    width: 80,
+                    height: 60,
+                    margin: EdgeInsets.only(left: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0,0),
+                              spreadRadius: 0.5,
+                              blurRadius: 0.5
+                          )
+                        ]
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1/1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.list_alt,size: 26,),
+                          Text("Track",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  width: 80,
-                  height: 60,
-                  margin: EdgeInsets.only(left: 15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0,0),
-                            spreadRadius: 0.5,
-                            blurRadius: 0.5
-                        )
-                      ]
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.payment,size: 26,),
-                      Text("Payment",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed("/storepayment");
+                  },
+                  child: Container(
+                    width: 80,
+                    height: 60,
+                    margin: EdgeInsets.only(left: 15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0,0),
+                              spreadRadius: 0.5,
+                              blurRadius: 0.5
+                          )
+                        ]
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.payment,size: 26,),
+                        Text("Payment",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
 
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

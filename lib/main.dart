@@ -4,6 +4,10 @@ import 'package:ecomerce/changeEmail.dart';
 import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/delivery/customerinfo.dart';
 import 'package:ecomerce/delivery/dvHome.dart';
+import 'package:ecomerce/delivery/payment.dart';
+import 'package:ecomerce/delivery/storepayment.dart';
+import 'package:ecomerce/delivery/trackdetail.dart';
+import 'package:ecomerce/delivery/trackinglist.dart';
 import 'package:ecomerce/detail.dart';
 import 'package:ecomerce/editStore.dart';
 import 'package:ecomerce/login.dart';
@@ -52,6 +56,10 @@ void main() {
         GetPage(name: "/emailchange", page:()=> changeEmail()),
         GetPage(name: "/customerinfo", page:()=> customerInfo()),
         GetPage(name: "/imgview", page:()=> viewImg()),
+        GetPage(name: "/trackinglist", page:()=> trackinglist()),
+        GetPage(name: "/tracking", page:()=> trackDetail()),
+        GetPage(name: "/deliverypayment", page:()=> paymentDelivery()),
+        GetPage(name: "/storepayment", page:()=> paymentStore()),
 
 
 

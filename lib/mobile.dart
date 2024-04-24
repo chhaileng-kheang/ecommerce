@@ -180,13 +180,14 @@ class mobile extends StatelessWidget {
                     FutureBuilder(future: getImageInfo(Image.network("https://i.ibb.co/YkPqdLk/Untitled-4.png")) , builder: (context,snapshot){
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // Return a placeholder widget while waiting for the future to complete
-                        return Container(
-                            width: width,
-                            child: Center(child: Container(width: 200,height: 100, child: Lottie.asset("asset/Animation - 1713422112684.json",height: 200,width: 200)
-                            )
-                            )
-
-                      );
+                        return SizedBox(height: 0,);
+                      //   return Container(
+                      //       width: width,
+                      //       child: Center(child: Container(width: 200,height: 100, child: Lottie.asset("asset/Animation - 1713422112684.json",height: 200,width: 200)
+                      //       )
+                      //       )
+                      //
+                      // );
                       } else
                       if (snapshot.hasError) {
                         // Return an error widget if the future encounters an error
@@ -196,66 +197,66 @@ class mobile extends StatelessWidget {
                         return Column(
                           children: [
                             BannerSponsorEx(width,"https://i.ibb.co/YkPqdLk/Untitled-4.png"),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              width: width * 0.9,
-                              height: 45,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, right: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text("Show Hidden Price",
-                                          style: GoogleFonts.montserrat(
-                                            textStyle: const TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                            margin: const EdgeInsets.only(left: 10),
-                                            child: Tooltip(
-                                                showDuration: Duration(seconds: 5),
-                                                margin: EdgeInsets.only(
-                                                    left: 10, right: 10),
-                                                triggerMode: TooltipTriggerMode.tap,
-                                                message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
-                                                child: Icon(Icons.info_outline))),
-                                      ],
-                                    ),
-                                    FlutterSwitch(
-                                      width: 50.0,
-                                      height: 30.0,
-                                      valueFontSize: 25.0,
-                                      toggleSize: 25.0,
-                                      value: controller.status,
-                                      activeColor: Colors.black,
-                                      inactiveColor: Colors.black12,
-                                      inactiveToggleColor: Colors.black,
-                                      activeToggleColor: Colors.white,
-                                      borderRadius: 30.0,
-                                      showOnOff: false,
-                                      onToggle: (val) {
 
-                                        controller.status = val;
-                                        controller.update();
-
-                                      },
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-                            ),
-                            bodyGid(width, context, Grid),
-                            const SizedBox(height: 60,)
                           ],
                         );
                       }
                     }),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      width: width * 0.9,
+                      height: 45,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text("Show Hidden Price",
+                                  style: GoogleFonts.montserrat(
+                                    textStyle: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: Tooltip(
+                                        showDuration: Duration(seconds: 5),
+                                        margin: EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
+                                        child: Icon(Icons.info_outline))),
+                              ],
+                            ),
+                            FlutterSwitch(
+                              width: 50.0,
+                              height: 30.0,
+                              valueFontSize: 25.0,
+                              toggleSize: 25.0,
+                              value: controller.status,
+                              activeColor: Colors.black,
+                              inactiveColor: Colors.black12,
+                              inactiveToggleColor: Colors.black,
+                              activeToggleColor: Colors.white,
+                              borderRadius: 30.0,
+                              showOnOff: false,
+                              onToggle: (val) {
 
+                                controller.status = val;
+                                controller.update();
+
+                              },
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                    bodyGid(width, context, Grid),
+                    const SizedBox(height: 60,)
                   ],
                 ),
               ),
