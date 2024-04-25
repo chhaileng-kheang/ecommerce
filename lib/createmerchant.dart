@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'classwidget.dart';
 class merchantReg extends StatelessWidget {
   merchantReg({super.key});
 
@@ -584,15 +586,5 @@ class merchantReg extends StatelessWidget {
     );
   }
 
-  String generateRandomCode() {
-    final Random _random = Random();
-    const String chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const int codeLength = 6;
 
-    String code = '';
-    for (int i = 0; i < codeLength; i++) {
-      code += chars[_random.nextInt(chars.length)];
-    }
-    return code;
-  }
 }

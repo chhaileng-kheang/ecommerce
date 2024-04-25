@@ -219,7 +219,7 @@ class viewImg extends StatelessWidget {
                                                       CustomPaint(
                                                         // painter: Painter(),
                                                         painter: QrPainter(
-                                                            data: 'https://youtube.com',
+                                                            data: 'https://evagoo.com/product',
                                                             options:  QrOptions(
                                                                 shapes: QrShapes(
                                                                     darkPixel: QrPixelShapeRoundCorners(cornerFraction: .5),

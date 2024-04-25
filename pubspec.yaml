@@ -58,6 +58,8 @@ dependencies:
   open_file: ^3.3.2
   custom_qr_generator: ^0.1.2
   swipe_image_gallery: ^0.8.3
+  qr_code_scanner: ^1.0.1
+  camera: ^0.10.5+9
 dev_dependencies:
   flutter_test:
     sdk: flutter

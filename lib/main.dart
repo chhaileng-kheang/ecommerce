@@ -14,6 +14,7 @@ import 'package:ecomerce/login.dart';
 import 'package:ecomerce/merchant.dart';
 import 'package:ecomerce/productOwn.dart';
 import 'package:ecomerce/profileSetting.dart';
+import 'package:ecomerce/qrscanner.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/store.dart';
@@ -25,6 +26,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:http/http.dart' as http;
+import 'detail_store.dart';
 import 'home.dart';
 import 'staticdata.dart';
 import 'mobile.dart';
@@ -40,6 +42,7 @@ void main() {
       getPages: [
         GetPage(name: '/', page: ()=>MyApp()),
         GetPage(name: '/product', page: ()=>detail()),
+        GetPage(name: '/productstore', page: ()=>detail_store()),
         GetPage(name: '/store', page: ()=>store()),
         GetPage(name: '/search', page: ()=>search()),
         GetPage(name: '/login', page: ()=>login()),
@@ -60,6 +63,7 @@ void main() {
         GetPage(name: "/tracking", page:()=> trackDetail()),
         GetPage(name: "/deliverypayment", page:()=> paymentDelivery()),
         GetPage(name: "/storepayment", page:()=> paymentStore()),
+        GetPage(name: "/qrscanner", page:()=> qrCam()),
 
 
 

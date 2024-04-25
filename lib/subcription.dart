@@ -57,6 +57,7 @@ class subscrption extends StatelessWidget {
                   subcriptionCard(width,"Premium","12", ['35 Photo','5 Category','Image Description','No Ads Banner'] ,"50",false),
                   subcriptionCard(width,"Premium Plus","20", ['50 Photo','10 Category','Image Description','No Ads Banner','Sponsor Feed'] ,"50",false),
                   subcriptionCard(width,"Diamond","30", ['80 Photo','15 Category','Image Description','No Ads Banner','Sponsor Feed','Recommend Feed'] ,"50",false),
+                  SizedBox(height: 50,)
                 ],
               ),
             ),

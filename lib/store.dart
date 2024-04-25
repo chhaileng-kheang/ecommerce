@@ -58,31 +58,34 @@ class store extends StatelessWidget {
     return Container(
       width: MediaQuery.sizeOf(context).width,
       height: MediaQuery.sizeOf(context).height,
-      child: Column(
+      child: Stack(
         children: [
-          StoreInFo(width,context,controller),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                StoreInFo(width,context,controller),
+                Container(
+                  width: width,
+                  color: Colors.white,
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Center(
+                    child: Contact(width, context),
+                  ),
+                ),
+                BannerSponsor(width),
+                SizedBox(height: 5,),
+                category(categorylst, width),
+                SizedBox(height: 5,),
+                bodyGid(width, context, grid,true,false),
+                SizedBox(height: 100,),
+              ],
+            ),
+          ),
           Container(
-            width: width,
-            color: Colors.white,
-            padding: EdgeInsets.only(bottom: 20),
-            child: Center(
-              child: Contact(width, context),
-            ),
+              width: width,
+              child: Header(width)
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  BannerSponsor(width),
-                  SizedBox(height: 5,),
-                  category(categorylst, width),
-                  SizedBox(height: 5,),
-                  bodyGid(width, context, grid),
-                  SizedBox(height: 100,),
-                ],
-              ),
-            ),
-          ),
+
         ],
       ),
     );
@@ -152,7 +155,7 @@ class store extends StatelessWidget {
 
   Header(double width) {
     return Container(
-        height: 60,
+        height: 100,
         decoration: BoxDecoration(
           gradient:  LinearGradient(
             begin: Alignment.topLeft,
@@ -163,7 +166,7 @@ class store extends StatelessWidget {
             ],
           )
         ),
-        padding: const EdgeInsets.only(left: 15,right: 15,top: 10),
+        padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 45),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -171,14 +174,12 @@ class store extends StatelessWidget {
                 onTap: (){
                   Get.back();
                 },
-                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Colors.white,)),
             Container(
                 child: Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16)),)),
             Row(
               children: [
-                ClipRRect(
-                  child: Image.network("https://flagsapi.com/KH/flat/64.png",height: 24,fit: BoxFit.fitHeight,),
-                )
+               Icon(Icons.share,color: Colors.white,)
               ],
             ),
           ],
@@ -207,21 +208,6 @@ class store extends StatelessWidget {
                   );
                 },
               )
-            ),
-            child: WidgetSize(
-              onChange: (Size size){
-                controller.y = size.height;
-                controller.update();
-                print(controller.y);
-              },
-              child: Column(
-                children: [
-                  Container(
-                      width: width,
-                      child: Header(width)
-                  ),
-                ],
-              ),
             ),
           ),
           Positioned(

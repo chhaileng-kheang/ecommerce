@@ -38,13 +38,6 @@ class _merchantTabState extends State<merchantTab> {
   String _image = "";
   String cover = "";
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    data = fetchData('http://192.168.100.25/eiivanapiserver/productlst.php');
-  }
-
-  @override
   Widget build(BuildContext context) {
     double width;
     return SafeArea(
@@ -88,28 +81,34 @@ class _merchantTabState extends State<merchantTab> {
   }
 
   mainscreen(double width, BuildContext context,int grid ){
-    return Column(
-      children: [
-        StoreInFo(width, context),
-        Expanded(
-          child: Container(
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Stack(
+        children: [
+
+          Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-
+                  StoreInFo(width, context),
                   uploadAndSub(width),
                   category(categorylst, width),
                   SizedBox(height: 5,),
-                  bodyGid(width, context, grid),
+                  bodyGid(width, context, grid,false,true),
                   SizedBox(height: 100,),
                 ],
               ),
             ),
           ),
-        ),
-      ],
+          Container(
+              width: width,
+              child: Header(width)
+          ),
+        ],
+      ),
     );
   }
   category(List<String> categorylist,double width){
@@ -350,14 +349,6 @@ class _merchantTabState extends State<merchantTab> {
                     );
                   },
                 )
-            ),
-            child: Column(
-              children: [
-                Container(
-                    width: width,
-                    child: Header(width)
-                ),
-              ],
             ),
           ),
           Positioned(

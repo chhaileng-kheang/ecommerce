@@ -17,15 +17,6 @@ class uploadImage extends StatefulWidget {
 class _uploadImageState extends State<uploadImage> {
   String androidVersion = 'Unknown';
   int sdkInt = 0 ;
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
-  File? _image,cover;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    checkAndroidVersion();
-  }
-
   Future<void> checkAndroidVersion() async {
     var androidInfo = await DeviceInfoPlugin().androidInfo;
 
@@ -33,6 +24,17 @@ class _uploadImageState extends State<uploadImage> {
     print(sdkInt);
     // Android 9 (SDK 28), Xiaomi Redmi Note 7
   }
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
+  File? _image,cover;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkAndroidVersion();
+  }
+
+
   @override
   Widget build(BuildContext context) {
 

@@ -50,7 +50,7 @@ class detail extends StatelessWidget {
   }
   Future<List<ImageInfo>> getImageinfoList(List<String> imgUrls) async {
     List<Future<ImageInfo>> futures = imgUrls.map((url) {
-      return getImageInfo(Image.network(url));
+      return getImageInfo(Image.network(url,filterQuality: FilterQuality.low,));
     }).toList();
 
     return Future.wait(futures);
@@ -67,84 +67,66 @@ class detail extends StatelessWidget {
   mainscreen(double width, BuildContext context){
     return Scaffold(
       backgroundColor: Colors.white,
-      body: FutureBuilder<ImageInfo>(
-        future: getImageInfo(Image.network(Images[0])),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Return a placeholder widget while waiting for the future to complete
-            return Container(
-                width: width,
-                height: MediaQuery.sizeOf(context).height,
-                child: Center(child: Container(width: 150,height: 150, child: Lottie.asset("asset/Animation - 1713422112684.json"))));
-          } else
-            if (snapshot.hasError) {
-            // Return an error widget if the future encounters an error
-            return Text('Error: ${snapshot.error}');
-          } else {
-            // Return the ProductCard widget with the obtained ImageInfo
-            return SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: Column(
-                children: [
-                  Header(MediaQuery.sizeOf(context).width),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      width: width*0.9,
-                      height: MediaQuery.sizeOf(context).height-70,
-                      child: SingleChildScrollView(
+      body:  SizedBox(
+        width: MediaQuery.sizeOf(context).width,
+        child: Column(
+          children: [
+            Header(MediaQuery.sizeOf(context).width),
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: width*0.9,
+                height: MediaQuery.sizeOf(context).height-70,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      imageSection(width,context,Images[0],Images.sublist(1)),
+                      Container(
+                        width: width*0.9,
+                        margin: EdgeInsets.only(top: 15),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            imageSection(width,context,Images[0],Images.sublist(1)),
-                            Container(
-                              width: width*0.9,
-                              margin: EdgeInsets.only(top: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
-                                  SizedBox(height: 10,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                          SizedBox(width: 10,),
-                                          Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
-                                        ],
-                                      ),
-                                      Text("1,695 view",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w200),),
-                                    ],
-                                  ),
-                                  profile_store_mini(width, 14, 50),
-                                  Contact(width,context),
-                                  sponsor(width),
-                                  Container(
-                                      margin: EdgeInsets.only(top: 20),
-                                      child: Text("Sneakers, an iconic fusion of fashion and function, transcend mere footwear. These sleek, cushioned marvels boast diverse designs,"
-                                          " from classic canvas to cutting-edge knit technology. Brands innovate with vibrant color palettes and avant-garde collaborations, ensuring every step"
-                                          " is a style statement. Comfort meets culture in the world of sneakers.",
-                                        style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
-
-
-                                ],
-                              ),
+                            Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
+                            SizedBox(height: 10,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                    SizedBox(width: 10,),
+                                    Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
+                                  ],
+                                ),
+                                Text("1,695 view",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w200),),
+                              ],
                             ),
+                            profile_store_mini(width, 14, 50),
+                            Contact(width,context),
+                            sponsor(width),
+                            Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: Text("Sneakers, an iconic fusion of fashion and function, transcend mere footwear. These sleek, cushioned marvels boast diverse designs,"
+                                    " from classic canvas to cutting-edge knit technology. Brands innovate with vibrant color palettes and avant-garde collaborations, ensuring every step"
+                                    " is a style statement. Comfort meets culture in the world of sneakers.",
+                                  style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.w400),)),
 
-                            SizedBox(height: 50,)
+
                           ],
                         ),
                       ),
-                    ),
-                  )
 
-
-                ],
+                      SizedBox(height: 50,)
+                    ],
+                  ),
+                ),
               ),
-            );
-          }
-        },
+            )
+
+
+          ],
+        ),
       )
     );
   }
@@ -195,7 +177,24 @@ class detail extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             child: AspectRatio(
               aspectRatio: 16/9,
-              child: Image.network(imgthm,width: width*0.9,fit: BoxFit.cover,),
+              child: FadeInImage(
+                placeholder: AssetImage('asset/aas.png'),
+                fadeInDuration: Duration(milliseconds: 100),
+                image: NetworkImage(imgthm),
+                filterQuality: FilterQuality.low,
+                fadeOutDuration: Duration(milliseconds: 1),
+                fadeInCurve: Curves.linear,
+                width: width*0.9,
+                fit: BoxFit.cover,
+                imageErrorBuilder: (context,error,StackTrace){
+                  return Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    child: Center(
+                      child: Icon(Icons.error),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -243,7 +242,25 @@ class detail extends StatelessWidget {
                               width: width/3.35,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
-                                child: Image.network(e,fit: BoxFit.cover,  width: MediaQuery.sizeOf(context).width,  height: 200,),
+                                child: FadeInImage(
+                                  placeholder: AssetImage('asset/aas.png'),
+                                  fadeInDuration: Duration(milliseconds: 100),
+                                  image: NetworkImage(e),
+                                  filterQuality: FilterQuality.low,
+                                  fadeOutDuration: Duration(milliseconds: 1),
+                                  fadeInCurve: Curves.linear,
+                                  width: MediaQuery.sizeOf(context).width,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                  imageErrorBuilder: (context,error,StackTrace){
+                                    return Container(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      child: Center(
+                                        child: Icon(Icons.error),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           )

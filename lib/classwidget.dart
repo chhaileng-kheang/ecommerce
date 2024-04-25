@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -8,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'object.dart';
 
-  bodyGid(double width, BuildContext context, int Grid) {
+  bodyGid(double width, BuildContext context, int Grid,bool isstore,bool owner) {
     final List<ProductObj> Product = [
       ProductObj(product_title: "product A", id: "id", img: "https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D", price: "100", category: "category", discount: "5", disbool: "false",derection: "v"),
       ProductObj(product_title: "product B", id: "id", img:  "https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "140", category: "category", discount: "35", disbool: "",derection: "h"),
@@ -36,7 +37,7 @@ import 'object.dart';
                 pro.category,
                 pro.discount,
                 width,
-                pro.derection),
+                pro.derection,isstore,owner),
           );
         }
 
@@ -46,12 +47,18 @@ import 'object.dart';
     );
   }
 
-  ProductCard(BuildContext context, String img, String title, String price, String id, String category, String discount, double width, String dire) {
+  ProductCard(BuildContext context, String img, String title, String price, String id, String category, String discount, double width, String dire,bool isstore,bool owner) {
     double discountprice = double.parse(price) -
         (double.parse(price) * (double.parse(discount) / 100));
     return GestureDetector(
       onTap: () {
-        Get.toNamed("/product?store=12345&product=28222");
+        if (isstore == true && owner == false){
+          Get.toNamed("/productstore?store=12345&product=28222");
+        } else if(isstore == false && owner == true){
+          Get.toNamed("/productOwner?id=128928938291");
+        }else{
+          Get.toNamed("/product?store=12345&product=28222");
+        }
       },
       child: Card(
         color: Colors.white,
@@ -341,14 +348,47 @@ import 'object.dart';
                   SizedBox(width: 5,),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 35,height: 35,fit: BoxFit.cover,),
+                    child : FadeInImage(
+                      placeholder: AssetImage('asset/aas.png'),
+                      fadeInDuration: Duration(milliseconds: 100),
+                      image: NetworkImage("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                      fadeOutDuration: Duration(milliseconds: 1),
+                      fadeInCurve: Curves.linear,
+                      height: 35,
+                      width: 35,
+                      fit: BoxFit.cover,
+                      imageErrorBuilder: (context,error,StackTrace){
+                        return Container(
+                          width: MediaQuery.sizeOf(context).width,
+                          child: Center(
+                            child: Icon(Icons.error),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(width: 5,),
                   Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: fontSize),)
                 ],
               ),
               ClipRRect(
-                child: Image.network("https://flagsapi.com/KH/flat/64.png",height: 24,fit: BoxFit.fitHeight,),
+                child : FadeInImage(
+                  placeholder: AssetImage('asset/aas.png'),
+                  fadeInDuration: Duration(milliseconds: 100),
+                  image: NetworkImage("https://flagsapi.com/KH/flat/64.png"),
+                  fadeOutDuration: Duration(milliseconds: 1),
+                  fadeInCurve: Curves.linear,
+                  height: 24,
+                  fit: BoxFit.fitHeight,
+                  imageErrorBuilder: (context,error,StackTrace){
+                    return Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: Center(
+                        child: Icon(Icons.error),
+                      ),
+                    );
+                  },
+                ),
               )
             ],
           ),
@@ -359,6 +399,29 @@ import 'object.dart';
 }
 
 //external
+
+String generateRandomCode() {
+  final Random _random = Random();
+  const String chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const int codeLength = 6;
+
+  String code = '';
+  for (int i = 0; i < codeLength; i++) {
+    code += chars[_random.nextInt(chars.length)];
+  }
+  return code;
+}
+String generateRandomCodePars(String CharPar, int len) {
+  final Random _random = Random();
+   String chars = CharPar;
+   int codeLength = len;
+
+  String code = '';
+  for (int i = 0; i < codeLength; i++) {
+    code += chars[_random.nextInt(chars.length)];
+  }
+  return code;
+}
 void _launchDeepLink() async {
   const deepLink = 'https://t.me/chhailengkc';
   if (await canLaunchUrl(Uri.parse(deepLink))) {
