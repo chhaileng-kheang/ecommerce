@@ -6,6 +6,7 @@ import 'package:ecomerce/mobile.dart';
 import 'package:ecomerce/classobject/object.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,12 +26,12 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
-
+  var _refreshIndicatorKey = GlobalKey<ScaffoldState>();
   String check = generateRandomCodePars("1234567890", 1);
   final controller = Get.put(ProductController());
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _showBottomLoader = false;
-
+  var _refreshController = LiquidPullToRefreshState();
   var _controller = ScrollController();
   @override
   void initState() {
@@ -73,6 +74,7 @@ class _homepageState extends State<homepage> {
                 width: MediaQuery.sizeOf(context).width,
                 height: MediaQuery.sizeOf(context).height,
                 child: LiquidPullToRefresh(
+                  key: _refreshIndicatorKey,
                   onRefresh: _refresh,
                   color: Colors.white,
                   height: 100,
@@ -88,12 +90,18 @@ class _homepageState extends State<homepage> {
                         if(notification.scrollDelta! > 0 ){
                           controller.ispush = true;
                           controller.update();
+                          if(_controller.position.pixels >=300){
+                            controller.visbbtn = true;
+                            controller.update();
+
+                          }
                         }
+
                         return true;
                       } else {
                         if(_controller.offset == _controller.position.maxScrollExtent){
-                          if(controller.Product.length > 50){
-                            controller.Product.removeRange(0,8);
+                          if(controller.Product.length > 100){
+                            controller.Product.removeRange(0,24);
                             controller.ispush = true;
                             controller.update();
                           }
@@ -200,6 +208,39 @@ class _homepageState extends State<homepage> {
                 ),
               ),
               Header(width,context),
+              Visibility(
+                visible: controller.visbbtn,
+                child: Positioned(
+                  bottom: 10,
+                  child: Container(
+                    width: width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            _controller.animateTo( //go to top of scroll
+                                0,  //scroll offset to go
+                                duration: Duration(milliseconds: 500), //duration of scroll
+                                curve:Curves.fastOutSlowIn //scroll type
+                            );
+                            controller.visbbtn = false;
+                            _refresh();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(11, 59, 18, 0.7),
+                              borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: Icon(Icons.keyboard_arrow_up_rounded,color: Colors.white,),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
 
@@ -615,6 +656,7 @@ class _homepageState extends State<homepage> {
 class ProductController extends GetxController{
   bool status = false;
   bool ispush = true;
+  bool visbbtn = false;
   StreamSubscription<List<ProductObj>>? subscription;
   List<ProductObj> Product = [
     ProductObj(product_title: "product A", id: "id", img:"https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D", price: "100", category: "category", discount: "5", disbool: "false",derection: "v"),
