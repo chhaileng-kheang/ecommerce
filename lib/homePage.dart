@@ -94,7 +94,18 @@ class _homepageState extends State<homepage> {
                             controller.visbbtn = true;
                             controller.update();
 
+                          }else{
+                            controller.visbbtn = false;
+                            controller.update();
+
                           }
+                        }else{
+                          if(_controller.position.pixels < 300){
+                            controller.visbbtn = false;
+                            controller.update();
+
+                          }
+
                         }
 
                         return true;
