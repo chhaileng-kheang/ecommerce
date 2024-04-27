@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,11 +26,13 @@ class getxData extends GetxController{
   String imgpath = "";
   Widget? dynamicContainer;
   bool buttonEnabled = true;
+  bool ispush = false;
   Uint8List? imageFile = Uint8List.fromList([11]);
   int showingElement = 0;
   bool isloading = false;
   double x = 0;
   double y = 0;
+
   String path = "";
     int countdown = 60;
   late Timer timer;

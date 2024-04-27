@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'classwidget.dart';
+import 'customWidget/classwidget.dart';
 class detail extends StatelessWidget {
   detail({super.key});
   List<String> Images = [
@@ -150,7 +150,6 @@ class detail extends StatelessWidget {
         )
     );
   }
-
   imageSection(double width,context,String thm, List<String> subimg) {
     return Container(
       child: Column(
@@ -163,7 +162,6 @@ class detail extends StatelessWidget {
     );
     
   }
-
   thumnnail(double width,String imgthm) {
     return GestureDetector(
       onTap: (){
@@ -278,7 +276,6 @@ class detail extends StatelessWidget {
     );
 
   }
-
   sponsor(double width){
     return Container(
       margin: EdgeInsets.only(top: 10),

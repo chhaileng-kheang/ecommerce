@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:ecomerce/createmerchant.dart';
 import 'package:ecomerce/merchant.dart';
 import 'package:ecomerce/signup.dart';
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

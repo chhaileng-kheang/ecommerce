@@ -1,4 +1,4 @@
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

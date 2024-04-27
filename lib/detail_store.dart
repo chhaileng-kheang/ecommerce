@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'classwidget.dart';
+import 'customWidget/classwidget.dart';
 class detail_store extends StatelessWidget {
   detail_store({super.key});
   List<String> Images = [

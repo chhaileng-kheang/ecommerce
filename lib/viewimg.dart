@@ -11,7 +11,7 @@ import 'package:flutter/rendering.dart';
 import 'package:image/image.dart' as img;
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecomerce/object.dart';
+import 'package:ecomerce/classobject/object.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

@@ -1,14 +1,14 @@
 import 'dart:math';
 
-import 'package:ecomerce/object.dart';
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/object.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:ecomerce/uploadimage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'classwidget.dart';
+import 'customWidget/classwidget.dart';
 class merchantReg extends StatelessWidget {
   merchantReg({super.key});
 

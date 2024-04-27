@@ -6,10 +6,10 @@ import 'package:ecomerce/changePassword.dart';
 import 'package:ecomerce/homePage.dart';
 import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/merchanttab.dart';
-import 'package:ecomerce/object.dart';
+import 'package:ecomerce/classobject/object.dart';
 import 'package:ecomerce/qrscanner.dart';
 import 'package:ecomerce/searchPage.dart';
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:ecomerce/storelist.dart';
 import 'package:ecomerce/whitelist.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +25,7 @@ import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import 'classwidget.dart';
+import 'customWidget/classwidget.dart';
 class mobile extends StatelessWidget {
   mobile({super.key});
   @override

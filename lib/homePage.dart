@@ -1,16 +1,19 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:ecomerce/classwidget.dart';
+import 'package:ecomerce/customWidget/classwidget.dart';
 import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/mobile.dart';
-import 'package:ecomerce/object.dart';
+import 'package:ecomerce/classobject/object.dart';
 import 'package:ecomerce/searchPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
 class homepage extends StatefulWidget {
   homepage({super.key, required this.width,required this.grid});
@@ -24,11 +27,21 @@ class homepage extends StatefulWidget {
 class _homepageState extends State<homepage> {
 
   String check = generateRandomCodePars("1234567890", 1);
-  final controller = Get.put(getxData());
+  final controller = Get.put(ProductController());
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  bool _showBottomLoader = false;
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
 
+  }
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -40,132 +53,148 @@ class _homepageState extends State<homepage> {
     );
   }
 
-  mainscreen(double width, BuildContext context, int Grid, getxData controller) {
+  mainscreen(double width, BuildContext context, int Grid, ProductController controller) {
 
-    return SizedBox(
-      width: MediaQuery
-          .sizeOf(context)
-          .width,
-      height: MediaQuery
-          .sizeOf(context)
-          .height,
-      child: Stack(
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 49),
-            width: MediaQuery.sizeOf(context).width,
-            height: MediaQuery.sizeOf(context).height,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  storepath(width, context),
-                  SizedBox(height: 8,),
-                  check == "1" || check == "2" || check == "3" ? RegisterMerchant(width, context) : SizedBox(height: 0,),
-                  SizedBox(height: 5,),
-                  BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
-                  // FutureBuilder(future: getImageInfo(Image.network("https://i.ibb.co/0BwmgQ5/Untitled-3.png")) , builder: (context,snapshot){
-                  //   if (snapshot.connectionState == ConnectionState.waiting) {
-                  //     // Return a placeholder widget while waiting for the future to complete
-                  //     return Container(
-                  //       child: Text(""),
-                  //
-                  //     );
-                  //   } else
-                  //   if (snapshot.hasError) {
-                  //     // Return an error widget if the future encounters an error
-                  //     return Text('Error: ${snapshot.error}');
-                  //   } else {
-                  //     // Return the ProductCard widget with the obtained ImageInfo
-                  //     return  BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png");
-                  //   }
-                  // }),
-                  SizedBox(
-                    width: width * 0.9,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.only(top: 12),
-                            child: Text("Sponsor", style: GoogleFonts
-                                .montserrat(
-                                fontSize: 16, fontWeight: FontWeight.w400),)),
-                        Container(
-                            margin: const EdgeInsets.only(top: 12, right: 10),
-                            child: Tooltip(
-                                showDuration: Duration(seconds: 5),
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                triggerMode: TooltipTriggerMode.tap,
-                                message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
-                                child: Icon(Icons.info_outline))),
+    return GetBuilder<ProductController>(
+      builder: (_) {
+        return SizedBox(
+          width: MediaQuery
+              .sizeOf(context)
+              .width,
+          height: MediaQuery
+              .sizeOf(context)
+              .height,
+          child: Stack(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 49),
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height,
+                child: LiquidPullToRefresh(
+                  onRefresh: _refresh,
+                  color: Colors.white,
+                  height: 100,
+                  backgroundColor: Colors.black,
+                  showChildOpacityTransition: false,
+                  animSpeedFactor: 5,
+                  springAnimationDurationInMilliseconds: 500,
+                  child: RefreshIndicator(
+                    onRefresh: _refresh,
+                    notificationPredicate: (notification) {
+                      if (notification is ScrollUpdateNotification ) {
 
-                      ],
-                    ),
-                  ),
-                  TrippleSponsor(width, context),
-                  // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    width: width * 0.9,
-                    height: 45,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        if(notification.scrollDelta! > 0 ){
+                          controller.ispush = true;
+                          controller.update();
+                        }
+                        return true;
+                      } else {
+
+                        return false;
+                      }
+
+                    },
+                    child: SingleChildScrollView(
+                      child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Text("Show Hidden Price",
-                                style: GoogleFonts.montserrat(
-                                  textStyle: const TextStyle(
-                                    fontSize: 14,
+                          storepath(width, context),
+                          SizedBox(height: 8,),
+                          check == "1" || check == "2" || check == "3" ? RegisterMerchant(width, context) : SizedBox(height: 0,),
+                          SizedBox(height: 5,),
+                          BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
+                          SizedBox(
+                            width: width * 0.9,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    margin: const EdgeInsets.only(top: 12),
+                                    child: Text("Sponsor", style: GoogleFonts
+                                        .montserrat(
+                                        fontSize: 16, fontWeight: FontWeight.w400),)),
+                                Container(
+                                    margin: const EdgeInsets.only(top: 12, right: 10),
+                                    child: Tooltip(
+                                        showDuration: Duration(seconds: 5),
+                                        margin: EdgeInsets.only(left: 10, right: 10),
+                                        triggerMode: TooltipTriggerMode.tap,
+                                        message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
+                                        child: Icon(Icons.info_outline))),
+
+                              ],
+                            ),
+                          ),
+                          TrippleSponsor(width, context),
+                          // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
+                          Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            width: width * 0.9,
+                            height: 45,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 10, right: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text("Show Hidden Price",
+                                        style: GoogleFonts.montserrat(
+                                          textStyle: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                          margin: const EdgeInsets.only(left: 10),
+                                          child: Tooltip(
+                                              showDuration: Duration(seconds: 5),
+                                              margin: EdgeInsets.only(
+                                                  left: 10, right: 10),
+                                              triggerMode: TooltipTriggerMode.tap,
+                                              message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
+                                              child: Icon(Icons.info_outline))),
+                                    ],
                                   ),
-                                ),
+                                  FlutterSwitch(
+                                    width: 50.0,
+                                    height: 30.0,
+                                    valueFontSize: 25.0,
+                                    toggleSize: 25.0,
+                                    value: controller.status,
+                                    activeColor: Colors.black,
+                                    inactiveColor: Colors.black12,
+                                    inactiveToggleColor: Colors.black,
+                                    activeToggleColor: Colors.white,
+                                    borderRadius: 30.0,
+                                    showOnOff: false,
+                                    onToggle: (val) {
+
+                                      controller.status = val;
+                                      controller.update();
+
+                                    },
+                                  ),
+
+                                ],
                               ),
-                              Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: Tooltip(
-                                      showDuration: Duration(seconds: 5),
-                                      margin: EdgeInsets.only(
-                                          left: 10, right: 10),
-                                      triggerMode: TooltipTriggerMode.tap,
-                                      message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
-                                      child: Icon(Icons.info_outline))),
-                            ],
+                            ),
                           ),
-                          FlutterSwitch(
-                            width: 50.0,
-                            height: 30.0,
-                            valueFontSize: 25.0,
-                            toggleSize: 25.0,
-                            value: controller.status,
-                            activeColor: Colors.black,
-                            inactiveColor: Colors.black12,
-                            inactiveToggleColor: Colors.black,
-                            activeToggleColor: Colors.white,
-                            borderRadius: 30.0,
-                            showOnOff: false,
-                            onToggle: (val) {
-
-                              controller.status = val;
-                              controller.update();
-
-                            },
-                          ),
-
+                          StreamBuilder<List<ProductObj>>(stream: controller.productsStream(), builder: (context, snapshot) {
+                            return  bodyGid(width, context, Grid,false,false,controller.Product);
+                          },),
+                          const SizedBox(height: 60,)
                         ],
                       ),
-                    ),
+                    )
                   ),
-                  bodyGid(width, context, Grid,false,false),
-                  const SizedBox(height: 60,)
-                ],
+                ),
               ),
-            ),
+              Header(width,context),
+            ],
           ),
-          Header(width,context),
-        ],
-      ),
 
+        );
+      }
     );
   }
 
@@ -567,4 +596,101 @@ class _homepageState extends State<homepage> {
       ),
     );
   }
+
+  Future<void> _refresh() {
+    return Future.delayed(Duration(seconds: 2));
+  }
+}
+
+class ProductController extends GetxController{
+  bool status = false;
+  bool ispush = true;
+  StreamSubscription<List<ProductObj>>? subscription;
+  List<ProductObj> Product = [
+    ProductObj(product_title: "product A", id: "id", img:"https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D", price: "100", category: "category", discount: "5", disbool: "false",derection: "v"),
+    ProductObj(product_title: "product B", id: "id", img:"https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "140", category: "category", discount: "35", disbool: "",derection: "h"),
+    ProductObj(product_title: "product C", id: "id", img:"https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "80", category: "category", discount: "10", disbool: "disbool",derection: "v"),
+    ProductObj(product_title: "product D", id: "id", img:"https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "78", category: "category", discount: "0", disbool: "disbool",derection: "h"),
+    ProductObj(product_title: "product E", id: "id", img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",price: "214", category: "category", discount: "9", disbool: "disbool",derection: "h"),
+    ProductObj(product_title: "product F", id: "id", img:"https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=2650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "69", category: "category", discount: "0", disbool: "disbool",derection: "h"),
+    ProductObj(product_title: "product A", id: "id", img:"https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D", price: "100", category: "category", discount: "5", disbool: "false",derection: "v"),
+    ProductObj(product_title: "product B", id: "id", img:"https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "140", category: "category", discount: "35", disbool: "",derection: "h"),
+    ProductObj(product_title: "product C", id: "id", img:"https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "80", category: "category", discount: "10", disbool: "disbool",derection: "v"),
+    ProductObj(product_title: "product D", id: "id", img:"https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "78", category: "category", discount: "0", disbool: "disbool",derection: "h"),
+    ProductObj(product_title: "product E", id: "id", img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",price: "214", category: "category", discount: "9", disbool: "disbool",derection: "h"),
+    ProductObj(product_title: "product F", id: "id", img:"https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=2650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "69", category: "category", discount: "0", disbool: "disbool",derection: "h"),
+
+  ];
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    startProductsStream();
+  }
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    subscription!.cancel();
+    super.onClose();
+  }
+  void startProductsStream() {
+    subscription = productsStream().listen((product) {
+      // Handle incoming products
+      if(ispush) {
+        product.add(
+            ProductObj(
+            product_title: "product A",
+            id: "id",
+            img: "https://images.unsplash.com/photo-1576487503401-173ffc7c669c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODB8fHNuZWFrZXJ8ZW58MHx8MHx8fDA%3D",
+            price: "100",
+            category: "category",
+            discount: "5",
+            disbool: "false",
+            derection: "v"));
+        product.add(
+            ProductObj(
+            product_title: "product B",
+            id: "id",
+            img: "https://images.unsplash.com/photo-1589578228447-e1a4e481c6c8?q=80&w=2664&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            price: "140",
+            category: "category",
+            discount: "35",
+            disbool: "",
+            derection: "h")
+        );
+        product.add(
+            ProductObj(
+                product_title: "product C",
+                id: "id",
+                img:"https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                price: "80",
+                category: "category",
+                discount: "10",
+                disbool: "disbool",
+                derection: "v")
+        );
+        product.add(
+            ProductObj(
+                product_title: "product D",
+                id: "id",
+                img:   "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=2572&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                price: "78",
+                category: "category",
+                discount: "0",
+                disbool: "disbool",
+                derection: "h"));
+
+        ispush = false;
+      }
+      update();
+
+    });
+  }
+  Stream<List<ProductObj>> productsStream() async* {
+    while (true) {
+      await Future.delayed(Duration(seconds: 2));
+       yield Product;
+    }
+  }
+
 }

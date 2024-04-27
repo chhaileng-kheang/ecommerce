@@ -28,7 +28,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:http/http.dart' as http;
 import 'detail_store.dart';
 import 'home.dart';
-import 'staticdata.dart';
+import 'classobject/staticdata.dart';
 import 'mobile.dart';
 void main() {
   setPathUrlStrategy();

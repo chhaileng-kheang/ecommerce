@@ -1,7 +1,7 @@
 import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:ecomerce/customWidget/widgetSize.dart';
 import 'package:ecomerce/imageManager.dart';
-import 'package:ecomerce/staticdata.dart';
+import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
