@@ -30,6 +30,8 @@ class _homepageState extends State<homepage> {
   final controller = Get.put(ProductController());
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool _showBottomLoader = false;
+
+  var _controller = ScrollController();
   @override
   void initState() {
     // TODO: implement initState
@@ -89,12 +91,20 @@ class _homepageState extends State<homepage> {
                         }
                         return true;
                       } else {
+                        if(_controller.offset == _controller.position.maxScrollExtent){
+                          if(controller.Product.length > 50){
+                            controller.Product.removeRange(0,8);
+                            controller.ispush = true;
+                            controller.update();
+                          }
+                        }
 
                         return false;
                       }
 
                     },
                     child: SingleChildScrollView(
+                      controller: _controller,
                       child: Column(
                         children: [
                           storepath(width, context),
@@ -688,7 +698,7 @@ class ProductController extends GetxController{
   }
   Stream<List<ProductObj>> productsStream() async* {
     while (true) {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 1));
        yield Product;
     }
   }
