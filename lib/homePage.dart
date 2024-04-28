@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 class homepage extends StatefulWidget {
   homepage({super.key, required this.width,required this.grid});
   final double width;
@@ -90,29 +91,27 @@ class _homepageState extends State<homepage> {
                         if(notification.scrollDelta! > 0 ){
                           controller.ispush = true;
                           controller.update();
-                          if(_controller.position.pixels >=300){
+                          if(_controller.position.pixels >=1000){
                             controller.visbbtn = true;
-                            controller.update();
 
                           }else{
                             controller.visbbtn = false;
-                            controller.update();
 
                           }
                         }else{
-                          if(_controller.position.pixels < 300){
+                          if(_controller.position.pixels < 1000){
                             controller.visbbtn = false;
-                            controller.update();
+
 
                           }
-
+                          controller.update();
                         }
 
                         return true;
                       } else {
                         if(_controller.offset == _controller.position.maxScrollExtent){
                           if(controller.Product.length > 100){
-                            controller.Product.removeRange(0,24);
+                            controller.Product.removeRange(0,30);
                             controller.ispush = true;
                             controller.update();
                           }
@@ -211,7 +210,44 @@ class _homepageState extends State<homepage> {
                           StreamBuilder<List<ProductObj>>(stream: controller.productsStream(), builder: (context, snapshot) {
                             return  bodyGid(width, context, Grid,false,false,controller.Product);
                           },),
-                          const SizedBox(height: 60,)
+                          Container(
+                            margin: EdgeInsets.only(top: 10,bottom: 10),
+                            height: 60,
+                            width: width*0.9,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: Shimmer.fromColors(
+                              highlightColor: Colors.white,
+                              baseColor: Colors.grey.withOpacity(0.3),
+                              child: Container(
+                                margin: EdgeInsets.only(left: 20,right: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: width*0.30,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: width*0.30,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                          )
                         ],
                       ),
                     )

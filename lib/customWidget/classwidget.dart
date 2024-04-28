@@ -71,11 +71,13 @@ import '../classobject/object.dart';
                       aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
                       child: FadeInImage(
                         placeholder: AssetImage('asset/aas.png'),
-                        fadeInDuration: Duration(milliseconds: 100),
+                        fadeInDuration: Duration(milliseconds: 20),
                         image: NetworkImage(img),
-                        fadeOutDuration: Duration(milliseconds: 1),
+                        fadeOutDuration: Duration(milliseconds: 10),
                         fadeInCurve: Curves.linear,
                         fit: BoxFit.cover,
+                        filterQuality: FilterQuality.low,
+
                         imageErrorBuilder: (context,error,StackTrace){
                           return Container(
                             width: MediaQuery.sizeOf(context).width,
