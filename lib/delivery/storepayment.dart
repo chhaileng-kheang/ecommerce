@@ -69,6 +69,16 @@ mainscreen(double width, BuildContext context, int g) {
       children: [
         Header(width, context),
         balancecard(width,context,"Vetana","275.00"),
+        SizedBox(height: 10,),
+        Container(
+          width: width*0.9,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text("History",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
+            ],
+          ),
+        ),
         Expanded(child: Container(height: MediaQuery.sizeOf(context).height - 200,
         child: SingleChildScrollView(
           child: Column(

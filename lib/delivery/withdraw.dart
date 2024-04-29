@@ -1,5 +1,7 @@
+import 'package:ecomerce/delivery/statement.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:slider_button/slider_button.dart';
@@ -95,6 +97,7 @@ class _withdrawState extends State<withdraw> {
                       ),
                     ),
                   ),
+
                   Container(
                     margin: EdgeInsets.only(top: 15),
                     padding: EdgeInsets.only(left: 5,right: 10,top: 10,bottom: 20),
@@ -167,6 +170,28 @@ class _withdrawState extends State<withdraw> {
                               });
                             },
                             child: Icon(icondata))
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: width*0.9,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => statement(),));
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(top: 15),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(5)
+                            ),
+                            child: Text("View Statement",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.w400))),
+                          ),
+                        ),
                       ],
                     ),
                   ),
