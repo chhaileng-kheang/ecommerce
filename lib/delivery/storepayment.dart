@@ -1,3 +1,5 @@
+import 'package:ecomerce/delivery/withdraw.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -186,13 +188,18 @@ balancecard(double width, BuildContext context, String name, String balance) {
                           Text("\$500.00",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold,fontSize: 14)))
                         ],
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left: 15,right: 15,bottom: 10,top: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.redAccent,
-                            borderRadius: BorderRadius.circular(100)
-                        ),
-                        child:  Text("Withdraw",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 12))),)
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => withdraw(),));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(left: 15,right: 15,bottom: 10,top: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.redAccent,
+                              borderRadius: BorderRadius.circular(100)
+                          ),
+                          child:  Text("Withdraw",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 12))),),
+                      )
                     ],
                   ),
               ),
