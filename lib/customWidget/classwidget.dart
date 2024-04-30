@@ -16,8 +16,8 @@ import '../classobject/object.dart';
       margin: const EdgeInsets.only(top: 5),
       child: StaggeredGrid.count(
         crossAxisCount: Grid,
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
         children: Product.map((ProductObj pro) {
           return Container(
             child: ProductCard(
@@ -52,12 +52,23 @@ import '../classobject/object.dart';
           Get.toNamed("/product?store=12345&product=28222");
         }
       },
-      child: Card(
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        elevation: width >= 800 ? 1 : 0,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5))
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            width >= 800 ? BoxShadow(
+              color: Colors.black12,
+              offset: Offset(0,0),
+              spreadRadius: 0.5,
+              blurRadius: 0.5,) : BoxShadow(
+
+              color: Colors.black12,
+              offset: Offset(0,0),
+              spreadRadius: 0.00,
+              blurRadius: 0.00,
+            ),
+          ]
         ),
         child: Stack(
           children: [

@@ -69,331 +69,348 @@ class _homepageState extends State<homepage> {
           height: MediaQuery
               .sizeOf(context)
               .height,
-          child: Stack(
+          child: Column(
             children: [
+              Header(MediaQuery.sizeOf(context).width,context),
               Container(
-                margin: EdgeInsets.only(top: 49),
-                width: MediaQuery.sizeOf(context).width,
-                height: MediaQuery.sizeOf(context).height,
-                child: LiquidPullToRefresh(
-                  key: _refreshIndicatorKey,
-                  onRefresh: _refresh,
-                  color: Colors.white,
-                  height: 100,
-                  backgroundColor: Colors.black,
-                  showChildOpacityTransition: false,
-                  animSpeedFactor: 5,
-                  springAnimationDurationInMilliseconds: 500,
-                  child: RefreshIndicator(
-                    onRefresh: _refresh,
-                    notificationPredicate: (notification) {
-                      if(!kIsWeb){
-                        if (notification is ScrollUpdateNotification ) {
+                width: width,
+                height: MediaQuery
+                    .sizeOf(context)
+                    .height-107,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      height: MediaQuery.sizeOf(context).height,
+                      child: LiquidPullToRefresh(
+                        key: _refreshIndicatorKey,
+                        onRefresh: _refresh,
+                        color: Colors.white,
+                        height: 100,
+                        backgroundColor: Colors.black,
+                        showChildOpacityTransition: false,
+                        animSpeedFactor: 5,
+                        springAnimationDurationInMilliseconds: 500,
+                        child: RefreshIndicator(
+                          onRefresh: _refresh,
+                          notificationPredicate: (notification) {
+                            if(!kIsWeb){
+                              if (notification is ScrollUpdateNotification ) {
 
-                          if(notification.scrollDelta! > 0 ){
-                            controller.ispush = true;
-                            controller.update();
-                            if(_controller.position.pixels >=1000){
-                              controller.visbbtn = true;
+                                if(notification.scrollDelta! > 0 ){
+                                  controller.ispush = true;
+                                  controller.update();
+                                  if(_controller.position.pixels >=1000){
+                                    controller.visbbtn = true;
 
+                                  }else{
+                                    controller.visbbtn = false;
+
+                                  }
+                                }else{
+                                  if(_controller.position.pixels < 1000){
+                                    controller.visbbtn = false;
+
+
+                                  }
+                                  controller.update();
+                                }
+
+                                return true;
+                              }
+                              else {
+                                if(_controller.offset == _controller.position.maxScrollExtent){
+                                  if(controller.Product.length > 100){
+                                    controller.Product.removeRange(0,30);
+                                    controller.visbbtn = false;
+                                    controller.ispush = true;
+                                    controller.update();
+                                  }
+                                }
+
+                                return false;
+                              }
                             }else{
-                              controller.visbbtn = false;
+                              if (notification is ScrollUpdateNotification ) {
 
+                                return true;
+                              } else {
+                                if(_controller.offset == _controller.position.maxScrollExtent){
+                                  if(controller.Product.length <= 50){
+                                    controller.ispush = true;
+                                    controller.update();
+                                  }
+                                }
+                                return false;
+                              }
                             }
-                          }else{
-                            if(_controller.position.pixels < 1000){
-                              controller.visbbtn = false;
 
-
-                            }
-                            controller.update();
-                          }
-
-                          return true;
-                        }
-                        else {
-                          if(_controller.offset == _controller.position.maxScrollExtent){
-                            if(controller.Product.length > 100){
-                              controller.Product.removeRange(0,30);
-                              controller.visbbtn = false;
-                              controller.ispush = true;
-                              controller.update();
-                            }
-                          }
-
-                          return false;
-                        }
-                      }else{
-                        if (notification is ScrollUpdateNotification ) {
-
-                          return true;
-                        } else {
-                          if(_controller.offset == _controller.position.maxScrollExtent){
-                            if(controller.Product.length > 100){
-                              controller.Product.removeRange(0,50);
-                            }
-                            controller.ispush = true;
-                            controller.update();
-                          }
-                          return false;
-                        }
-                      }
-
-                    },
-                    child: SingleChildScrollView(
-                      controller: _controller,
-                      child: Column(
-                        children: [
-                          !kIsWeb ? storepath(width, context) : Container(
-                            width: width, padding: EdgeInsets.only(left: width*0.05,right: width*0.05),
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10),
-                              height: 60,
-                              width: width*0.9,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(8)
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      width: width*0.8,
-                                      child: Text("Download the application from Play Store or App Store for the full immersive experience",maxLines: 3,))
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 8,),
-                          check == "1" || check == "2" || check == "3" || check == "4" || check == "5" ? RegisterMerchant(width, context) : SizedBox(height: 0,),
-                          SizedBox(height: 5,),
-                          !kIsWeb ?     Container(
-                            width: width*0.9,
-                            margin: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                          },
+                          child: SingleChildScrollView(
+                            controller: _controller,
+                            child: Column(
                               children: [
-                                Container(
-                                  width: width*0.60,
-                                  height: 40,
-                                  padding: EdgeInsets.only(left: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.white
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Post Product...", style: GoogleFonts.montserrat(
-                                        textStyle: const TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),),
-                                    ],
-                                  ),
+                                !kIsWeb ? storepath(width, context) : Container(
+                                  width: width
                                 ),
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  margin: EdgeInsets.only(left: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.white
+                                SizedBox(height: 8,),
+                                check == "1" || check == "2" || check == "3" || check == "4" || check == "5" ? RegisterMerchant(width, context) : SizedBox(height: 0,),
+                                SizedBox(height: 5,),
+                                !kIsWeb
+                                    ? Container(
+                                      width: width*0.9,
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: width*0.60,
+                                              height: 40,
+                                              padding: EdgeInsets.only(left: 10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  color: Colors.white
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Post Product...", style: GoogleFonts.montserrat(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 40,
+                                              height: 40,
+                                              margin: EdgeInsets.only(left: 10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  color: Colors.white
+                                              ),
+                                              child: Icon(Icons.workspace_premium_sharp,color: Colors.black,),
+                                            ),
+                                            Container(
+                                              width: 40,
+                                              height: 40,
+                                              margin: EdgeInsets.only(left: 10),
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  color: Colors.white
+                                              ),
+                                              child: Icon(Icons.delivery_dining),
+                                            )
+                                          ],
                                   ),
-                                  child: Icon(Icons.workspace_premium_sharp,color: Colors.black,),
-                                ),
-                                Container(
-                                  width: 40,
-                                  height: 40,
-                                  margin: EdgeInsets.only(left: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.white
-                                  ),
-                                  child: Icon(Icons.delivery_dining),
-                                )
-                              ],
-                            ),
-                          ) : SizedBox(height: 0,),
+                                ) : SizedBox(height: 0,),
 
-                          BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
-                          SizedBox(
-                            width: width * 0.9,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                    margin: const EdgeInsets.only(top: 12),
-                                    child: Text("Sponsor", style: GoogleFonts
-                                        .montserrat(
-                                        fontSize: 16, fontWeight: FontWeight.w400),)),
-                                Container(
-                                    margin: const EdgeInsets.only(top: 12, right: 10),
-                                    child: Tooltip(
-                                        showDuration: Duration(seconds: 5),
-                                        margin: EdgeInsets.only(left: 10, right: 10),
-                                        triggerMode: TooltipTriggerMode.tap,
-                                        message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
-                                        child: Icon(Icons.info_outline))),
-
-                              ],
-                            ),
-                          ),
-                          TrippleSponsor(width, context),
-                          // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            width: width * 0.9,
-                            height: 45,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10, right: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
+                                BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
+                                SizedBox(
+                                  width: width * 0.9,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("Show Hidden Price",
-                                        style: GoogleFonts.montserrat(
-                                          textStyle: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
                                       Container(
-                                          margin: const EdgeInsets.only(left: 10),
+                                          margin: const EdgeInsets.only(top: 12),
+                                          child: Text("Sponsor", style: GoogleFonts
+                                              .montserrat(
+                                              fontSize: 16, fontWeight: FontWeight.w400),)),
+                                      Container(
+                                          margin: const EdgeInsets.only(top: 12, right: 10),
                                           child: Tooltip(
                                               showDuration: Duration(seconds: 5),
-                                              margin: EdgeInsets.only(
-                                                  left: 10, right: 10),
+                                              margin: EdgeInsets.only(left: 10, right: 10),
                                               triggerMode: TooltipTriggerMode.tap,
-                                              message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
+                                              message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
                                               child: Icon(Icons.info_outline))),
+
                                     ],
                                   ),
-                                  FlutterSwitch(
-                                    width: 50.0,
-                                    height: 30.0,
-                                    valueFontSize: 25.0,
-                                    toggleSize: 25.0,
-                                    value: controller.status,
-                                    activeColor: Colors.black,
-                                    inactiveColor: Colors.black12,
-                                    inactiveToggleColor: Colors.black,
-                                    activeToggleColor: Colors.white,
-                                    borderRadius: 30.0,
-                                    showOnOff: false,
-                                    onToggle: (val) {
+                                ),
+                                TrippleSponsor(width, context),
+                                // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  width: width * 0.9,
+                                  height: 45,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10, right: 10),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text("Show Hidden Price",
+                                              style: GoogleFonts.montserrat(
+                                                textStyle: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                                margin: const EdgeInsets.only(left: 10),
+                                                child: Tooltip(
+                                                    showDuration: Duration(seconds: 5),
+                                                    margin: EdgeInsets.only(
+                                                        left: 10, right: 10),
+                                                    triggerMode: TooltipTriggerMode.tap,
+                                                    message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
+                                                    child: Icon(Icons.info_outline))),
+                                          ],
+                                        ),
+                                        FlutterSwitch(
+                                          width: 50.0,
+                                          height: 30.0,
+                                          valueFontSize: 25.0,
+                                          toggleSize: 25.0,
+                                          value: controller.status,
+                                          activeColor: Colors.black,
+                                          inactiveColor: Colors.black12,
+                                          inactiveToggleColor: Colors.black,
+                                          activeToggleColor: Colors.white,
+                                          borderRadius: 30.0,
+                                          showOnOff: false,
+                                          onToggle: (val) {
 
-                                      controller.status = val;
-                                      controller.update();
+                                            controller.status = val;
+                                            controller.update();
 
-                                    },
+                                          },
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                StreamBuilder<List<ProductObj>>(stream: controller.productsStream(), builder: (context, snapshot) {
+                                  return  bodyGid(width, context, Grid,false,false,controller.Product);
+                                },),
+                                !kIsWeb ?
+                                Container(
+                                  margin: EdgeInsets.only(top: 10,bottom: 10),
+                                  height: 60,
+                                  width: width*0.9,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8)
+                                  ),
+                                  child: Shimmer.fromColors(
+                                    highlightColor: Colors.white,
+                                    baseColor: Colors.grey.withOpacity(0.3),
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 20,right: 20),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: width*0.30,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius: BorderRadius.circular(100),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: width*0.30,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              borderRadius: BorderRadius.circular(100),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
 
-                                ],
-                              ),
-                            ),
-                          ),
-                          StreamBuilder<List<ProductObj>>(stream: controller.productsStream(), builder: (context, snapshot) {
-                            return  bodyGid(width, context, Grid,false,false,controller.Product);
-                          },),
-                          !kIsWeb ?
-                          Container(
-                            margin: EdgeInsets.only(top: 10,bottom: 10),
-                            height: 60,
-                            width: width*0.9,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            child: Shimmer.fromColors(
-                              highlightColor: Colors.white,
-                              baseColor: Colors.grey.withOpacity(0.3),
-                              child: Container(
-                                margin: EdgeInsets.only(left: 20,right: 20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: width*0.30,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.circular(100),
+                                )
+                                    : Container(
+                                  margin: EdgeInsets.only(top: 10,bottom: 10),
+                                  height: controller.Product.length <=50 ? 60 : 100,
+                                  width: width*0.9,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8)
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                           controller.Product.length <=50 ? Text("Loading...") :
+                                               Column(
+                                                 children: [
+                                                   SizedBox(height: 15,),
+                                                   Text("Get APP To Enjoy Full Experience",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold)),),
+                                                   Container(
+                                                     margin: EdgeInsets.only(top: 10),
+                                                     padding: EdgeInsets.all(10),
+                                                       decoration: BoxDecoration(
+                                                         color: Colors.green,
+                                                         borderRadius: BorderRadius.circular(10)
+                                                       ),
+                                                       child: Text("Download Now",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold,color: Colors.white)))),
+                                                 ],
+                                               )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: width*0.30,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: BorderRadius.circular(100),
-                                      ),
-                                    ),
-                                  ],
+                                kIsWeb && controller.Product.length >=50 ? Container(height: 100,width: width*0.9,
+                                  child: Center(child: Column(
+                                    children: [
+                                      Text("- See More Massive Products In Mobile Application -",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11,fontWeight: FontWeight.w400,color: Colors.black))),
+                                      SizedBox(height: 10,),
+                                      Text("- Available : Play Store | App Store -",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Colors.black))),
+
+                                    ],
+                                  )),
+
+                                ) : SizedBox(height: 0,)
+                              ],
+                            ),
+                          )
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: controller.visbbtn,
+                      child: Positioned(
+                        bottom: 10,
+                        child: Container(
+                          width: width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: (){
+                                  _controller.animateTo( //go to top of scroll
+                                      0,  //scroll offset to go
+                                      duration: Duration(milliseconds: 500), //duration of scroll
+                                      curve:Curves.fastOutSlowIn //scroll type
+                                  );
+                                  controller.visbbtn = false;
+                                  _refresh();
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(11, 59, 18, 0.7),
+                                    borderRadius: BorderRadius.circular(8)
+                                  ),
+                                  child: Icon(Icons.keyboard_arrow_up_rounded,color: Colors.white,),
                                 ),
                               ),
-                            ),
-
-                          ) : Container(
-                            margin: EdgeInsets.only(top: 10,bottom: 10),
-                            height: 60,
-                            width: width*0.9,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8)
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text("Loading...")
-                                    ],
-                                  ),
-                                )
-                        ],
-                      ),
-                    )
-                  ),
-                ),
-              ),
-              Header(width,context),
-              Visibility(
-                visible: controller.visbbtn,
-                child: Positioned(
-                  bottom: 10,
-                  child: Container(
-                    width: width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: (){
-                            _controller.animateTo( //go to top of scroll
-                                0,  //scroll offset to go
-                                duration: Duration(milliseconds: 500), //duration of scroll
-                                curve:Curves.fastOutSlowIn //scroll type
-                            );
-                            controller.visbbtn = false;
-                            _refresh();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(11, 59, 18, 0.7),
-                              borderRadius: BorderRadius.circular(8)
-                            ),
-                            child: Icon(Icons.keyboard_arrow_up_rounded,color: Colors.white,),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    )
+                  ],
                 ),
-              )
+              ),
             ],
           ),
 
