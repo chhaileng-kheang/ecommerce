@@ -6,6 +6,7 @@ import 'package:ecomerce/mobile.dart';
 import 'package:ecomerce/classobject/object.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
@@ -86,38 +87,56 @@ class _homepageState extends State<homepage> {
                   child: RefreshIndicator(
                     onRefresh: _refresh,
                     notificationPredicate: (notification) {
-                      if (notification is ScrollUpdateNotification ) {
+                      if(!kIsWeb){
+                        if (notification is ScrollUpdateNotification ) {
 
-                        if(notification.scrollDelta! > 0 ){
-                          controller.ispush = true;
-                          controller.update();
-                          if(_controller.position.pixels >=1000){
-                            controller.visbbtn = true;
+                          if(notification.scrollDelta! > 0 ){
+                            controller.ispush = true;
+                            controller.update();
+                            if(_controller.position.pixels >=1000){
+                              controller.visbbtn = true;
 
+                            }else{
+                              controller.visbbtn = false;
+
+                            }
                           }else{
-                            controller.visbbtn = false;
+                            if(_controller.position.pixels < 1000){
+                              controller.visbbtn = false;
 
+
+                            }
+                            controller.update();
                           }
-                        }else{
-                          if(_controller.position.pixels < 1000){
-                            controller.visbbtn = false;
 
-
-                          }
-                          controller.update();
+                          return true;
                         }
+                        else {
+                          if(_controller.offset == _controller.position.maxScrollExtent){
+                            if(controller.Product.length > 100){
+                              controller.Product.removeRange(0,30);
+                              controller.visbbtn = false;
+                              controller.ispush = true;
+                              controller.update();
+                            }
+                          }
 
-                        return true;
-                      } else {
-                        if(_controller.offset == _controller.position.maxScrollExtent){
-                          if(controller.Product.length > 100){
-                            controller.Product.removeRange(0,30);
+                          return false;
+                        }
+                      }else{
+                        if (notification is ScrollUpdateNotification ) {
+
+                          return true;
+                        } else {
+                          if(_controller.offset == _controller.position.maxScrollExtent){
+                            if(controller.Product.length > 100){
+                              controller.Product.removeRange(0,50);
+                            }
                             controller.ispush = true;
                             controller.update();
                           }
+                          return false;
                         }
-
-                        return false;
                       }
 
                     },
@@ -125,10 +144,82 @@ class _homepageState extends State<homepage> {
                       controller: _controller,
                       child: Column(
                         children: [
-                          storepath(width, context),
+                          !kIsWeb ? storepath(width, context) : Container(
+                            width: width, padding: EdgeInsets.only(left: width*0.05,right: width*0.05),
+                            child: Container(
+                              margin: EdgeInsets.only(top: 10),
+                              height: 60,
+                              width: width*0.9,
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8)
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      width: width*0.8,
+                                      child: Text("Download the application from Play Store or App Store for the full immersive experience",maxLines: 3,))
+                                ],
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 8,),
-                          check == "1" || check == "2" || check == "3" ? RegisterMerchant(width, context) : SizedBox(height: 0,),
+                          check == "1" || check == "2" || check == "3" || check == "4" || check == "5" ? RegisterMerchant(width, context) : SizedBox(height: 0,),
                           SizedBox(height: 5,),
+                          !kIsWeb ?     Container(
+                            width: width*0.9,
+                            margin: EdgeInsets.only(bottom: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: width*0.60,
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.white
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Post Product...", style: GoogleFonts.montserrat(
+                                        textStyle: const TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  margin: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.white
+                                  ),
+                                  child: Icon(Icons.workspace_premium_sharp,color: Colors.black,),
+                                ),
+                                Container(
+                                  width: 40,
+                                  height: 40,
+                                  margin: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.white
+                                  ),
+                                  child: Icon(Icons.delivery_dining),
+                                )
+                              ],
+                            ),
+                          ) : SizedBox(height: 0,),
+
                           BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
                           SizedBox(
                             width: width * 0.9,
@@ -210,13 +301,14 @@ class _homepageState extends State<homepage> {
                           StreamBuilder<List<ProductObj>>(stream: controller.productsStream(), builder: (context, snapshot) {
                             return  bodyGid(width, context, Grid,false,false,controller.Product);
                           },),
+                          !kIsWeb ?
                           Container(
                             margin: EdgeInsets.only(top: 10,bottom: 10),
                             height: 60,
                             width: width*0.9,
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8)
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8)
                             ),
                             child: Shimmer.fromColors(
                               highlightColor: Colors.white,
@@ -247,7 +339,21 @@ class _homepageState extends State<homepage> {
                               ),
                             ),
 
-                          )
+                          ) : Container(
+                            margin: EdgeInsets.only(top: 10,bottom: 10),
+                            height: 60,
+                            width: width*0.9,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Loading...")
+                                    ],
+                                  ),
+                                )
                         ],
                       ),
                     )
@@ -638,30 +744,29 @@ class _homepageState extends State<homepage> {
       padding: EdgeInsets.only(top: 20, bottom: 20),
       color: Colors.white,
       width: width,
-      child: SingleChildScrollView(
+      height: 110,
+      child: ListView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            SizedBox(width: 20,),
-            store(
-                "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://images.unsplash.com/photo-1564510715156-793609f9e8b5?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://plus.unsplash.com/premium_photo-1677451335829-c863209d463b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-            store(
-                "https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+        children: [
+          SizedBox(width: 20,),
+          store(
+              "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://images.unsplash.com/photo-1564510715156-793609f9e8b5?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1677451335829-c863209d463b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
 
-          ],
-        ),
+        ],
       ),
     );
   }

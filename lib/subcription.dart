@@ -1,4 +1,5 @@
 
+import 'package:ecomerce/subscription_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -53,10 +54,10 @@ class subscrption extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  subcriptionCard(width,"Standard","0.00", ['15 Photo','3 Category'] ,"0",true),
-                  subcriptionCard(width,"Premium","12", ['35 Photo','5 Category','Image Description','No Ads Banner'] ,"50",false),
-                  subcriptionCard(width,"Premium Plus","20", ['50 Photo','10 Category','Image Description','No Ads Banner','Sponsor Feed'] ,"50",false),
-                  subcriptionCard(width,"Diamond","30", ['80 Photo','15 Category','Image Description','No Ads Banner','Sponsor Feed','Recommend Feed'] ,"50",false),
+                  subcriptionCard(width,"Standard","0.00", ['15 Photo','3 Category'] ,"0",true,context),
+                  subcriptionCard(width,"Premium","12", ['35 Photo','5 Category','Image Description','No Ads Banner'] ,"50",false,context),
+                  subcriptionCard(width,"Premium Plus","20", ['50 Photo','10 Category','Image Description','No Ads Banner','Sponsor Feed'] ,"50",false,context),
+                  subcriptionCard(width,"Diamond","30", ['80 Photo','15 Category','Image Description','No Ads Banner','Sponsor Feed','Recommend Feed'] ,"50",false,context),
                   SizedBox(height: 50,)
                 ],
               ),
@@ -89,7 +90,7 @@ class subscrption extends StatelessWidget {
     );
   }
 
-  subcriptionCard(double width,String plan_name, String price, List Detail,String discount,bool selected) {
+  subcriptionCard(double width,String plan_name, String price, List Detail,String discount,bool selected,BuildContext context) {
     return Container(
       width: width*0.9,
       margin: EdgeInsets.only(top: 20),
@@ -181,15 +182,20 @@ class subscrption extends StatelessWidget {
           Positioned(
             bottom: 10,right: 10,
             child: GestureDetector(
-              child: Container(
-                padding: EdgeInsets.only(left: 10,right: 10,top: 8,bottom: 8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: selected == true ? Colors.grey : Colors.black,
+              child: GestureDetector(
+                onTap: selected == false ? (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => subscription_detail(),));
+                } : (){},
+                child: Container(
+                  padding: EdgeInsets.only(left: 10,right: 10,top: 8,bottom: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: selected == true ? Colors.grey : Colors.black,
+                  ),
+                  child: selected == true ? Text("currently",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),) : Text("Select",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),
                 ),
-                child: selected == true ? Text("currently",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),) : Text("Select",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),
+                            ),
               ),
-            ),
           )
     )
     ],
