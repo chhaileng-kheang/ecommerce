@@ -49,14 +49,14 @@ class _whitelistState extends State<whitelist> {
     return Container(
       child: Column(
         children: [
-          Header(width),
           Container(
             width: width,
+            padding: EdgeInsets.only(bottom: 15,top: 15),
             margin: EdgeInsets.only(left: width*0.05,top: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Your Whitelist"),
+                Text("Whitelist",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold))),
               ],
             ),
           ),
@@ -78,7 +78,7 @@ class _whitelistState extends State<whitelist> {
                     },
                     background: Container(
                       margin: EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.red), child: Center(child: Text("Remove"),),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.red), child: Center(child: Text("Remove"),),
                     ),
                     child: Container(
                       padding: EdgeInsets.only(bottom: 10,top: 1),
@@ -94,33 +94,6 @@ class _whitelistState extends State<whitelist> {
     );
 
   }
-
-  Header(double width) {
-    return Container(
-        height: 50,
-        margin: const EdgeInsets.only(left: 15,right: 15,top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(width: 40,),
-            Text("App-Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-            InkWell(
-              onTap: (){
-                Get.toNamed("/login");
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: const Image(
-                  image: NetworkImage("https://pics.craiyon.com/2023-10-13/45c8f06467d74d7d8949ddadffc5b2c8.webp",),
-                  height: 40,width: 40,
-                ),
-              ),
-            )
-          ],
-        )
-    );
-  }
-
   favCard(double width, String img, String title, String price) {
     return Container(
       width: width*0.85,
@@ -134,12 +107,12 @@ class _whitelistState extends State<whitelist> {
         )
         ],
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10)
+        borderRadius: BorderRadius.circular(5)
       ),
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10)),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5)),
             child: Image.network("https://images.unsplash.com/photo-1571601035754-5c927f2d7edc?q=80&w=2432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",height: 120,width: 120,fit: BoxFit.cover,),
           ),
           Container(

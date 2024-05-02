@@ -73,6 +73,7 @@ import '../classobject/object.dart';
         child: Stack(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                     borderRadius: const BorderRadius.only(
@@ -80,33 +81,13 @@ import '../classobject/object.dart';
                         topLeft: Radius.circular(5)),
                     child: AspectRatio(
                       aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
-                      child: FadeInImage(
-                        placeholder: AssetImage('asset/aas.png'),
-                        fadeInDuration: Duration(milliseconds: 20),
-                        image: NetworkImage(img),
-                        fadeOutDuration: Duration(milliseconds: 10),
-                        fadeInCurve: Curves.linear,
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.low,
-
-                        imageErrorBuilder: (context,error,StackTrace){
-                          return Container(
-                            width: MediaQuery.sizeOf(context).width,
-                            child: AspectRatio(
-                              aspectRatio: dire == "v" ? 3 / 4 : 4 / 3,
-                              child: Center(
-                                child: Icon(Icons.error),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                      child: FadeInImage.assetNetwork(placeholder: "asset/aas.png", image: img,imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,)
                     )
                 ),
                 Container(
                   padding: const EdgeInsets.all(5),
                   child: Text(title, style: const TextStyle(color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w400,
                       fontSize: 12)),),
                 Container(
                   margin: const EdgeInsets.only(
@@ -171,7 +152,67 @@ import '../classobject/object.dart';
       ),
     );
   }
+store(String img) {
+  return Container(
+    margin: EdgeInsets.only(right: 10),
+    height: 70,
+    width: 70,
+    padding: EdgeInsets.all(2),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(100),
+      color: Colors.black,
+    ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(100),
+      child: FadeInImage(
+        placeholder: AssetImage("asset/aas.png"),
+        image: NetworkImage(img),
+        fit: BoxFit.cover,
+        imageErrorBuilder: (context,error,StackTrace){
+          return Container(
+            width: MediaQuery.sizeOf(context).width,
+            child: Center(
+              child: Icon(Icons.error,color: Colors.white,),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+storepath(double width, BuildContext context) {
+  return Container(
+    padding: EdgeInsets.only(top: 10, bottom: 20),
+    color: Colors.white,
+    width: width,
+    height: 100,
+    child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          SizedBox(width: 20,),
+          store(
+              "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://images.unsplash.com/photo-1564510715156-793609f9e8b5?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://images.unsplash.com/photo-1565958011703-44f9829ba187?q=80&w=2565&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2580&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1677451335829-c863209d463b?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          store(
+              "https://plus.unsplash.com/premium_photo-1684407617236-c60dc693293a?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
 
+        ],
+      ),
+    ),
+  );
+}
   Contact(double width, context) {
   return Container(
     margin: EdgeInsets.only(top: 5),
