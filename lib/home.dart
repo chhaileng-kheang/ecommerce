@@ -76,51 +76,53 @@ class homePaage extends StatelessWidget {
                          Container(
                            width: MediaQuery.sizeOf(context).width,
                            height: MediaQuery.sizeOf(context).height,
-                           child: Center(
-                             child: Container(
-                               width: MediaQuery.sizeOf(context).width*0.9,
-                               child: LiquidPullToRefresh(
-                                 onRefresh: _refresh,
-                                 color: Colors.white,
-                                 height: 100,
-                                 backgroundColor: Colors.black,
-                                 showChildOpacityTransition: false,
-                                 animSpeedFactor: 5,
-                                 springAnimationDurationInMilliseconds: 500,
-                                 child: NotificationListener<ScrollNotification>(
-                                   onNotification: (scrollState){
-                                     if (scrollState is ScrollUpdateNotification) {
-                                       if(!kIsWeb){
-                                       if(controller.Scroll_controller.position.pixels >=2000){
-                                         controller.changeHome();
-                                       }else{
-                                         controller.changeToHome();
-                                       }
-                                       if(scrollState.scrollDelta! > 0 && controller.i >= 1){
-                                         controller.pushdata();
-                                           if(controller.Scroll_controller.offset > 0){
-                                             if(controller.i == 1) {
-                                               controller.ispush = true;
-                                               controller.i++;
-                                             }
-                                           }
-
-                                           if(controller.Scroll_controller.position.pixels == controller.Scroll_controller.position.maxScrollExtent){
-                                           controller.isloadingTrue();
-
-                                           }
-
-                                       }
-                                     } else{
-                                         if(controller.Product.length <=50){
+                           child: LiquidPullToRefresh(
+                             onRefresh: _refresh,
+                             color: Colors.white,
+                             height: 100,
+                             backgroundColor: Colors.black,
+                             showChildOpacityTransition: false,
+                             animSpeedFactor: 5,
+                             springAnimationDurationInMilliseconds: 500,
+                             child: NotificationListener<ScrollNotification>(
+                               onNotification: (scrollState){
+                                 if (scrollState is ScrollUpdateNotification) {
+                                   if(!kIsWeb){
+                                   if(controller.Scroll_controller.position.pixels >=2000){
+                                     controller.changeHome();
+                                   }else{
+                                     controller.changeToHome();
+                                   }
+                                   if(scrollState.scrollDelta! > 0 && controller.i >= 1){
+                                     controller.pushdata();
+                                       if(controller.Scroll_controller.offset > 0){
+                                         if(controller.i == 1) {
                                            controller.ispush = true;
-                                         }else{
-                                           controller.ispush = false;
+                                           controller.i++;
                                          }
                                        }
+
+                                       if(controller.Scroll_controller.position.pixels == controller.Scroll_controller.position.maxScrollExtent){
+                                       controller.isloadingTrue();
+
+                                       }
+
+                                   }
+                                 } else{
+                                     if(controller.Product.length <=55){
+                                       controller.ispush = true;
+                                     }else{
+                                       controller.ispush = false;
+                                       controller.update();
+
                                      }
-                                     return false;
-                                   },
+                                   }
+                                 }
+                                 return false;
+                               },
+                               child: Center(
+                                 child: Container(
+                                   width: width*0.9,
                                    child: ListView(
                                      controller: controller.Scroll_controller,
                                      children: [
@@ -308,43 +310,40 @@ class homePaage extends StatelessWidget {
                                        )
                                            : Container(height: 80)
                                            : Container(
-                                         margin: EdgeInsets.only(top: 10, bottom: 10),
-                                         height: controller.Product.length <= 50 ? 60 : 100,
-                                         width: width * 0.9,
-                                         decoration: BoxDecoration(
-                                           color: Colors.white,
-                                           borderRadius: BorderRadius.circular(8),
-                                         ),
-                                         child: Row(
-                                           mainAxisAlignment: MainAxisAlignment.center,
-                                           children: [
-                                             controller.Product.length <= 50
-                                                 ? Text("Loading...")
-                                                 : Column(
+                                             margin: EdgeInsets.only(top: 10, bottom: 10),
+                                             height: controller.Product.length <= 50 ? 60 : 100,
+                                             width: width * 0.9,
+                                             decoration: BoxDecoration(
+                                               color: Colors.white,
+                                               borderRadius: BorderRadius.circular(8),
+                                                  ), child: Row(
+                                               mainAxisAlignment: MainAxisAlignment.center,
                                                children: [
-                                                 SizedBox(height: 15),
-                                                 Text(
-                                                   "Get APP To Enjoy Full Experience",
-                                                   style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold)),
-                                                 ),
-                                                 Container(
-                                                   margin: EdgeInsets.only(top: 10),
-                                                   padding: EdgeInsets.all(10),
-                                                   decoration: BoxDecoration(
-                                                     color: Colors.green,
-                                                     borderRadius: BorderRadius.circular(10),
-                                                   ),
-                                                   child: Text(
-                                                     "Download Now",
-                                                     style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                                                   ),
+                                                 controller.Product.length < 50 ? Text("Loading...") : Column(
+                                                   children: [
+                                                     SizedBox(height: 15),
+                                                     Text(
+                                                       "Get APP To Enjoy Full Experience",
+                                                       style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold)),
+                                                     ),
+                                                     Container(
+                                                       margin: EdgeInsets.only(top: 10),
+                                                       padding: EdgeInsets.all(10),
+                                                       decoration: BoxDecoration(
+                                                         color: Colors.green,
+                                                         borderRadius: BorderRadius.circular(10),
+                                                       ),
+                                                       child: Text(
+                                                         "Download Now",
+                                                         style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                                                       ),
+                                                     ),
+                                                   ],
                                                  ),
                                                ],
                                              ),
-                                           ],
-                                         ),
-                                       ),
-                                       kIsWeb && controller.Product.length >= 50
+                                           ),
+                                       kIsWeb && controller.Product.length > 50
                                            ? Container(
                                          height: 100,
                                          width: width * 0.9,
@@ -369,10 +368,10 @@ class homePaage extends StatelessWidget {
                                      ],
 
                                    ),
-                                 )
-
+                                 ),
                                ),
-                             ),
+                             )
+
                            ),
                          ),
                        ],
@@ -736,7 +735,7 @@ class ProductController extends GetxController{
   bool visbbtn = false;
   int i = 1;
   double width =0;
-ScrollController Scroll_controller = ScrollController();
+  ScrollController Scroll_controller = ScrollController();
   IconData home = Icons.home;
   StreamSubscription<List<ProductObj>>? subscription;
   final String check = generateRandomCodePars("1234567890", 1);
@@ -746,7 +745,8 @@ ScrollController Scroll_controller = ScrollController();
 
   bool isloading = false;
 
-  void changePage(int index) { currentIndex.value = index;
+  void changePage(int index) {
+    currentIndex.value = index;
   update();
   }
   List<ProductObj> Product = [
@@ -847,6 +847,10 @@ ScrollController Scroll_controller = ScrollController();
     ispush = true;
     return ispush;
   }
+  bool pushdatafalse() {
+    ispush = true;
+    return ispush;
+  }
   void changeHome(){
     if(home == Icons.home) {
       home = Icons.keyboard_double_arrow_up_sharp;
@@ -860,6 +864,18 @@ ScrollController Scroll_controller = ScrollController();
       home_title = "Home";
       update();
     }
+  }
+
+  void goUp() {
+    Scroll_controller
+        .animateTo( //go to top of scroll
+        0, //scroll offset to go
+        duration: Duration(milliseconds: 500),
+        //duration of scroll
+        curve: Curves.fastOutSlowIn //scroll type
+    );
+    changeToHome();
+    update();
   }
 
 }

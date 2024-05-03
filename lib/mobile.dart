@@ -26,55 +26,48 @@ class mobile extends StatelessWidget {
           child: GetBuilder<ProductController>(
             builder: (_) {
               return Scaffold(
-                  bottomNavigationBar: BottomNavigationBar(
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: controller.home == Icons.home ?Icon(controller.home) : Container(height: 28,width: 28,child:  Lottie.asset("asset/Animation - 1714655758814.json",animate: true),),
-                        label: controller.home_title,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.store),
-                        label: 'Store',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.favorite),
-                        label: 'Whitelist',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.person),
-                        label: 'Profile',
-                      ),
-                    ],
-                    currentIndex: controller.currentIndex.value,
-                    unselectedItemColor: Colors.black,
-                    selectedFontSize: 10,
-                    unselectedFontSize: 10,
-                    type: BottomNavigationBarType.fixed,
-                    selectedItemColor: Colors.amber[800],
-                    onTap: (index) {
-                      if (index == 0) {
-                        if(controller.home != Icons.home) {
-                          controller.Scroll_controller
-                              .animateTo( //go to top of scroll
-                              0, //scroll offset to go
-                              duration: Duration(milliseconds: 500),
-                              //duration of scroll
-                              curve: Curves.fastOutSlowIn //scroll type
-                          );
-                          controller.changeToHome();
-                          controller.update();
+                  bottomNavigationBar: Container(
+                    height: 60,
+                    child: BottomNavigationBar(
+                      items: <BottomNavigationBarItem>[
+                        BottomNavigationBarItem(
+                          icon: controller.home == Icons.home ?Icon(controller.home) : Container(margin: EdgeInsets.only(bottom: 10), height: 26,width: 35,child:  Lottie.asset("asset/Animation - 1714655758814.json",animate: true,fit: BoxFit.cover),),
+                          label: controller.home_title,
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.store),
+                          label: 'Store',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.favorite),
+                          label: 'Whitelist',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.person),
+                          label: 'Profile',
+                        ),
+                      ],
+                      currentIndex: controller.currentIndex.value,
+                      unselectedItemColor: Colors.black,
+                      selectedFontSize: 10,
+                      unselectedFontSize: 10,
+                      type: BottomNavigationBarType.fixed,
+                      selectedItemColor: Colors.amber[800],
+                      onTap: (index) {
+                        if (index == 0) {
+                          if(controller.home != Icons.home) {
+                           controller.goUp();
 
+                          }
+                          if(controller.Scroll_controller.position.pixels >=2000){
+                            controller.changeHome();
+                          }
+                        } else{
+                          controller.changeToHome();
                         }
-                        if(controller.Scroll_controller.position.pixels >=2000){
-                          controller.changeHome();
-                          controller.update();
-                        }
-                      } else{
-                        controller.changeToHome();
-                        controller.update();
-                      }
-                      return Get.find<ProductController>().changePage(index);
-                    },
+                        return Get.find<ProductController>().changePage(index);
+                      },
+                    ),
                   ),
                   backgroundColor: Color.fromRGBO(234, 234, 234, 1.0),
                   body: LayoutBuilder(builder: (BuildContext context,
