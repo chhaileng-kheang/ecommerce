@@ -19,12 +19,20 @@ class _VideoItemState extends State<VideoItem> {
     return VisibilityDetector(
         key: Key(widget.videoUrl), // You can use any unique key here
         onVisibilityChanged: (visibilityInfo) {
-          if(visibilityInfo.visibleFraction >0.90) {
+          if(visibilityInfo.visibleFraction >0.8) {
+            if(mounted) {
             setState(() {
-              isVisible = true;
+
+                isVisible = true;
+
             });
-          }else{
-            isVisible = false;
+            }
+          }else if(visibilityInfo.visibleFraction < 0.21){
+            if(mounted) {
+              setState(() {
+                isVisible = false;
+              });
+            }
           }
         },
         child: _buildVideoPlayer()
@@ -32,16 +40,16 @@ class _VideoItemState extends State<VideoItem> {
   }
 
   Widget _buildVideoPlayer() {
-    if(isVisible == true) {
-      print(widget.videoUrl + " is Playing");
-      setState(() {
-        status = "Playing";
-      });
-    } else{
-      print(widget.videoUrl + " is off");
-      setState(() {
-        status = "stop";
-      });
+    if(isVisible == true){
+      if(mounted){
+        setState(() {
+          status = "Playing";
+        });
+      }
+    }else{
+     setState(() {
+       status = "stop";
+     });
     }
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -60,4 +68,20 @@ class _VideoItemState extends State<VideoItem> {
       ),
     );
   }
+}
+class CustomPageViewScrollPhysics extends ScrollPhysics {
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
+      : super(parent: parent);
+
+  @override
+  CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return CustomPageViewScrollPhysics(parent: buildParent(ancestor)!);
+  }
+
+  @override
+  SpringDescription get spring => const SpringDescription(
+    mass: 5,
+    stiffness: 1,
+    damping: 1,
+  );
 }

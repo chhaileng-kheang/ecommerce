@@ -16,7 +16,7 @@ class _videoShortState extends State<videoShort> {
     // TODO: implement initState
     super.initState();
     _pageController = PageController(
-      viewportFraction: 1.0, // Ensures only one item is visible at a time
+      viewportFraction: 0, // Ensures only one item is visible at a time
     );
   }
   @override
@@ -65,6 +65,7 @@ class _videoShortState extends State<videoShort> {
           child: Container(
               height: MediaQuery.sizeOf(context).height,
               child: PageView.builder(
+                physics: CustomPageViewScrollPhysics(),
                 controller: _pageController,
                 itemCount: videoUrl.length,
                 scrollDirection: Axis.vertical,
@@ -79,4 +80,21 @@ class _videoShortState extends State<videoShort> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class CustomPageViewScrollPhysics extends ScrollPhysics {
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
+      : super(parent: parent);
+
+  @override
+  CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return CustomPageViewScrollPhysics(parent: buildParent(ancestor)!);
+  }
+
+  @override
+  SpringDescription get spring => const SpringDescription(
+    mass: 50,
+    stiffness: 100,
+    damping: 0.8,
+  );
 }
