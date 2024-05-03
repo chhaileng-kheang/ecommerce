@@ -19,6 +19,7 @@ class homePaage extends StatelessWidget {
 
    final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
+
    var controller = Get.put(ProductController());
   @override
   Widget build(BuildContext context) {
@@ -50,8 +51,6 @@ class homePaage extends StatelessWidget {
         )
     );
   }
-
-
    mainscreen(double width, BuildContext context, int Grid, ProductController controller) {
 
      return GetBuilder<ProductController>(
@@ -77,238 +76,301 @@ class homePaage extends StatelessWidget {
                          Container(
                            width: MediaQuery.sizeOf(context).width,
                            height: MediaQuery.sizeOf(context).height,
-                           child: LiquidPullToRefresh(
-                             onRefresh: _refresh,
-                             color: Colors.white,
-                             height: 100,
-                             backgroundColor: Colors.black,
-                             showChildOpacityTransition: false,
-                             animSpeedFactor: 5,
-                             springAnimationDurationInMilliseconds: 500,
-                             child: SingleChildScrollView(
-                               controller: controller.Scroll_controller,
-                               child: Column(
-                                 children: [
-                                   SizedBox(height: 8,),
-                                   controller.check == "1" || controller.check == "2" || controller.check == "3"  ? RegisterMerchant(width, context) : SizedBox(height: 0,),
-                                   SizedBox(height: 5,),
-                                   !kIsWeb
-                                       ? Container(
-                                     width: width*0.9,
-                                     margin: EdgeInsets.only(bottom: 10),
-                                     child: Row(
-                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                       children: [
-                                         Container(
-                                           width: width*0.60,
-                                           height: 40,
-                                           padding: EdgeInsets.only(left: 10),
-                                           decoration: BoxDecoration(
-                                               borderRadius: BorderRadius.circular(5),
-                                               color: Colors.white
-                                           ),
-                                           child: Column(
-                                             mainAxisAlignment: MainAxisAlignment.center,
-                                             crossAxisAlignment: CrossAxisAlignment.start,
-                                             children: [
-                                               Text("Post Product...", style: GoogleFonts.montserrat(
-                                                 textStyle: const TextStyle(
-                                                   fontSize: 12,
-                                                   color: Colors.black,
-                                                   fontWeight: FontWeight.w400,
-                                                 ),
-                                               ),),
-                                             ],
-                                           ),
-                                         ),
-                                         Container(
-                                           width: 40,
-                                           height: 40,
-                                           decoration: BoxDecoration(
-                                               borderRadius: BorderRadius.circular(5),
-                                               color: Colors.white
-                                           ),
-                                           child: Icon(Icons.workspace_premium_sharp,color: Colors.black,),
-                                         ),
-                                         Container(
-                                           width: 40,
-                                           height: 40,
-                                           decoration: BoxDecoration(
-                                               borderRadius: BorderRadius.circular(5),
-                                               color: Colors.white
-                                           ),
-                                           child: Icon(Icons.delivery_dining),
-                                         )
-                                       ],
-                                     ),
-                                   ) : SizedBox(height: 0,),
+                           child: Center(
+                             child: Container(
+                               width: MediaQuery.sizeOf(context).width*0.9,
+                               child: LiquidPullToRefresh(
+                                 onRefresh: _refresh,
+                                 color: Colors.white,
+                                 height: 100,
+                                 backgroundColor: Colors.black,
+                                 showChildOpacityTransition: false,
+                                 animSpeedFactor: 5,
+                                 springAnimationDurationInMilliseconds: 500,
+                                 child: NotificationListener<ScrollNotification>(
+                                   onNotification: (scrollState){
+                                     if (scrollState is ScrollUpdateNotification) {
+                                       if(!kIsWeb){
+                                       if(controller.Scroll_controller.position.pixels >=2000){
+                                         controller.changeHome();
+                                       }else{
+                                         controller.changeToHome();
+                                       }
+                                       if(scrollState.scrollDelta! > 0 && controller.i >= 1){
+                                         controller.pushdata();
+                                           if(controller.Scroll_controller.offset > 0){
+                                             if(controller.i == 1) {
+                                               controller.ispush = true;
+                                               controller.i++;
+                                             }
+                                           }
 
-                                   BannerSponsorEx(width,"https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
-                                   SizedBox(
-                                     width: width * 0.9,
-                                     child: Row(
-                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                       children: [
-                                         Container(
-                                             margin: const EdgeInsets.only(top: 12),
-                                             child: Text("Sponsor", style: GoogleFonts
-                                                 .montserrat(
-                                                 fontSize: 16, fontWeight: FontWeight.w400),)),
-                                         Container(
-                                             margin: const EdgeInsets.only(top: 12, right: 10),
-                                             child: Tooltip(
-                                                 showDuration: Duration(seconds: 5),
-                                                 margin: EdgeInsets.only(left: 10, right: 10),
-                                                 triggerMode: TooltipTriggerMode.tap,
-                                                 message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
-                                                 child: Icon(Icons.info_outline))),
+                                           if(controller.Scroll_controller.position.pixels == controller.Scroll_controller.position.maxScrollExtent){
+                                           controller.isloadingTrue();
 
-                                       ],
-                                     ),
-                                   ),
-                                   TrippleSponsor(width, context),
-                                   // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
-                                   Container(
-                                     margin: const EdgeInsets.only(top: 10),
-                                     width: width * 0.9,
-                                     height: 45,
-                                     child: Padding(
-                                       padding: const EdgeInsets.only(left: 10, right: 10),
-                                       child: Row(
-                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                         children: [
-                                           Row(
-                                             children: [
-                                               Text("Show Hidden Price",
-                                                 style: GoogleFonts.montserrat(
-                                                   textStyle: const TextStyle(
-                                                     fontSize: 14,
-                                                   ),
-                                                 ),
-                                               ),
-                                               Container(
-                                                   margin: const EdgeInsets.only(left: 10),
-                                                   child: Tooltip(
-                                                       showDuration: Duration(seconds: 5),
-                                                       margin: EdgeInsets.only(
-                                                           left: 10, right: 10),
-                                                       triggerMode: TooltipTriggerMode.tap,
-                                                       message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
-                                                       child: Icon(Icons.info_outline))),
-                                             ],
-                                           ),
-                                           FlutterSwitch(
-                                             width: 50.0,
-                                             height: 30.0,
-                                             valueFontSize: 25.0,
-                                             toggleSize: 25.0,
-                                             value: controller.status,
-                                             activeColor: Colors.black,
-                                             inactiveColor: Colors.black12,
-                                             inactiveToggleColor: Colors.black,
-                                             activeToggleColor: Colors.white,
-                                             borderRadius: 30.0,
-                                             showOnOff: false,
-                                             onToggle: (val) {
+                                           }
 
-                                               controller.status = val;
-                                               controller.update();
-
-                                             },
-                                           ),
-
-                                         ],
-                                       ),
-                                     ),
-                                   ),
-                                   StreamBuilder<List<ProductObj>>(stream: controller.productsStream(), builder: (context, snapshot) {
-                                     return  bodyGid(width, context, Grid,false,false,controller.Product);
-                                   },),
-                                   !kIsWeb ?
-                                   controller.isloading == true
-                                       ? Container(
-                                     margin: EdgeInsets.only(top: 10,bottom: 10),
-                                     height: 60,
-                                     width: width*0.9,
-                                     decoration: BoxDecoration(
-                                         color: Colors.white,
-                                         borderRadius: BorderRadius.circular(8)
-                                     ),
-                                     child: Shimmer.fromColors(
-                                       highlightColor: Colors.white,
-                                       baseColor: Colors.grey.withOpacity(0.3),
-                                       child: Container(
-                                         margin: EdgeInsets.only(left: 20,right: 20),
+                                       }
+                                     } else{
+                                         if(controller.Product.length <=50){
+                                           controller.ispush = true;
+                                         }else{
+                                           controller.ispush = false;
+                                         }
+                                       }
+                                     }
+                                     return false;
+                                   },
+                                   child: ListView(
+                                     controller: controller.Scroll_controller,
+                                     children: [
+                                       SizedBox(height: 8),
+                                       controller.check == "1" || controller.check == "2" || controller.check == "3"
+                                           ? RegisterMerchant(width, context)
+                                           : SizedBox(height: 0),
+                                       SizedBox(height: 5),
+                                       !kIsWeb
+                                           ? Container(
+                                         width: width * 0.9,
+                                         margin: EdgeInsets.only(bottom: 10),
                                          child: Row(
                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                            children: [
                                              Container(
-                                               width: width*0.30,
-                                               height: 20,
+                                               width: width * 0.60,
+                                               height: 40,
+                                               padding: EdgeInsets.only(left: 10),
                                                decoration: BoxDecoration(
-                                                 color: Colors.grey,
-                                                 borderRadius: BorderRadius.circular(100),
+                                                 borderRadius: BorderRadius.circular(5),
+                                                 color: Colors.white,
+                                               ),
+                                               child: Column(
+                                                 mainAxisAlignment: MainAxisAlignment.center,
+                                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                 children: [
+                                                   Text(
+                                                     "Post Product...",
+                                                     style: GoogleFonts.montserrat(
+                                                       textStyle: const TextStyle(
+                                                         fontSize: 12,
+                                                         color: Colors.black,
+                                                         fontWeight: FontWeight.w400,
+                                                       ),
+                                                     ),
+                                                   ),
+                                                 ],
                                                ),
                                              ),
                                              Container(
-                                               width: width*0.30,
-                                               height: 20,
+                                               width: 40,
+                                               height: 40,
                                                decoration: BoxDecoration(
-                                                 color: Colors.grey,
-                                                 borderRadius: BorderRadius.circular(100),
+                                                 borderRadius: BorderRadius.circular(5),
+                                                 color: Colors.white,
+                                               ),
+                                               child: Icon(Icons.workspace_premium_sharp, color: Colors.black),
+                                             ),
+                                             Container(
+                                               width: 40,
+                                               height: 40,
+                                               decoration: BoxDecoration(
+                                                 borderRadius: BorderRadius.circular(5),
+                                                 color: Colors.white,
+                                               ),
+                                               child: Icon(Icons.delivery_dining),
+                                             ),
+                                           ],
+                                         ),
+                                       )
+                                           : SizedBox(height: 0),
+                                       BannerSponsorEx(width, "https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
+                                       SizedBox(
+                                         width: width * 0.9,
+                                         child: Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                           children: [
+                                             Container(
+                                               margin: const EdgeInsets.only(top: 12),
+                                               child: Text(
+                                                 "Sponsor",
+                                                 style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w400),
+                                               ),
+                                             ),
+                                             Container(
+                                               margin: const EdgeInsets.only(top: 12, right: 10),
+                                               child: Tooltip(
+                                                 showDuration: Duration(seconds: 5),
+                                                 margin: EdgeInsets.only(left: 10, right: 10),
+                                                 triggerMode: TooltipTriggerMode.tap,
+                                                 message: "មានតែសមាជិក Premium Plus ប៉ុណ្ណោះ ដែលលោតផលិតផល នៅលើ Sponsor",
+                                                 child: Icon(Icons.info_outline),
                                                ),
                                              ),
                                            ],
                                          ),
                                        ),
-                                     ),
-
-                                   )
-                                       : Container(height: 80,)
-                                       : Container(
-                                     margin: EdgeInsets.only(top: 10,bottom: 10),
-                                     height: controller.Product.length <=50 ? 60 : 100,
-                                     width: width*0.9,
-                                     decoration: BoxDecoration(
-                                         color: Colors.white,
-                                         borderRadius: BorderRadius.circular(8)
-                                     ),
-                                     child: Row(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-                                       children: [
-                                         controller.Product.length <=50 ? Text("Loading...") :
-                                         Column(
-                                           children: [
-                                             SizedBox(height: 15,),
-                                             Text("Get APP To Enjoy Full Experience",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold)),),
-                                             Container(
-                                                 margin: EdgeInsets.only(top: 10),
-                                                 padding: EdgeInsets.all(10),
-                                                 decoration: BoxDecoration(
-                                                     color: Colors.green,
-                                                     borderRadius: BorderRadius.circular(10)
+                                       TrippleSponsor(width, context),
+                                       // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
+                                       Container(
+                                         margin: const EdgeInsets.only(top: 10),
+                                         width: width * 0.9,
+                                         height: 45,
+                                         child: Padding(
+                                           padding: const EdgeInsets.only(left: 10, right: 10),
+                                           child: Row(
+                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                             children: [
+                                               Row(
+                                                 children: [
+                                                   Text(
+                                                     "Show Hidden Price",
+                                                     style: GoogleFonts.montserrat(
+                                                       textStyle: const TextStyle(fontSize: 14),
+                                                     ),
+                                                   ),
+                                                   Container(
+                                                     margin: const EdgeInsets.only(left: 10),
+                                                     child: Tooltip(
+                                                       showDuration: Duration(seconds: 5),
+                                                       margin: EdgeInsets.only(left: 10, right: 10),
+                                                       triggerMode: TooltipTriggerMode.tap,
+                                                       message: "ប្រើសម្រាប់ បើកឬបិទ ផលិតផលដែលមិនបង្អាញតម្លៃ",
+                                                       child: Icon(Icons.info_outline),
+                                                     ),
+                                                   ),
+                                                 ],
+                                               ),
+                                               FlutterSwitch(
+                                                 width: 50.0,
+                                                 height: 30.0,
+                                                 valueFontSize: 25.0,
+                                                 toggleSize: 25.0,
+                                                 value: controller.status,
+                                                 activeColor: Colors.black,
+                                                 inactiveColor: Colors.black12,
+                                                 inactiveToggleColor: Colors.black,
+                                                 activeToggleColor: Colors.white,
+                                                 borderRadius: 30.0,
+                                                 showOnOff: false,
+                                                 onToggle: (val) {
+                                                   controller.status = val;
+                                                   controller.update();
+                                                 },
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       ),
+                                       StreamBuilder<List<ProductObj>>(
+                                         stream: controller.productsStream(),
+                                         builder: (context, snapshot) {
+                                           return bodyGid(width, context, Grid, false, false, controller.Product);
+                                         },
+                                       ),
+                                       !kIsWeb
+                                           ? controller.isloading == true
+                                           ? Container(
+                                         margin: EdgeInsets.only(top: 10, bottom: 10),
+                                         height: 60,
+                                         width: width * 0.9,
+                                         decoration: BoxDecoration(
+                                           color: Colors.white,
+                                           borderRadius: BorderRadius.circular(8),
+                                         ),
+                                         child: Shimmer.fromColors(
+                                           highlightColor: Colors.white,
+                                           baseColor: Colors.grey.withOpacity(0.3),
+                                           child: Container(
+                                             margin: EdgeInsets.only(left: 20, right: 20),
+                                             child: Row(
+                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                               children: [
+                                                 Container(
+                                                   width: width * 0.30,
+                                                   height: 20,
+                                                   decoration: BoxDecoration(
+                                                     color: Colors.grey,
+                                                     borderRadius: BorderRadius.circular(100),
+                                                   ),
                                                  ),
-                                                 child: Text("Download Now",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold,color: Colors.white)))),
+                                                 Container(
+                                                   width: width * 0.30,
+                                                   height: 20,
+                                                   decoration: BoxDecoration(
+                                                     color: Colors.grey,
+                                                     borderRadius: BorderRadius.circular(100),
+                                                   ),
+                                                 ),
+                                               ],
+                                             ),
+                                           ),
+                                         ),
+                                       )
+                                           : Container(height: 80)
+                                           : Container(
+                                         margin: EdgeInsets.only(top: 10, bottom: 10),
+                                         height: controller.Product.length <= 50 ? 60 : 100,
+                                         width: width * 0.9,
+                                         decoration: BoxDecoration(
+                                           color: Colors.white,
+                                           borderRadius: BorderRadius.circular(8),
+                                         ),
+                                         child: Row(
+                                           mainAxisAlignment: MainAxisAlignment.center,
+                                           children: [
+                                             controller.Product.length <= 50
+                                                 ? Text("Loading...")
+                                                 : Column(
+                                               children: [
+                                                 SizedBox(height: 15),
+                                                 Text(
+                                                   "Get APP To Enjoy Full Experience",
+                                                   style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold)),
+                                                 ),
+                                                 Container(
+                                                   margin: EdgeInsets.only(top: 10),
+                                                   padding: EdgeInsets.all(10),
+                                                   decoration: BoxDecoration(
+                                                     color: Colors.green,
+                                                     borderRadius: BorderRadius.circular(10),
+                                                   ),
+                                                   child: Text(
+                                                     "Download Now",
+                                                     style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                                                   ),
+                                                 ),
+                                               ],
+                                             ),
                                            ],
-                                         )
-                                       ],
-                                     ),
+                                         ),
+                                       ),
+                                       kIsWeb && controller.Product.length >= 50
+                                           ? Container(
+                                         height: 100,
+                                         width: width * 0.9,
+                                         child: Center(
+                                           child: Column(
+                                             children: [
+                                               Text(
+                                                 "- See More Massive Products In Mobile Application -",
+                                                 style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black)),
+                                               ),
+                                               SizedBox(height: 10),
+                                               Text(
+                                                 "- Available : Play Store | App Store -",
+                                                 style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       )
+                                           : SizedBox(height: 0),
+
+                                     ],
+
                                    ),
+                                 )
 
-                                   kIsWeb && controller.Product.length >=50
-                                       ? Container(height: 100,width: width*0.9,
-                                     child: Center(child: Column(
-                                       children: [
-                                         Text("- See More Massive Products In Mobile Application -",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11,fontWeight: FontWeight.w400,color: Colors.black))),
-                                         SizedBox(height: 10,),
-                                         Text("- Available : Play Store | App Store -",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Colors.black))),
-
-                                       ],
-                                     )),
-
-                                   )
-                                       : SizedBox(height: 0,)
-                                 ],
                                ),
                              ),
                            ),
@@ -674,6 +736,7 @@ class ProductController extends GetxController{
   bool visbbtn = false;
   int i = 1;
   double width =0;
+ScrollController Scroll_controller = ScrollController();
   IconData home = Icons.home;
   StreamSubscription<List<ProductObj>>? subscription;
   final String check = generateRandomCodePars("1234567890", 1);
@@ -701,43 +764,13 @@ class ProductController extends GetxController{
     ProductObj(product_title: "product F", id: "id", img:"https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?q=80&w=2650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", price: "69", category: "category", discount: "0", disbool: "disbool",derection: "h"),
 
   ];
-  ScrollController Scroll_controller = ScrollController();
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     startProductsStream();
-    Scroll_controller.addListener(() {
-      if(!kIsWeb){
-        if(Scroll_controller.offset > 0){
-          if(i == 1) {
-            ispush = true;
-            i++;
-          }
-        }
-        if(Scroll_controller.position.pixels >=1000 ){
-          home = Icons.keyboard_double_arrow_up_outlined;
-          home_title = "Top";
-        }else  if(Scroll_controller.position.pixels < 1000){
-          home = Icons.home;
-          home_title = "Home";
-        }
-        if(Scroll_controller.position.pixels == Scroll_controller.position.maxScrollExtent){
-          isloading = true;
-          if(Product.length>=100){
-            Product.removeRange(0, 20);
-          }
 
-        }
-      }else{
-        if(Product.length <=50){
-          ispush = true;
-        }else{
-          ispush = false;
-        }
-      }
-      update();
-    });
   }
   @override
   void onClose() {
@@ -796,7 +829,6 @@ class ProductController extends GetxController{
         i = 1;
         isloading = false;
       }
-      update();
 
     });
   }
@@ -804,6 +836,29 @@ class ProductController extends GetxController{
     while (true) {
       await Future.delayed(Duration(milliseconds: 1500));
       yield Product;
+    }
+  }
+  bool isloadingTrue(){
+    isloading = true;
+    update();
+    return isloading;
+  }
+  bool pushdata() {
+    ispush = true;
+    return ispush;
+  }
+  void changeHome(){
+    if(home == Icons.home) {
+      home = Icons.keyboard_double_arrow_up_sharp;
+      home_title = "Top";
+      update();
+    }
+  }
+  void changeToHome(){
+    if(home == Icons.keyboard_double_arrow_up_sharp) {
+      home = Icons.home;
+      home_title = "Home";
+      update();
     }
   }
 

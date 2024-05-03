@@ -29,7 +29,7 @@ class mobile extends StatelessWidget {
                   bottomNavigationBar: BottomNavigationBar(
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
-                        icon: controller.home == Icons.home ?Icon(controller.home) : Container(height: 28,width: 28,child:  Lottie.asset("asset/Animation - 1714655758814.json",animate: false),),
+                        icon: controller.home == Icons.home ?Icon(controller.home) : Container(height: 28,width: 28,child:  Lottie.asset("asset/Animation - 1714655758814.json",animate: true),),
                         label: controller.home_title,
                       ),
                       BottomNavigationBarItem(
@@ -53,12 +53,7 @@ class mobile extends StatelessWidget {
                     selectedItemColor: Colors.amber[800],
                     onTap: (index) {
                       if (index == 0) {
-                        if (controller.home == Icons.home) {
-                          if (controller.Scroll_controller.position.pixels >= 1000) {
-                            controller.home = Icons.keyboard_double_arrow_up_outlined;
-                            controller.home_title = "Top";
-                          }
-                        } else {
+                        if(controller.home != Icons.home) {
                           controller.Scroll_controller
                               .animateTo( //go to top of scroll
                               0, //scroll offset to go
@@ -66,12 +61,17 @@ class mobile extends StatelessWidget {
                               //duration of scroll
                               curve: Curves.fastOutSlowIn //scroll type
                           );
-                          controller.home_title = "Home";
+                          controller.changeToHome();
+                          controller.update();
+
+                        }
+                        if(controller.Scroll_controller.position.pixels >=2000){
+                          controller.changeHome();
                           controller.update();
                         }
-                      } else {
-                        controller.home = Icons.home;
-                        controller.home_title = "Home";
+                      } else{
+                        controller.changeToHome();
+                        controller.update();
                       }
                       return Get.find<ProductController>().changePage(index);
                     },
