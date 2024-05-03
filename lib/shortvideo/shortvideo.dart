@@ -16,44 +16,36 @@ class _videoShortState extends State<videoShort> {
     // TODO: implement initState
     super.initState();
     _pageController = PageController(
-      viewportFraction: 0, // Ensures only one item is visible at a time
+      viewportFraction: 1, // Ensures only one item is visible at a time
     );
   }
   @override
   Widget build(BuildContext context) {
     double width;
 
-    return SafeArea(
-        child: AnnotatedRegion(
-          value: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light,
-          ),
-          child: Scaffold(
-              backgroundColor: Colors.white,
-              body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
-                if(constraints.maxWidth < 800){
-                  width = MediaQuery.sizeOf(context).width;
-                  if(constraints.maxWidth<350) {
-                    return mainscreen(width, context, 1);
-                  }else{
-                    return mainscreen(width, context, 2);
-                  }
-                }else{
-                  width = 800;
-                  return Center(
-                    child: Container(
-                      color: const Color.fromRGBO(255, 255, 255, 1.0),
-                      width: MediaQuery.sizeOf(context).width,
-                      child: mainscreen(width, context,3),
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
+          if(constraints.maxWidth < 800){
+            width = MediaQuery.sizeOf(context).width;
+            if(constraints.maxWidth<350) {
+              return mainscreen(width, context, 1);
+            }else{
+              return mainscreen(width, context, 2);
+            }
+          }else{
+            width = 800;
+            return Center(
+              child: Container(
+                color: const Color.fromRGBO(255, 255, 255, 1.0),
+                width: MediaQuery.sizeOf(context).width,
+                child: mainscreen(width, context,3),
 
-                    ),
+              ),
 
-                  );
-                }
-              }
-              )
-          ),
+            );
+          }
+        }
         )
     );
 

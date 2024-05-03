@@ -19,7 +19,7 @@ class _VideoItemState extends State<VideoItem> {
     return VisibilityDetector(
         key: Key(widget.videoUrl), // You can use any unique key here
         onVisibilityChanged: (visibilityInfo) {
-          if(visibilityInfo.visibleFraction >0.8) {
+          if(visibilityInfo.visibleFraction >0.95) {
             if(mounted) {
             setState(() {
 
@@ -27,7 +27,7 @@ class _VideoItemState extends State<VideoItem> {
 
             });
             }
-          }else if(visibilityInfo.visibleFraction < 0.21){
+          }else if(visibilityInfo.visibleFraction < 0.05){
             if(mounted) {
               setState(() {
                 isVisible = false;
