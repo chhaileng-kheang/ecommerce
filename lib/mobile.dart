@@ -1,4 +1,5 @@
 import 'package:ecomerce/merchanttab.dart';
+import 'package:ecomerce/shortvideo/shortvideo.dart';
 import 'package:ecomerce/storelist.dart';
 import 'package:ecomerce/whitelist.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,6 +38,10 @@ class mobile extends StatelessWidget {
                         BottomNavigationBarItem(
                           icon: Icon(Icons.store),
                           label: 'Store',
+                        ),
+                        BottomNavigationBarItem(
+                          icon: Icon(Icons.live_tv_outlined),
+                          label: 'Short',
                         ),
                         BottomNavigationBarItem(
                           icon: Icon(Icons.favorite),
@@ -84,6 +89,7 @@ class mobile extends StatelessWidget {
                         children: [
                           homePaage(controller: controller),
                           storeList(),
+                          videoShort(),
                           whitelist(),
                           merchantTab(),
 
@@ -105,6 +111,7 @@ class mobile extends StatelessWidget {
                               children: [
                                 homePaage(controller: controller),
                                 storeList(),
+                                videoShort(),
                                 whitelist(),
                                 merchantTab(),
                               ],
