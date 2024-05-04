@@ -9,22 +9,29 @@ class videoShort extends StatefulWidget {
 }
 
 class _videoShortState extends State<videoShort> {
-  List<String> videoUrl = ['Video 1', 'Video 2', 'Video 3','Video 4', 'Video 5', 'Video 6'];
+  List<String> videoUrl = [
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'];
   late PageController _pageController;
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     _pageController = PageController(
       viewportFraction: 1, // Ensures only one item is visible at a time
     );
   }
+
   @override
   Widget build(BuildContext context) {
     double width;
-
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
           if(constraints.maxWidth < 800){
             width = MediaQuery.sizeOf(context).width;
@@ -56,13 +63,14 @@ class _videoShortState extends State<videoShort> {
       body: Center(
           child: Container(
               height: MediaQuery.sizeOf(context).height,
+              color: Colors.black,
               child: PageView.builder(
                 physics: CustomPageViewScrollPhysics(),
                 controller: _pageController,
                 itemCount: videoUrl.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => Container(
-                    color: index % 2 == 0 ? Colors.blueGrey : Colors.grey,
+                    color: Colors.black,
                     child: AspectRatio(
                         aspectRatio: 9/16,
                         child: VideoItem(videoUrl: videoUrl[index]))

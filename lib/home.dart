@@ -733,6 +733,8 @@ class ProductController extends GetxController{
   bool status = false;
   bool ispush = true;
   bool visbbtn = false;
+  Brightness brightness = Brightness.dark;
+  Color navBG = Colors.white;
   int i = 1;
   double width =0;
   ScrollController Scroll_controller = ScrollController();
