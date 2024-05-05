@@ -10,12 +10,14 @@ class videoShort extends StatefulWidget {
 
 class _videoShortState extends State<videoShort> {
   List<String> videoUrl = [
-    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+    'https://static.vecteezy.com/system/resources/previews/035/502/391/a-woman-s-hand-is-using-a-spoon-to-stir-things-into-a-drink-glass-free-video.webm',
+    'https://videos.pexels.com/video-files/7219299/7219299-hd_1080_1920_24fps.mp4',
     'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
-    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
-    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'];
+    'https://static.vecteezy.com/system/resources/previews/022/517/055/mp4/vr-headset-and-controllers-under-neon-light-vertical-3d-animation-video.mp4',
+    'https://videos.pexels.com/video-files/7198553/7198553-uhd_2160_3840_25fps.mp4',
+    'https://videos.pexels.com/video-files/4380323/4380323-hd_1080_1920_30fps.mp4',
+    'https://videos.pexels.com/video-files/5741115/5741115-uhd_2160_4096_25fps.mp4'
+  ];
   late PageController _pageController;
   @override
   void initState() {
@@ -71,9 +73,7 @@ class _videoShortState extends State<videoShort> {
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => Container(
                     color: Colors.black,
-                    child: AspectRatio(
-                        aspectRatio: 9/16,
-                        child: VideoItem(videoUrl: videoUrl[index]))
+                    child: VideoItem(videoUrl: videoUrl[index],width : width)
                 ),
               )
           )

@@ -27,9 +27,12 @@ class BasicOverlayWidget extends StatelessWidget {
     ),
   );
 
-  Widget buildIndicator() => VideoProgressIndicator(
-    controller,
-    allowScrubbing: true,
+  Widget buildIndicator() => Container(
+    height: 8,
+    child: VideoProgressIndicator(
+      controller,
+      allowScrubbing: true,
+    ),
   );
 
   Widget buildPlay() => controller.value.isPlaying
