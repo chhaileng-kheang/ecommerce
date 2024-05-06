@@ -1,6 +1,8 @@
 import 'package:ecomerce/shortvideo/videoItem.dart';
+import 'package:ecomerce/shortvideo/videoManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:video_player/video_player.dart';
 class videoShort extends StatefulWidget {
   const videoShort({super.key});
 
@@ -9,6 +11,7 @@ class videoShort extends StatefulWidget {
 }
 
 class _videoShortState extends State<videoShort> {
+  VideoManager videoManager = VideoManager(preloadCount: 5);
   List<String> videoUrl = [
     'https://static.vecteezy.com/system/resources/previews/035/502/391/a-woman-s-hand-is-using-a-spoon-to-stir-things-into-a-drink-glass-free-video.webm',
     'https://videos.pexels.com/video-files/7219299/7219299-hd_1080_1920_24fps.mp4',
@@ -19,16 +22,23 @@ class _videoShortState extends State<videoShort> {
     'https://videos.pexels.com/video-files/5741115/5741115-uhd_2160_4096_25fps.mp4'
   ];
   late PageController _pageController;
+  List<VideoPlayerController> _controllers = [];
+  late VideoPlayerController videoController;
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
-    _pageController = PageController(
-      viewportFraction: 1, // Ensures only one item is visible at a time
-    );
+    _pageController = PageController(viewportFraction: 1);
+    for(int i = 0 ; i< videoUrl.length; i++) {
+      _controllers.add(videoManager.getController(i, videoUrl)!);
+    }
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     double width;
@@ -69,11 +79,11 @@ class _videoShortState extends State<videoShort> {
               child: PageView.builder(
                 physics: CustomPageViewScrollPhysics(),
                 controller: _pageController,
-                itemCount: videoUrl.length,
+                itemCount: _controllers.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) => Container(
                     color: Colors.black,
-                    child: VideoItem(videoUrl: videoUrl[index],width : width)
+                    child: VideoItem(videoUrl: videoUrl[index],width : width,index: index,videoUrls: videoUrl,videoManager: videoManager,controllerVId : _controllers[index])
                 ),
               )
           )

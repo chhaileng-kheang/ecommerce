@@ -1,4 +1,5 @@
 import 'package:ecomerce/shortvideo/overlay.dart';
+import 'package:ecomerce/shortvideo/videoManager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -10,7 +11,11 @@ import 'package:visibility_detector/visibility_detector.dart';
 class VideoItem extends StatefulWidget {
   final String videoUrl;
   final double width;
-  const VideoItem({super.key, required this.videoUrl, required this.width});
+  final int index;
+  final VideoManager videoManager;
+  final List<String> videoUrls;
+  final VideoPlayerController controllerVId;
+  const VideoItem({super.key, required this.videoUrl, required this.width, required this.index, required this.videoManager, required this.videoUrls, required this.controllerVId});
 
   @override
   _VideoItemState createState() => _VideoItemState();
@@ -20,7 +25,6 @@ class _VideoItemState extends State<VideoItem> {
   bool isVisible = false;
   bool isVisiblePro = true;
   String status = "";
-  late VideoPlayerController _controller;
 
   bool pause = true;
   bool clickPause = false;
@@ -28,43 +32,34 @@ class _VideoItemState extends State<VideoItem> {
   void initState() {
     // TODO: implement initState
     super.initState();
-     _controller = VideoPlayerController.networkUrl(
-        Uri.parse(widget.videoUrl));
-    _controller.addListener(() {
-      setState(() {
-        _controller.value.isBuffering ? isVisiblePro = true : isVisiblePro = false;
-      });
+    widget.controllerVId.addListener(() {
     });
-    _controller.setLooping(true);
-    _controller.initialize();
-    _controller.play();
+    widget.controllerVId.setLooping(true);
+
   }
   @override
   void dispose() {
-    // TODO: implement dispose
-    _controller.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
+    widget.videoManager.preloadVideos(widget.index, widget.videoUrls);
     return VisibilityDetector(
         key: Key(widget.videoUrl), // You can use any unique key here
         onVisibilityChanged: (visibilityInfo) {
           if(visibilityInfo.visibleFraction >0.92) {
             if(mounted) {
-            setState(() {
-              if(_controller.value.isBuffering){
-                isVisiblePro = false;
-              }else{
-                isVisiblePro = true;
-              }
+              setState(() {
                 isVisible = true;
-            });
+                widget.controllerVId.play();
+              });
             }
           }else if(visibilityInfo.visibleFraction < 0.08){
             if(mounted) {
               setState(() {
                 isVisible = false;
+                widget.controllerVId.pause();
+                widget.controllerVId.seekTo(Duration.zero);
               });
             }
           }
@@ -75,48 +70,29 @@ class _VideoItemState extends State<VideoItem> {
   }
 
   Widget _buildVideoPlayer(double width) {
-    if(isVisible == true){
-      if(mounted){
-        setState(() {
-          status = "Playing";
-          if(pause == true) {
-            _controller.play();
-          pause = false;
-          }
-        });
-      }
-    }else {
-      if (mounted) {
-        setState(() {
-          status = "stop";
-          _controller.pause();
-        });
-      }
-    }
-
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.sizeOf(context).height,
       child: Stack(
         children: [
           Center(
-            child: _controller.value.isInitialized
+            child: widget.controllerVId.value.isInitialized
                 ? GestureDetector(
               onTap: (){
                 setState(() {
                   if (clickPause == true) {
-                    _controller.play();
+                    widget.controllerVId.play();
                     clickPause = false;
                   } else {
-                    _controller.pause();
+                    widget.controllerVId.pause();
                     clickPause = true;
                   }
                 });
               },
               child: AspectRatio(
-                                aspectRatio: _controller.value.aspectRatio,
-                                child: VideoPlayer(_controller),
-                              ),
+                aspectRatio: widget.controllerVId.value.aspectRatio,
+                child: VideoPlayer(widget.controllerVId),
+              ),
                 ) : Container(),
           ),
           clickPause
@@ -129,7 +105,7 @@ class _VideoItemState extends State<VideoItem> {
                 child: Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.sizeOf(context).width,
-                    child: BasicOverlayWidget(controller: _controller)),
+                    child: BasicOverlayWidget(controller: widget.controllerVId)),
               )),
           Positioned(
             bottom: 20,
@@ -167,7 +143,7 @@ class _VideoItemState extends State<VideoItem> {
           ),
           Positioned(
             right: 15,
-            bottom: MediaQuery.sizeOf(context).height*0.35,
+            bottom: 200,
             child: Container(
               child: Column(
                 children: [
@@ -184,7 +160,11 @@ class _VideoItemState extends State<VideoItem> {
                     ),
                   ),
                   SizedBox(height: 15,),
-                  Icon(Icons.favorite_outline_rounded,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 42,)
+                  Icon(Icons.favorite_outline_rounded,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 42,),
+                  SizedBox(height: 15,),
+                  Transform.scale(
+                      scaleX: -1,
+                      child: Icon(Icons.reply,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 42,))
                 ],
               ),
             ),
@@ -194,24 +174,8 @@ class _VideoItemState extends State<VideoItem> {
     );
   }
   Widget buildIndicator() => VideoProgressIndicator(
-    _controller,
+    widget.controllerVId,
     allowScrubbing: true,
-  );
-}
-class CustomPageViewScrollPhysics extends ScrollPhysics {
-  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
-      : super(parent: parent);
-
-  @override
-  CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return CustomPageViewScrollPhysics(parent: buildParent(ancestor)!);
-  }
-
-  @override
-  SpringDescription get spring => const SpringDescription(
-    mass: 5,
-    stiffness: 1,
-    damping: 1,
   );
 }
 

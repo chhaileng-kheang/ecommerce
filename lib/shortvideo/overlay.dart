@@ -39,5 +39,6 @@ class BasicOverlayWidget extends StatelessWidget {
       ? Container()
       : Container(
     //thumnailhandler
+
   );
 }
