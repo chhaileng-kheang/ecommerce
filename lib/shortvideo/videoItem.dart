@@ -10,13 +10,11 @@ import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoItem extends StatefulWidget {
-  final String videoUrl;
   final double width;
-  final int index;
   final VideoManager videoManager;
   final List<String> videoUrls;
   final VideoPlayerController controllerVId;
-  const VideoItem({super.key, required this.videoUrl, required this.width, required this.index, required this.videoManager, required this.videoUrls, required this.controllerVId});
+  const VideoItem({super.key,  required this.width, required this.videoManager, required this.videoUrls, required this.controllerVId});
 
   @override
   _VideoItemState createState() => _VideoItemState();
@@ -31,6 +29,14 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
   bool clickPause = false;
   @override
   void initState() {
+    widget.controllerVId.addListener(() {
+   if(mounted){
+     setState(() {
+
+     });
+
+   }
+    });
     widget.controllerVId.setLooping(true);
     _controller = AnimationController(
       duration: const Duration(seconds: 10),
@@ -41,6 +47,14 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
   @override
   void dispose() {
     // TODO: implement dispose
+    widget.controllerVId.removeListener(() {
+      if(mounted){
+        setState(() {
+
+        });
+      }
+
+    });
     _controller.dispose();
     super.dispose();
   }
@@ -52,16 +66,16 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
       isVisiblePro = false;
     });
     return VisibilityDetector(
-        key: Key(widget.videoUrl), // You can use any unique key here
+        key: Key(widget.controllerVId.dataSource), // You can use any unique key here
         onVisibilityChanged: (visibilityInfo) {
-          if(visibilityInfo.visibleFraction == 1) {
+          if(visibilityInfo.visibleFraction > 0.95) {
             if(mounted) {
               setState(() {
                 isVisible = true;
                 widget.controllerVId.play();
               });
             }
-          }else if(visibilityInfo.visibleFraction == 0){
+          }else if(visibilityInfo.visibleFraction <= 0.05){
             if(mounted) {
               setState(() {
                 isVisible = false;
@@ -102,9 +116,9 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                 },
                   child: AspectRatio(
                 aspectRatio: widget.controllerVId.value.aspectRatio,
-                child: VideoPlayer(widget.controllerVId),
-                              ),
-                            ),
+                child: VideoPlayer(widget.controllerVId,key: Key(widget.controllerVId.dataSource),),
+                  ),
+                ),
               ) :
           Positioned(
               bottom: 1,
