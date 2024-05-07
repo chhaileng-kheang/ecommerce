@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -21,40 +22,46 @@ class VideoItem extends StatefulWidget {
   _VideoItemState createState() => _VideoItemState();
 }
 
-class _VideoItemState extends State<VideoItem> {
+class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMixin{
   bool isVisible = false;
   bool isVisiblePro = true;
   String status = "";
-
+  late AnimationController _controller;
   bool pause = true;
   bool clickPause = false;
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    widget.controllerVId.addListener(() {
-    });
     widget.controllerVId.setLooping(true);
-
+    _controller = AnimationController(
+      duration: const Duration(seconds: 10),
+      vsync: this,
+    )..repeat();
+    super.initState();
   }
   @override
   void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    widget.videoManager.preloadVideos(widget.index, widget.videoUrls);
+    widget.controllerVId.value.isBuffering ? setState(() {
+      isVisiblePro = true;
+    }) : setState(() {
+      isVisiblePro = false;
+    });
     return VisibilityDetector(
         key: Key(widget.videoUrl), // You can use any unique key here
         onVisibilityChanged: (visibilityInfo) {
-          if(visibilityInfo.visibleFraction >0.92) {
+          if(visibilityInfo.visibleFraction == 1) {
             if(mounted) {
               setState(() {
                 isVisible = true;
                 widget.controllerVId.play();
               });
             }
-          }else if(visibilityInfo.visibleFraction < 0.08){
+          }else if(visibilityInfo.visibleFraction == 0){
             if(mounted) {
               setState(() {
                 isVisible = false;
@@ -70,34 +77,44 @@ class _VideoItemState extends State<VideoItem> {
   }
 
   Widget _buildVideoPlayer(double width) {
+
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.sizeOf(context).height,
       child: Stack(
         children: [
-          Center(
-            child: widget.controllerVId.value.isInitialized
-                ? GestureDetector(
-              onTap: (){
-                setState(() {
-                  if (clickPause == true) {
-                    widget.controllerVId.play();
-                    clickPause = false;
-                  } else {
-                    widget.controllerVId.pause();
-                    clickPause = true;
-                  }
-                });
-              },
-              child: AspectRatio(
+          widget.controllerVId.value.isInitialized
+              ? Center(
+                child: GestureDetector(
+                  onTap: (){
+                if(mounted) {
+                  setState(() {
+                    if (clickPause == true) {
+                      widget.controllerVId.play();
+                      clickPause = false;
+                    } else {
+                      clickPause = true;
+                      widget.controllerVId.pause();
+
+                    }
+                  });
+                }
+                },
+                  child: AspectRatio(
                 aspectRatio: widget.controllerVId.value.aspectRatio,
                 child: VideoPlayer(widget.controllerVId),
-              ),
-                ) : Container(),
-          ),
-          clickPause
-              ?  Center(child: Icon(Icons.pause,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 46,))
-              : SizedBox(height: 0,),
+                              ),
+                            ),
+              ) :
+          Positioned(
+              bottom: 1,
+              child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.sizeOf(context).width,
+                  child: BasicOverlayWidget(controller: widget.controllerVId))),
+          Visibility(
+              visible: clickPause,
+              child: Center(child: Icon(Icons.pause,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 60,))),
           Positioned(
               bottom: 1,
               child: Visibility(
@@ -108,50 +125,72 @@ class _VideoItemState extends State<VideoItem> {
                     child: BasicOverlayWidget(controller: widget.controllerVId)),
               )),
           Positioned(
-            bottom: 20,
+            bottom: 50,
             left: width*0.05,
             child: Opacity(opacity: 1,
-            child: Container(
-              height: 60,
-              width: width*0.9,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.white,
+              child: Container(
+                height: 60,
+                width: width*0.6,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.transparent
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 0),
+                            blurRadius: 1.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ]
+                      ),
+                      padding: EdgeInsets.all(2),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: FadeInImage.assetNetwork(height: 50,width: 50, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/4490019/pexels-photo-4490019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
+                      ),
+                    ),
+                    SizedBox(width: 5,),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Product A",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
+                              shadows: [
+                                Shadow(
+                                  offset: Offset(0, 0),
+                                  blurRadius: 1.0,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                ),
+                              ], fontSize: 12)),),
+                          SizedBox(height: 5,),
+                          Text("\$ 125.44",style: GoogleFonts.montserrat(textStyle : TextStyle(fontWeight: FontWeight.bold,color: Colors.redAccent,shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],)),)
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),topLeft: Radius.circular(5)),
-                  child: FadeInImage.assetNetwork(height: 60,width: 60, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/4490019/pexels-photo-4490019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
-                ),
-                SizedBox(width: 5,),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Product A"),
-                      SizedBox(height: 5,),
-                      Text("\$125.44",style: GoogleFonts.montserrat(textStyle : TextStyle(fontWeight: FontWeight.bold,color: Colors.redAccent)),)
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            ),
             ),
           ),
           Positioned(
-            right: 15,
-            bottom: 200,
+            right: 20,
+            bottom: 65,
             child: Container(
               child: Column(
                 children: [
                   Container(
                     padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.white,
+                        borderRadius: BorderRadius.circular(100),
+                        color: Colors.white,
                         boxShadow: [BoxShadow(color: Colors.black, blurRadius: 2.0)]
                     ),
                     child: ClipRRect(
@@ -159,12 +198,61 @@ class _VideoItemState extends State<VideoItem> {
                       child:   FadeInImage.assetNetwork(height: 40,width: 40, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/9537435/pexels-photo-9537435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
                     ),
                   ),
-                  SizedBox(height: 15,),
-                  Icon(Icons.favorite_outline_rounded,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 42,),
-                  SizedBox(height: 15,),
+                  SizedBox(height: 25,),
+                  Column(
+                    children: [
+                      Icon(Icons.favorite_outline_rounded,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 35,),
+                      Text("10.2K",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 1.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ], fontSize: 12)),)
+                    ],
+                  ),
+                  SizedBox(height: 20,),
                   Transform.scale(
                       scaleX: -1,
-                      child: Icon(Icons.reply,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 42,))
+                      child: Icon(Icons.reply,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 36,)),
+                  SizedBox(height: 50,),
+                  Container(
+                    margin: EdgeInsets.only(top: 25),
+                    child: Center(
+                      child: AnimatedBuilder(
+                        animation: _controller,
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: AssetImage('assets/music_disc.jpg'), // Your disc image asset
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        builder: (context, child) {
+                          return Transform.rotate(
+                            angle: _controller.value * 2 * 3.14159, // Rotates full 360 degrees
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                image: DecorationImage(image: AssetImage('asset/gramophone.png')),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: FadeInImage.assetNetwork(placeholder: "asset/aas.png", image: "https://images.unsplash.com/photo-1487180144351-b8472da7d491?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8fHw%3D",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -178,4 +266,6 @@ class _VideoItemState extends State<VideoItem> {
     allowScrubbing: true,
   );
 }
+
+
 

@@ -10,21 +10,16 @@ class BasicOverlayWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-    behavior: HitTestBehavior.opaque,
-    onTap: () =>
-    controller.value.isPlaying ? controller.pause() : controller.play(),
-    child: Stack(
-      children: <Widget>[
-        buildPlay(),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: buildIndicator(),
-        ),
-      ],
-    ),
+  Widget build(BuildContext context) => Stack(
+    children: <Widget>[
+      buildPlay(),
+      Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: buildIndicator(),
+      ),
+    ],
   );
 
   Widget buildIndicator() => Container(

@@ -1,7 +1,9 @@
 import 'package:ecomerce/shortvideo/videoItem.dart';
 import 'package:ecomerce/shortvideo/videoManager.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 class videoShort extends StatefulWidget {
   const videoShort({super.key});
@@ -28,9 +30,13 @@ class _videoShortState extends State<videoShort> {
   void initState() {
     super.initState();
     _pageController = PageController(viewportFraction: 1);
-    for(int i = 0 ; i< videoUrl.length; i++) {
-      _controllers.add(videoManager.getController(i, videoUrl)!);
-    }
+      _controllers  =  videoUrl.map((url) => VideoPlayerController.networkUrl(Uri.parse(url))
+        ..initialize().then((_) {
+          setState(() {
+
+          }); // Update UI once video is loaded
+        })).toList();
+
   }
 
   @override
@@ -76,15 +82,67 @@ class _videoShortState extends State<videoShort> {
           child: Container(
               height: MediaQuery.sizeOf(context).height,
               color: Colors.black,
-              child: PageView.builder(
-                physics: CustomPageViewScrollPhysics(),
-                controller: _pageController,
-                itemCount: _controllers.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) => Container(
-                    color: Colors.black,
-                    child: VideoItem(videoUrl: videoUrl[index],width : width,index: index,videoUrls: videoUrl,videoManager: videoManager,controllerVId : _controllers[index])
+              child: Stack(
+              children: [
+                PageView.builder(
+                  physics: CustomPageViewScrollPhysics(),
+                  controller: _pageController,
+                  itemCount: _controllers.length,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => Container(
+                      color: Colors.black,
+                      child: VideoItem(videoUrl: videoUrl[index],width : width,index: index,videoUrls: videoUrl,videoManager: videoManager,controllerVId : _controllers[index])
+                  ),
                 ),
+                Positioned(
+                  top: 30,
+                  child: Container(
+                    width: width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Category",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Color.fromRGBO(
+                            175, 175, 175, 1.0),
+                          shadows: [
+                          Shadow(
+                            offset: Offset(0, 0),
+                            blurRadius: 1.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ],
+                          fontSize: 16
+                        )
+                        ),),
+                        SizedBox(width: 10,),
+                        Container(
+                          width: 3,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(100),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 0),
+                                blurRadius: 1.0,
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              )
+                            ]
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        Text("Explore",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 1.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ], fontSize: 16)),)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
               )
           )
       ), // This trailing comma makes auto-formatting nicer for build methods.

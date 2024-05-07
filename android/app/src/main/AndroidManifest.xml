@@ -13,6 +13,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
+        android:largeHeap="true"
         android:label="ecomerce"
         android:name="${applicationName}"
         android:networkSecurityConfig="@xml/network_security_config"
