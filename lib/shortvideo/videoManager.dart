@@ -26,7 +26,6 @@ class VideoManager {
 
       if (!_controllers.containsKey(currentIndex)) {
         _controllers[currentIndex] = VideoPlayerController.networkUrl(Uri.parse(videoUrls[currentIndex]))..initialize();
-
     }
   }
 

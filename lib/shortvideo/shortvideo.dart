@@ -95,20 +95,35 @@ class _videoShortState extends State<videoShort> {
   }
   void streamVideo () {
     subscription = getVideo().listen((videolink) {
-      if(controllers.length >= 50){
-        controllers.removeRange(0, 2);
+      if(currentPageIndex == 50) {
+        if (controllers.length >= 50) {
+          controllers.removeRange(0, 2);
+        }
       }
+
       if(startStream && checkstream){
         videolink.clear();
-        videolink = [
-          'https://static.vecteezy.com/system/resources/previews/020/156/568/diverse-female-fashion-designers-at-work-with-tailor-centimeters-on-necks-and-holds-tablet-and-notepad-independent-creative-design-business-free-video.webm',
-          'https://static.vecteezy.com/system/resources/previews/026/764/908/mp4/caucasian-female-fashion-designer-works-in-studio-by-idea-drawing-sketches-with-digital-tablet-and-colorful-fabric-for-a-dress-design-collection-choose-clothing-colors-for-tailoring-and-designing-free-video.mp4',
-       ];
+            videolink = [
+              'https://static.vecteezy.com/system/resources/previews/020/156/568/diverse-female-fashion-designers-at-work-with-tailor-centimeters-on-necks-and-holds-tablet-and-notepad-independent-creative-design-business-free-video.webm',
+              'https://static.vecteezy.com/system/resources/previews/005/206/808/mp4/close-up-cook-cut-steak-with-blood-freshly-grilled-meat-free-video.mp4',
+              'https://static.vecteezy.com/system/resources/previews/020/724/764/mp4/food-appetizer-for-party-with-friends-free-video.mp4',
+              'https://static.vecteezy.com/system/resources/previews/001/785/930/mp4/slow-motion-chefs-is-preparing-and-cooking-food-at-the-kitchen-of-a-restaurant-free-video.mp4',
+            ];
+
+
+
         for (int i = 0 ; i < videolink.length ; i++) {
           setState(() {
-            controllers.add(videoManager.getController(i, videolink)!);
-
+            videoManager.preloadVideos(i, videolink);
+            if(i<0) {
+              if (controllers[controllers.length - 1].value.isInitialized) {
+                controllers.add(videoManager.getController(i, videolink)!);
+              }
+            }else{
+              controllers.add(videoManager.getController(i, videolink)!);
+            }
           });
+
         }
         setState(() {
           checkstream = false;
