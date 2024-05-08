@@ -8,13 +8,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'videoManager.dart';
 
 class VideoItem extends StatefulWidget {
   final double width;
   final VideoManager videoManager;
   final List<String> videoUrls;
+  final int index;
   final VideoPlayerController controllerVId;
-  const VideoItem({super.key,  required this.width, required this.videoManager, required this.videoUrls, required this.controllerVId});
+  const VideoItem({super.key,  required this.width, required this.videoManager, required this.videoUrls, required this.controllerVId, required this.index});
 
   @override
   _VideoItemState createState() => _VideoItemState();
@@ -23,6 +25,7 @@ class VideoItem extends StatefulWidget {
 class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMixin{
   bool isVisible = false;
   bool isVisiblePro = true;
+
   String status = "";
   late AnimationController _controller;
   bool pause = true;
@@ -37,6 +40,7 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
 
    }
     });
+
     widget.controllerVId.setLooping(true);
     _controller = AnimationController(
       duration: const Duration(seconds: 10),
@@ -65,7 +69,9 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
     }) : setState(() {
       isVisiblePro = false;
     });
+
     return VisibilityDetector(
+
         key: Key(widget.controllerVId.dataSource), // You can use any unique key here
         onVisibilityChanged: (visibilityInfo) {
           if(visibilityInfo.visibleFraction > 0.95) {

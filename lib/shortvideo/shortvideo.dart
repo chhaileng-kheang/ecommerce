@@ -25,17 +25,14 @@ class _videoShortState extends State<videoShort> {
   StreamSubscription<List<String>>? subscription;
   late VideoPlayerController videoController;
   List<String> videoUrl = [
-    'https://videos.pexels.com/video-files/9071009/9071009-hd_1080_1920_25fps.mp4',
-    'https://videos.pexels.com/video-files/8128342/8128342-uhd_2160_3840_25fps.mp4',
-    'https://videos.pexels.com/video-files/7047255/7047255-uhd_2160_3840_25fps.mp4',
-    'https://videos.pexels.com/video-files/8128343/8128343-uhd_2160_3840_25fps.mp4',
-    'https://videos.pexels.com/video-files/5076790/5076790-hd_1080_1920_30fps.mp4',
-    'https://videos.pexels.com/video-files/5386411/5386411-uhd_2160_4096_25fps.mp4',
-    'https://videos.pexels.com/video-files/6853337/6853337-uhd_2160_4096_25fps.mp4',
-    'https://videos.pexels.com/video-files/12902487/12902487-hd_1080_1920_30fps.mp4',
-    'https://videos.pexels.com/video-files/6546116/6546116-uhd_2160_3840_30fps.mp4',
-    'https://videos.pexels.com/video-files/15157247/15157247-uhd_1776_3840_30fps.mp4',
-    'https://videos.pexels.com/video-files/4942046/4942046-hd_1080_1920_30fps.mp4'
+    'https://static.vecteezy.com/system/resources/previews/020/156/568/diverse-female-fashion-designers-at-work-with-tailor-centimeters-on-necks-and-holds-tablet-and-notepad-independent-creative-design-business-free-video.webm',
+    'https://static.vecteezy.com/system/resources/previews/026/764/908/mp4/caucasian-female-fashion-designer-works-in-studio-by-idea-drawing-sketches-with-digital-tablet-and-colorful-fabric-for-a-dress-design-collection-choose-clothing-colors-for-tailoring-and-designing-free-video.mp4',
+    'https://static.vecteezy.com/system/resources/previews/024/705/766/mp4/happy-asian-teen-girl-holding-pad-computer-gadget-using-digital-tablet-technology-sitting-on-the-couch-at-home-smiling-young-woman-using-apps-shopping-online-reading-news-browsing-internet-on-sofa-free-video.mp4',
+    'https://static.vecteezy.com/system/resources/previews/019/028/714/mp4/self-drawing-animation-of-one-single-line-draw-happy-young-man-wearing-headset-playing-online-game-on-his-smartphone-e-sports-game-concept-full-length-animation-illustration-high-quality-4k-free-video.mp4',
+    'https://static.vecteezy.com/system/resources/previews/042/672/398/mp4/asian-woman-tourist-is-taking-picture-with-mobile-phone-and-panning-for-record-the-beauty-of-rocky-cliff-covered-by-green-plants-during-summer-outdoor-pursuit-hobbies-and-leisure-parallax-shot-free-video.mp4',
+    'https://static.vecteezy.com/system/resources/previews/001/623/357/mp4/bokeh-of-city-lights-free-video.mp4',
+    'https://static.vecteezy.com/system/resources/previews/035/444/198/mp4/hot-smolder-coals-in-a-metal-brazier-barbecue-grill-kindling-preparing-for-outdoors-kebab-cooking-and-heating-the-mangal-dynamic-top-view-free-video.mp4',
+    'https://static.vecteezy.com/system/resources/previews/037/762/739/mp4/down-view-of-a-bottle-with-oil-opening-and-the-oil-drips-in-a-salad-bowl-unusual-angle-free-video.mp4'
 
   ];
   bool breakl = false;
@@ -43,42 +40,82 @@ class _videoShortState extends State<videoShort> {
   bool scollState = false;
   bool isloading = false;
   bool checkbot = false;
+  bool len = false;
+  int startLen = 0;
+  bool startStream = false;
+  bool checkstream = false;
   @override
-  Stream<List<String>> getVideo() async*{
-    while(true){
-      await Future.delayed(Duration(milliseconds: 1500));
-      yield videoUrl;
-    }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
   @override
   void initState() {
     // TODO: implement initState
+    startLen = videoUrl.length;
     super.initState();
     pageController = PageController(viewportFraction: 1);
     currentPageIndex = 0;
-    for (String url in videoUrl) {
-      VideoPlayerController controller = VideoPlayerController.networkUrl(Uri.parse(url));
+    controllers = videoUrl.map((url) => VideoPlayerController.networkUrl(Uri.parse(url))
+      ..initialize().then((_) {
+        setState(() {
+           if(controllers.length>1){
+             if(controllers[0].value.isInitialized) {
+               if(controllers[1].value.isInitialized) {
+                 if(controllers[2].value.isInitialized) {
+                   len = true;
+                 }
+               }
+             }
+               if (controllers[controllers.length-1].value.isInitialized == true &&
+                   startStream == false) {
+                 startStream = true;
+               }
 
+           }
 
-      controller.initialize().then((_) {
-   setState(() {
-     controllers.add(controller);
-     isloading = false;
-   });
-      }).catchError((error) {
-        // Handle initialization error, e.g., log it or show an error message
-        print('Error initializing video: $error');
-        breakl = true;
-      });
+        }); // Update UI once video is loaded
+      })).toList();
+    // for (int i = 0 ; i < videoUrl.length ; i++) {
+    //   setState(() {
+    //     controllers.add(videoManager.getController(i, videoUrl)!);
+    //   });
+    // }
+    streamVideo();
 
-    }
   }
-  void streamVideo (){
+  Stream<List<String>> getVideo() async*{
+    while(true){
+      await Future.delayed(Duration(seconds: 5));
+      yield videoUrl;
+    }
+
+  }
+  void streamVideo () {
     subscription = getVideo().listen((videolink) {
+      if(controllers.length >= 50){
+        controllers.removeRange(0, 2);
+      }
+      if(startStream && checkstream){
+        videolink.clear();
+        videolink = [
+          'https://static.vecteezy.com/system/resources/previews/020/156/568/diverse-female-fashion-designers-at-work-with-tailor-centimeters-on-necks-and-holds-tablet-and-notepad-independent-creative-design-business-free-video.webm',
+          'https://static.vecteezy.com/system/resources/previews/026/764/908/mp4/caucasian-female-fashion-designer-works-in-studio-by-idea-drawing-sketches-with-digital-tablet-and-colorful-fabric-for-a-dress-design-collection-choose-clothing-colors-for-tailoring-and-designing-free-video.mp4',
+       ];
+        for (int i = 0 ; i < videolink.length ; i++) {
+          setState(() {
+            controllers.add(videoManager.getController(i, videolink)!);
 
-      videolink.add("https://videos.pexels.com/video-files/7219299/7219299-hd_1080_1920_24fps.mp4");
+          });
+        }
+        setState(() {
+          checkstream = false;
+          isloading = false;
+        });
 
+      }
     });
 
   }
@@ -122,6 +159,7 @@ class _videoShortState extends State<videoShort> {
   }
 
   mainscreen(double width, BuildContext context, int j) {
+
     return Scaffold(
       body: Center(
           child: Container(
@@ -142,39 +180,76 @@ class _videoShortState extends State<videoShort> {
                               if(pageController.position.pixels == pageController.position.maxScrollExtent) {
                                 if (currentPageIndex! >= controllers.length-1) {
                                   if (checkbot == true) {
+                                  setState(() {
                                     updateLoading();
                                     checkbot = false;
+                                  });
                                   }else{
-                                    updateLoadingfalse();
-                                    checkbot = true;
-                                  }
+                                    setState(() {
+                                      updateLoadingfalse();
+                                      checkbot = true;
+
+                                    });
+                                   }
                                 }
                               }
                               }
                             return false;
                         },
-                          child: PageView(
-                            controller: pageController,
-                            scrollDirection: Axis.vertical,
-                            onPageChanged: (index){
-                              if(index >= controllers.length-1){
-                                checkbot = true;
+                          child: len ? StreamBuilder<List<String>>(
+                            stream: getVideo(),
+                            builder: (context, snapshot) {
+                              return PageView.builder(
+                                controller: pageController,
+                                physics: HighScrollResistancePhysics(), // Your custom scroll physics
+                                scrollDirection: Axis.vertical,
+                                onPageChanged: (index) {
+                                  if (index >= controllers.length - 1) {
+                                    setState(() {
+                                      checkbot = true; // Assuming this variable is meant to check something at the last index
+                                    });
+                                  }
 
-                              }
-                              if (index > currentPageIndex!) {
+                                  if (index > currentPageIndex!) {
+                                    if ((index + 1) < videoUrl.length-1) {
+                                      for (int i = (index + 1); i < videoUrl.length; i++) {
+                                        if (!controllers[i].value.isInitialized) {
+                                          videoManager.preloadVideos(i, videoUrl);
+                                        }
+                                      }
+                                    }
+                                  } else {
+                                    setState(() {
+                                      updateLoadingfalse(); // Custom method to handle loading states
+                                    });
+                                  }
+                                  setState(() {
+                                    currentPageIndex = index; // Update the current page index
+                                    checkstream = true;
+                                  });
+                                },
+                                itemCount: controllers.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var controller = controllers[index]; // Controller at the given index
 
-                              } else {
-                              updateLoadingfalse();
-                              }
-                              currentPageIndex = index; // Update the current page index
-
-                              },
-                            children: controllers.length > 0 ? controllers.map((e) {
-                              return Container(
-                                child: VideoItem(width : width,videoUrls: videoUrl,videoManager: videoManager,controllerVId : e),
-
+                                  return Container(
+                                    child: VideoItem(
+                                      width: width,
+                                      videoUrls: videoUrl,
+                                      videoManager: videoManager,
+                                      controllerVId: controller,
+                                      index: index,
+                                    ),
+                                  );
+                                },
                               );
-                            }).toList() : [Center(child: Container( child: Text("initilizing",style: TextStyle(color: Colors.white,),)))]
+                            },
+                          )
+                              :  Center(
+                            child: LoadingAnimationWidget.prograssiveDots(
+                              color: Colors.white,
+                              size: 50,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -247,6 +322,28 @@ class _videoShortState extends State<videoShort> {
           )
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+
+class HighScrollResistancePhysics extends PageScrollPhysics {
+  const HighScrollResistancePhysics({ScrollPhysics? parent}) : super(parent: parent);
+
+  @override
+  HighScrollResistancePhysics applyTo(ScrollPhysics? ancestor) {
+    return HighScrollResistancePhysics(parent: buildParent(ancestor));
+  }
+
+  // Override the `getMinFlingVelocity` to increase the minimum velocity required for page change
+  @override
+  double getMinFlingVelocity() => 2000.0;  // Adjust this value as needed
+  @override
+  double getMinFlingDistance() => 5000.0; // Adjust this value as needed
+  // Override `applyPhysicsToUserOffset` to apply a resistance effect on scrolling
+  @override
+  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    // Increase resistance for vertical scroll
+    return offset /2.2; // Adjust this division factor to control resistance
   }
 }
 

@@ -23,16 +23,10 @@ class VideoManager {
   }
 
   void preloadVideos(int currentIndex, List<String> videoUrls) {
-    int startIndex = max(0, currentIndex - preloadCount);
-    int endIndex = min(videoUrls.length, currentIndex + preloadCount + 1);
 
-    // Dispose controllers not in the current preload range
-    _controllers.keys.where((index) => index < startIndex || index > endIndex).toList().forEach(disposeController);
+      if (!_controllers.containsKey(currentIndex)) {
+        _controllers[currentIndex] = VideoPlayerController.networkUrl(Uri.parse(videoUrls[currentIndex]))..initialize();
 
-    for (int i = startIndex; i < endIndex; i++) {
-      if (!_controllers.containsKey(i)) {
-        _controllers[i] = VideoPlayerController.networkUrl(Uri.parse(videoUrls[i]))..initialize();
-      }
     }
   }
 
