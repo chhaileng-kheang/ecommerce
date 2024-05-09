@@ -22,6 +22,7 @@ import 'package:ecomerce/subcription.dart';
 import 'package:ecomerce/uploadProduct.dart';
 import 'package:ecomerce/viewimg.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -32,46 +33,52 @@ import 'classobject/staticdata.dart';
 import 'mobile.dart';
 void main() {
   setPathUrlStrategy();
-  runApp(
-    GetMaterialApp(
-      color: Colors.white,
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(
+      GetMaterialApp(
+        color: Colors.white,
         defaultTransition: Transition.noTransition, //this would be the solution
         transitionDuration: Duration(seconds: 0),
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      getPages: [
-        GetPage(name: '/', page: ()=>MyApp()),
-        GetPage(name: '/product', page: ()=>detail()),
-        GetPage(name: '/productstore', page: ()=>detail_store()),
-        GetPage(name: '/store', page: ()=>store()),
-        GetPage(name: '/search', page: ()=>search()),
-        GetPage(name: '/login', page: ()=>login()),
-        GetPage(name: '/signup', page: ()=>signup()),
-        GetPage(name: '/merchant', page: ()=>merchant()),
-        GetPage(name: '/storelist', page: ()=>search()),
-        GetPage(name: "/profilesetting", page:()=> profileSetting()),
-        GetPage(name: "/editinfo", page:()=> editStore()),
-        GetPage(name: "/changepassword", page:()=> changePassword1()),
-        GetPage(name: "/uploadproduct", page:()=> uploadProduct()),
-        GetPage(name: "/subscription", page:()=> subscrption()),
-        GetPage(name: "/delivery", page:()=> dvHome()),
-        GetPage(name: "/productOwner", page:()=> detailOwn()),
-        GetPage(name: "/emailchange", page:()=> changeEmail()),
-        GetPage(name: "/customerinfo", page:()=> customerInfo()),
-        GetPage(name: "/imgview", page:()=> viewImg()),
-        GetPage(name: "/trackinglist", page:()=> trackinglist()),
-        GetPage(name: "/tracking", page:()=> trackDetail()),
-        GetPage(name: "/deliverypayment", page:()=> paymentDelivery()),
-        GetPage(name: "/storepayment", page:()=> paymentStore()),
-        GetPage(name: "/qrscanner", page:()=> qrCam()),
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        getPages: [
+          GetPage(name: '/', page: ()=>MyApp()),
+          GetPage(name: '/product', page: ()=>detail()),
+          GetPage(name: '/productstore', page: ()=>detail_store()),
+          GetPage(name: '/store', page: ()=>store()),
+          GetPage(name: '/search', page: ()=>search()),
+          GetPage(name: '/login', page: ()=>login()),
+          GetPage(name: '/signup', page: ()=>signup()),
+          GetPage(name: '/merchant', page: ()=>merchant()),
+          GetPage(name: '/storelist', page: ()=>search()),
+          GetPage(name: "/profilesetting", page:()=> profileSetting()),
+          GetPage(name: "/editinfo", page:()=> editStore()),
+          GetPage(name: "/changepassword", page:()=> changePassword1()),
+          GetPage(name: "/uploadproduct", page:()=> uploadProduct()),
+          GetPage(name: "/subscription", page:()=> subscrption()),
+          GetPage(name: "/delivery", page:()=> dvHome()),
+          GetPage(name: "/productOwner", page:()=> detailOwn()),
+          GetPage(name: "/emailchange", page:()=> changeEmail()),
+          GetPage(name: "/customerinfo", page:()=> customerInfo()),
+          GetPage(name: "/imgview", page:()=> viewImg()),
+          GetPage(name: "/trackinglist", page:()=> trackinglist()),
+          GetPage(name: "/tracking", page:()=> trackDetail()),
+          GetPage(name: "/deliverypayment", page:()=> paymentDelivery()),
+          GetPage(name: "/storepayment", page:()=> paymentStore()),
+          GetPage(name: "/qrscanner", page:()=> qrCam()),
 
 
 
 
 
-      ],
-    )
-  );
+        ],
+      )
+  ));
+
+
 }
 
 class MyApp extends StatelessWidget {

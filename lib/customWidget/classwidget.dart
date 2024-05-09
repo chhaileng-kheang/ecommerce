@@ -295,11 +295,16 @@ storepath(double width, BuildContext context) {
         decoration: BoxDecoration(color: Colors.black,
             borderRadius: BorderRadius.circular(10)
         ),
-        child: Row(
-          children: [
-            Icon(Icons.facebook, color: Colors.white,size: size-2,),
-            Text("  Facebook",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
-          ],
+        child: GestureDetector(
+          onTap: (){
+            _launchDeepLink("fb-messenger://user-thread/100068850592114");
+          },
+          child: Row(
+            children: [
+              Icon(Icons.facebook, color: Colors.white,size: size-2,),
+              Text("  Messenger",style: GoogleFonts.montserrat(fontSize: fontsize,fontWeight: FontWeight.w400,color: Colors.white),)
+            ],
+          ),
         ),
       ),
       Container(
@@ -311,7 +316,7 @@ storepath(double width, BuildContext context) {
         ),
         child: InkWell(
           onTap: (){
-            _launchDeepLink();
+            _launchDeepLink("tg://resolve?domain=chhailengkc");
           },
           child: Row(
             children: [
@@ -468,15 +473,13 @@ String generateRandomCodePars(String CharPar, int len) {
   }
   return code;
 }
-void _launchDeepLink() async {
-  const deepLink = 'https://t.me/chhailengkc';
-  if (await canLaunchUrl(Uri.parse(deepLink))) {
-    await launchUrl(Uri.parse(deepLink), mode: LaunchMode.inAppBrowserView,);
+Future<void> _launchDeepLink(String url) async {
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
   } else {
-    throw 'Could not launch $deepLink';
+    throw 'Could not launch $url';
   }
 }
-
 Future<ImageInfo> getImageInfo(Image img) async {
   final c = new Completer<ImageInfo>();
   img.image
