@@ -214,70 +214,71 @@ storepath(double width, BuildContext context) {
   );
 }
   Contact(double width, context) {
+    print("width " + width.toString());
   return Container(
     margin: EdgeInsets.only(top: 5),
     child: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints){
         return Container(
           width: width*0.9,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-
-              if(constraints.maxWidth > 480)...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Social(45,45,24,11),
-                    SizedBox(width: 5,),
-                    phone_Contact_Row(width,11),
-                  ],
-                ),
-              ]
-              else if(constraints.maxWidth>430)...[
-                //mobile
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Social(45,20,18,11),
-                    SizedBox(width: 3,),
-                    phone_Contact_Row(width,11),
-                  ],
-                ),
-
-              ]
-              else if(constraints.maxWidth>350)...[
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                if(constraints.maxWidth > 450)...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Social(45,45,24,11),
+                      SizedBox(width: 5,),
+                      phone_Contact_Row(width,11),
+                    ],
+                  ),
+                ]
+                else if(constraints.maxWidth>400)...[
                   //mobile
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Social(38,20,18,8.5),
-                      SizedBox(width: 5,),
-                      phone_Contact_Row(width,8.5),
+                      Social(45,20,18,11),
+                      SizedBox(width: 3,),
+                      phone_Contact_Row(width,11),
                     ],
                   ),
 
                 ]
-                else...[
-                    //fold
-                    Container(
-                      width: width*0.9,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Social(38,20,18,8.5),
-                            SizedBox(width: 10,),
-                            phone_Contact_Row(width,8.5),
-                          ],
-                        ),
-                      ),
+                else if(constraints.maxWidth>350)...[
+                    //mobile
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Social(38,20,18,8.5),
+                        SizedBox(width: 5,),
+                        phone_Contact_Row(width,8.5),
+                      ],
                     ),
 
-                  ],
+                  ]
+                  else...[
+                      //fold
+                      Container(
+                        width: width*0.9,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Social(38,20,18,8.5),
+                              SizedBox(width: 10,),
+                              phone_Contact_Row(width,8.5),
+                            ],
+                          ),
+                        ),
+                      ),
 
-            ],
+                    ],
+              ],
+            ),
           ),
         );
 
