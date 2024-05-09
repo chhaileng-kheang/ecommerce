@@ -19,10 +19,7 @@ class _uploadImageState extends State<uploadImage> {
   int sdkInt = 0 ;
   Future<void> checkAndroidVersion() async {
     var androidInfo = await DeviceInfoPlugin().androidInfo;
-
     sdkInt = androidInfo.version.sdkInt;
-    print(sdkInt);
-    // Android 9 (SDK 28), Xiaomi Redmi Note 7
   }
   Map<String, dynamic> _deviceData = <String, dynamic>{};
   File? _image,cover;

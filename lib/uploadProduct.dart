@@ -1,12 +1,18 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_autocomplete/easy_autocomplete.dart';
 import 'package:ecomerce/customWidget/widgetSize.dart';
 import 'package:ecomerce/imageManager.dart';
 import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 class uploadProduct extends StatefulWidget {
   uploadProduct({super.key});
   late double size = 10;
@@ -23,10 +29,22 @@ class uploadProduct extends StatefulWidget {
 }
 
 class _uploadProductState extends State<uploadProduct> {
+  int sdkInt = 0 ;
+  Future<void> checkAndroidVersion() async {
+    var androidInfo = await DeviceInfoPlugin().androidInfo;
+    sdkInt = androidInfo.version.sdkInt;
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkAndroidVersion();
+  }
   @override
   bool status = false;
-
   var status2 = false;
+  List<XFile> multipleImage= [];
+  File? ImgFile;
   Widget build(BuildContext context) {
     double width;
     return SafeArea(
@@ -114,8 +132,6 @@ class _uploadProductState extends State<uploadProduct> {
                             setState(() {
                               widget.size2 = size.width.toDouble();
                             });
-
-
                           },
                           child: InkWell(
                             onTap: (){
@@ -193,73 +209,248 @@ class _uploadProductState extends State<uploadProduct> {
                   ],
                 ),
                 if(widget.vi == true)...[
+
                   Container(
                     margin: EdgeInsets.only(top: 15),
                     width: width * 0.9,
+
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Stack(
                         children: [
-
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               WidgetSize(onChange: (Size size){
-                                widget.thumbnail1 = size.height.toDouble();
+                                widget.thumbnail = size.width.toDouble();
                               },
-                                child: Container(
-                                  width: width*0.6,
-                                  child: AspectRatio(
-                                    aspectRatio: 3/4,
-                                    child: ClipRRect(
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      if(Platform.isAndroid)  {
+
+                                        if (sdkInt < 33) {
+                                          var photo = await Permission.manageExternalStorage.status;
+                                          if (photo.isGranted) {
+                                            _pickImageFromGallery();
+                                          } else if (photo.isPermanentlyDenied) {
+                                            openAppSettings();
+                                          } else {
+                                            await Permission.manageExternalStorage.request();
+                                            _pickImageFromGallery();
+                                          }
+                                        }else{
+                                          var photo = await Permission
+                                              .photos.status;
+                                          if (photo.isGranted) {
+                                            _pickImageFromGallery();
+                                          } else if (photo.isPermanentlyDenied) {
+                                            openAppSettings();
+                                          } else {
+                                            await Permission.photos.request();
+                                            _pickImageFromGallery();
+                                          }
+                                        }
+                                      }
+                                    },
+                                    child: Container(
+                                      child: ImgFile == null
+                                          ? WidgetSize(
+                                        onChange: (size){
+                                          widget.thumbnail1 = size.height.toDouble();
+                                        },
+                                            child: Container(
+                                              width: width*0.6,
+                                              decoration: BoxDecoration(
+                                            color: Color.fromRGBO(234,234,234,1),
+                                            borderRadius: BorderRadius.circular(10),
+                                              ),
+                                              child: AspectRatio(
+                                            aspectRatio: 3/4,
+                                            child: Center(child: Icon(Icons.image_outlined,size: 36,)),),
+                                            ),
+                                          )
+                                          : WidgetSize(
+                                             onChange: (size){
+                                               widget.thumbnail1 = size.height.toDouble();
+                                               },
+                                            child: Container(
+                                              width: width*0.6,
+                                              child: AspectRatio(
+                                            aspectRatio: 3/4,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: Image.file(ImgFile!, fit: BoxFit.cover,),
+                                            ),
+                                              ),
+                                            ),
+                                          ),
+                                    ),
+                                  )
+
+                              ),
+                              multipleImage.length <= 0 ?
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () async{
+                                    if(Platform.isAndroid) {
+                                      if (sdkInt < 33) {
+                                        var photo = await Permission.manageExternalStorage.status;
+                                        if (photo.isGranted) {
+                                          _pickMultipleImage();
+                                        } else if (photo.isPermanentlyDenied) {
+                                          openAppSettings();
+                                        } else {
+                                          await Permission.manageExternalStorage.request();
+                                          _pickMultipleImage();
+                                        }
+                                      }else{
+                                        var photo = await Permission
+                                            .photos.status;
+                                        if (photo.isGranted) {
+                                          _pickMultipleImage();
+                                        } else if (photo.isPermanentlyDenied) {
+                                          openAppSettings();
+                                        } else {
+                                          await Permission.photos.request();
+                                          _pickMultipleImage();
+                                        }
+                                      }
+                                    }
+                                  },
+                                  child: Container(
+                                    width: width*0.28,
+                                    height:  widget.thumbnail1,
+                                    margin: EdgeInsets.only(left: 10),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(234,234,234,1),
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover),
+                                    ),
+                                    child: Center(
+                                      child: Icon(Icons.add,size: 26,),
                                     ),
                                   ),
                                 ),
-
-                              ),
+                              ):
                               Expanded(
                                 child: Container(
                                   height:  widget.thumbnail1,
                                   margin: EdgeInsets.only(left: 10),
                                   child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          margin: EdgeInsets.only(bottom:width*0.02),
-                                          width: width*0.28,
-                                          child: AspectRatio(
-                                            aspectRatio: 3/4,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
-                                            ),
-                                          ),
+                                        Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: multipleImage.asMap().entries.map((entry) {
+                                              int index = entry.key;   // This is the index of the current item
+                                              var e = entry.value;
+                                              return   Stack(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      // Now you have access to the index inside the onTap callback
+                                                      if(Platform.isAndroid) {
+                                                        if (sdkInt < 33) {
+                                                          print("android 12");
+                                                          var photo = await Permission.manageExternalStorage.status;
+                                                          if (photo.isGranted) {
+                                                            _pickImageFromGallery_cover(index);
+                                                          } else if (photo.isPermanentlyDenied) {
+                                                            openAppSettings();
+                                                          } else {
+                                                            await Permission.manageExternalStorage.request();
+                                                            _pickImageFromGallery_cover(index);
+                                                          }
+                                                        }else{
+                                                          print("android 13");
+                                                          var photo = await Permission
+                                                              .photos.status;
+                                                          if (photo.isGranted) {
+                                                            _pickImageFromGallery_cover(index);
+                                                          } else if (photo.isPermanentlyDenied) {
+                                                            openAppSettings();
+                                                          } else {
+                                                            await Permission.photos.request();
+                                                            _pickImageFromGallery_cover(index);
+                                                          }
+                                                        }
+                                
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(bottom:width*0.02),
+                                                      width: width*0.28,
+                                                      child: AspectRatio(
+                                                        aspectRatio: 3/4,
+                                                        child: ClipRRect(
+                                                          borderRadius: BorderRadius.circular(10),
+                                                          child: Image.file(File(e.path), fit: BoxFit.cover,),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                      top: 2,left: 2,
+                                                      child: GestureDetector(
+                                                        onTap: (){
+                                                          setState(() {
+                                                            multipleImage.removeAt(index);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                            padding: EdgeInsets.all(2),
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(100),
+                                                              color: Colors.white.withOpacity(0.6),
+                                                            ),
+                                                            child: Icon(Icons.close)
+                                                        ),
+                                                      )
+                                                  )
+                                                ],
+                                              );
+                                            }).toList()
                                         ),
-                                        Container(
-                                          margin: EdgeInsets.only(bottom:width*0.02),
-                                          width: width*0.28,
-                                          child: AspectRatio(
-                                            aspectRatio: 3/4,
-                                            child: ClipRRect(
+                                        multipleImage.length < 5 ?
+                                        GestureDetector(
+                                          onTap: () async{
+                                            if(Platform.isAndroid) {
+                                
+                                              if (sdkInt < 33) {
+                                                var photo = await Permission.manageExternalStorage.status;
+                                                if (photo.isGranted) {
+                                                  _pickMultipleImage();
+                                                } else if (photo.isPermanentlyDenied) {
+                                                  openAppSettings();
+                                                } else {
+                                                  await Permission.manageExternalStorage.request();
+                                                  _pickMultipleImage();
+                                                }
+                                              }else{
+                                                var photo = await Permission
+                                                    .photos.status;
+                                                if (photo.isGranted) {
+                                                  _pickMultipleImage();
+                                                } else if (photo.isPermanentlyDenied) {
+                                                  openAppSettings();
+                                                } else {
+                                                  await Permission.photos.request();
+                                                  _pickMultipleImage();
+                                                }
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(top: 5, bottom: 5),
+                                            padding: EdgeInsets.all(20),
+                                            decoration: BoxDecoration(
+                                              color: Color.fromRGBO(234,234,234,1),
                                               borderRadius: BorderRadius.circular(10),
-                                              child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
                                             ),
+                                            child: Icon(Icons.add,color: Colors.black,size: 26,),
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(bottom:width*0.02),
-                                          width: width*0.28,
-                                          child: AspectRatio(
-                                            aspectRatio: 3/4,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
-                                            ),
-                                          ),
-                                        ),
+                                        ) : SizedBox(height: 0,)
                                       ],
                                     ),
                                   ),
@@ -271,15 +462,15 @@ class _uploadProductState extends State<uploadProduct> {
                             padding: EdgeInsets.all(5),
                             margin: EdgeInsets.only(left: 10,top: 10),
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                color: Colors.black38,
-                                offset: Offset(1,1),
-                                spreadRadius: 1,
-                                blurRadius: 1
-                              )]
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black38,
+                                      offset: Offset(1,1),
+                                      spreadRadius: 1,
+                                      blurRadius: 1
+                                  )]
                             ),
                             child: Icon(Icons.edit_rounded),
                           ),
@@ -292,99 +483,255 @@ class _uploadProductState extends State<uploadProduct> {
                   Container(
                     margin: EdgeInsets.only(top: 15),
                     width: width * 0.9,
-                    child: InkWell(
-                      onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => imageManagerHorizontal()),
-                        );
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                WidgetSize(onChange: (Size size){
-                                  widget.thumbnail = size.width.toDouble();
-                                },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              WidgetSize(onChange: (Size size){
+                                widget.thumbnail = size.width.toDouble();
+                              },
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    if(Platform.isAndroid)  {
+
+                                      if (sdkInt < 33) {
+                                        print("android 12");
+                                        var photo = await Permission.manageExternalStorage.status;
+                                        if (photo.isGranted) {
+                                          _pickImageFromGallery();
+                                        } else if (photo.isPermanentlyDenied) {
+                                          openAppSettings();
+                                        } else {
+                                          await Permission.manageExternalStorage.request();
+                                          _pickImageFromGallery();
+                                        }
+                                      }else{
+                                        print("android 13");
+                                        var photo = await Permission
+                                            .photos.status;
+                                        if (photo.isGranted) {
+                                          _pickImageFromGallery();
+                                        } else if (photo.isPermanentlyDenied) {
+                                          openAppSettings();
+                                        } else {
+                                          await Permission.photos.request();
+                                          _pickImageFromGallery();
+                                        }
+                                      }
+                                    }
+                                  },
                                   child: Container(
-                                    width: width*0.9,
-                                    child: AspectRatio(
-                                      aspectRatio: 4/3,
-                                      child: ClipRRect(
+                                    child: ImgFile == null
+                                        ? Container(
+                                      width: width*0.9,
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(234,234,234,1),
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover),
+                                      ),
+                                      child: AspectRatio(
+                                        aspectRatio: 4/3,
+                                        child: Center(child: Icon(Icons.image_outlined,size: 36,)),
+                                      ),
+                                    )
+                                        : Container(
+                                      width: width*0.9,
+                                      child: AspectRatio(
+                                        aspectRatio: 4/3,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.file(ImgFile!, fit: BoxFit.cover,),
+                                        ),
                                       ),
                                     ),
                                   ),
-
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(right:width*0.01),
-                                          width: width*0.3,
-                                          child: AspectRatio(
-                                            aspectRatio: 4/3,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(right:width*0.01),
-                                          width: width*0.3,
-                                          child: AspectRatio(
-                                            aspectRatio: 4/3,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(right:width*0.01),
-                                          width: width*0.3,
-                                          child: AspectRatio(
-                                            aspectRatio: 4/3,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: Image.network("https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",fit: BoxFit.cover,),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 )
-                              ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(5),
-                              margin: EdgeInsets.only(left: 10,top: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black38,
-                                        offset: Offset(1,1),
-                                        spreadRadius: 1,
-                                        blurRadius: 1
-                                    )]
+
                               ),
-                              child: Icon(Icons.edit_rounded),
+                             multipleImage.length <= 0 ?
+                             GestureDetector(
+                               onTap: () async{
+                                 if(Platform.isAndroid) {
+
+                                   if (sdkInt < 33) {
+                                     var photo = await Permission.manageExternalStorage.status;
+                                     if (photo.isGranted) {
+                                       _pickMultipleImage();
+                                     } else if (photo.isPermanentlyDenied) {
+                                       openAppSettings();
+                                     } else {
+                                       await Permission.manageExternalStorage.request();
+                                       _pickMultipleImage();
+                                     }
+                                   }else{
+                                     var photo = await Permission
+                                         .photos.status;
+                                     if (photo.isGranted) {
+                                       _pickMultipleImage();
+                                     } else if (photo.isPermanentlyDenied) {
+                                       openAppSettings();
+                                     } else {
+                                       await Permission.photos.request();
+                                       _pickMultipleImage();
+                                     }
+                                   }
+                                 }
+                               },
+                               child: Container(
+                                 width: width*0.9,
+                                 height: 100,
+                                 margin: EdgeInsets.only(top: 10),
+                                 decoration: BoxDecoration(
+                                   color: Color.fromRGBO(234,234,234,1),
+                                   borderRadius: BorderRadius.circular(10),
+                                 ),
+                                 child: Center(
+                                   child: Icon(Icons.add,size: 26,),
+                                 ),
+                               ),
+                             ):
+                             Container(
+                               margin: EdgeInsets.only(top: 10),
+                               child: SingleChildScrollView(
+                                 scrollDirection: Axis.horizontal,
+                                 child: Row(
+                                   children: [
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.start,
+                                       children: multipleImage.asMap().entries.map((entry) {
+                                         int index = entry.key;   // This is the index of the current item
+                                         var e = entry.value;
+                                         return   Stack(
+                                           children: [
+                                             GestureDetector(
+                                               onTap: () async {
+                                                 // Now you have access to the index inside the onTap callback
+                                                 if(Platform.isAndroid) {
+                                                   if (sdkInt < 33) {
+                                                     print("android 12");
+                                                     var photo = await Permission.manageExternalStorage.status;
+                                                     if (photo.isGranted) {
+                                                       _pickImageFromGallery_cover(index);
+                                                     } else if (photo.isPermanentlyDenied) {
+                                                       openAppSettings();
+                                                     } else {
+                                                       await Permission.manageExternalStorage.request();
+                                                       _pickImageFromGallery_cover(index);
+                                                     }
+                                                   }else{
+                                                     print("android 13");
+                                                     var photo = await Permission
+                                                         .photos.status;
+                                                     if (photo.isGranted) {
+                                                       _pickImageFromGallery_cover(index);
+                                                     } else if (photo.isPermanentlyDenied) {
+                                                       openAppSettings();
+                                                     } else {
+                                                       await Permission.photos.request();
+                                                       _pickImageFromGallery_cover(index);
+                                                     }
+                                                   }
+
+                                                 }
+                                               },
+                                               child: Container(
+                                                 margin: EdgeInsets.only(right:width*0.01),
+                                                 width: width*0.3,
+                                                 child: AspectRatio(
+                                                   aspectRatio: 4/3,
+                                                   child: ClipRRect(
+                                                     borderRadius: BorderRadius.circular(10),
+                                                     child: Image.file(File(e.path), fit: BoxFit.cover,),
+                                                   ),
+                                                 ),
+                                               ),
+                                             ),
+                                             Positioned(
+                                               top: 2,left: 2,
+                                                 child: GestureDetector(
+                                                   onTap: (){
+                                                     setState(() {
+                                                       multipleImage.removeAt(index);
+                                                     });
+                                                   },
+                                                   child: Container(
+                                                     padding: EdgeInsets.all(2),
+                                                     decoration: BoxDecoration(
+                                                       borderRadius: BorderRadius.circular(100),
+                                                       color: Colors.white.withOpacity(0.6),
+                                                     ),
+                                                   child: Icon(Icons.close)
+                                                                                                ),
+                                                 )
+                                             )
+                                           ],
+                                         );
+                                       }).toList()
+                                     ),
+                                     multipleImage.length < 5 ?
+                                     GestureDetector(
+                                       onTap: () async{
+                                         if(Platform.isAndroid) {
+
+                                           if (sdkInt < 33) {
+                                             var photo = await Permission.manageExternalStorage.status;
+                                             if (photo.isGranted) {
+                                               _pickMultipleImage();
+                                             } else if (photo.isPermanentlyDenied) {
+                                               openAppSettings();
+                                             } else {
+                                               await Permission.manageExternalStorage.request();
+                                               _pickMultipleImage();
+                                             }
+                                           }else{
+                                             var photo = await Permission
+                                                 .photos.status;
+                                             if (photo.isGranted) {
+                                               _pickMultipleImage();
+                                             } else if (photo.isPermanentlyDenied) {
+                                               openAppSettings();
+                                             } else {
+                                               await Permission.photos.request();
+                                               _pickMultipleImage();
+                                             }
+                                           }
+                                         }
+                                       },
+                                       child: Container(
+                                         margin: EdgeInsets.only(left: 10),
+                                         padding: EdgeInsets.all(20),
+                                         decoration: BoxDecoration(
+                                           color: Color.fromRGBO(234,234,234,1),
+                                           borderRadius: BorderRadius.circular(10),
+                                         ),
+                                         child: Icon(Icons.add,color: Colors.black,size: 26,),
+                                       ),
+                                     ) : SizedBox(height: 0,)
+                                   ],
+                                 ),
+                               ),
+                             )
+                            ],
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            margin: EdgeInsets.only(left: 10,top: 10),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black38,
+                                      offset: Offset(1,1),
+                                      spreadRadius: 1,
+                                      blurRadius: 1
+                                  )]
                             ),
-                          ],
-                        ),
+                            child: Icon(Icons.edit_rounded),
+                          ),
+                        ],
                       ),
                     ),
                   )
@@ -769,5 +1116,49 @@ class _uploadProductState extends State<uploadProduct> {
       ),
     );
 
+  }
+  Future<void> _pickImageFromGallery_cover(int index) async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      if(!multipleImage.contains(pickedFile)) {
+        multipleImage[index] = pickedFile!;
+      }
+    });
+  }
+  Future<void> _pickImageFromGallery() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      ImgFile = File(pickedFile!.path);
+    });
+  }
+
+  Future<void> _pickMultipleImage() async{
+
+    final List<XFile>? selectedImages = await ImagePicker().pickMultiImage(limit: 5);
+    if (selectedImages!.isNotEmpty) {
+      for(int i = 0 ; i < selectedImages.length ; i++) {
+        if (multipleImage.length < 5) {
+          if(!multipleImage.contains(selectedImages[i])) {
+            multipleImage.add(selectedImages[i]);
+          }else{
+            showSimpleSnackbar(context, "Some Image is exist");
+          }
+        }else{
+          showSimpleSnackbar(context, "Image available only 5 Item");
+          break;
+        }
+      }
+    }
+    setState((){
+
+    });
+  }
+  void showSimpleSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 2),  // Adjust the duration as needed
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

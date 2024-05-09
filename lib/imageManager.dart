@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'classobject/staticdata.dart';
 class imageManagerHorizontal extends StatefulWidget {
   const imageManagerHorizontal({super.key});
 
@@ -16,8 +18,7 @@ class imageManagerHorizontal extends StatefulWidget {
 class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
   String androidVersion = 'Unknown';
   int sdkInt = 0 ;
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
-  File? _image,cover;
+  List<XFile> multipleImages =Data.multipleImage;
   @override
   void initState() {
     // TODO: implement initState
@@ -32,6 +33,12 @@ class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
     sdkInt = androidInfo.version.sdkInt;
     print(sdkInt);
     // Android 9 (SDK 28), Xiaomi Redmi Note 7
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    multipleImages.clear();
+    super.dispose();
   }
   Widget build(BuildContext context) {
     double width;
@@ -63,7 +70,7 @@ class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
         )
     );
   }
-  thumbnail(double width){
+  thumbnail(double width,File imgs){
     return  Container(
       width: width*0.9,
       margin: EdgeInsets.only(top: 10),
@@ -71,50 +78,19 @@ class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
           color: const Color.fromRGBO(234, 234, 234, 1.0),
           borderRadius: BorderRadius.circular(10)
       ),
-      child: InkWell(
-        onTap: () async{
-          if(Platform.isAndroid) {
-
-            if (sdkInt < 33) {
-              print("android 12");
-              var photo = await Permission.manageExternalStorage.status;
-              if (photo.isGranted) {
-                _pickImageFromGallery_cover();
-              } else if (photo.isPermanentlyDenied) {
-                openAppSettings();
-              } else {
-                await Permission.manageExternalStorage.request();
-                _pickImageFromGallery_cover();
-              }
-            }else{
-              print("android 13");
-              var photo = await Permission
-                  .photos.status;
-              if (photo.isGranted) {
-                _pickImageFromGallery_cover();
-              } else if (photo.isPermanentlyDenied) {
-                openAppSettings();
-              } else {
-                await Permission.photos.request();
-                _pickImageFromGallery_cover();
-              }
-            }
-          }
-        },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: AspectRatio(
-            aspectRatio: 4/3,
-            child: cover == null ? Image.network("https://i.pinimg.com/736x/9d/23/ed/9d23eda27be19fc4d2d907d62d5d5e8b.jpg",fit: BoxFit.cover,) : Image.file(cover!,fit: BoxFit.cover,),
-          ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: AspectRatio(
+          aspectRatio: 4/3,
+          child: Image.file(imgs,fit: BoxFit.cover,),
         ),
       ),
     );
   }
-  Future<void> _pickImageFromGallery_cover() async {
+  Future<void> _pickImageFromGallery_cover(int index) async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
-      cover = File(pickedFile!.path);
+      multipleImages[index] = pickedFile!;
     });
   }
  mainscreen(double width, BuildContext context, int g) {
@@ -130,13 +106,47 @@ class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
               height:MediaQuery.sizeOf(context).height,
               child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    thumbnail(width),
+                  children: multipleImages.asMap().entries.map((entry) {
+                    int index = entry.key;   // This is the index of the current item
+                    var e = entry.value;     // This is the current item
 
-                    thumbnail(width),
+                    return GestureDetector(
+                      onTap: () async {
+                        // Now you have access to the index inside the onTap callback
+                        if(Platform.isAndroid) {
+                          if (sdkInt < 33) {
+                            print("android 12");
+                            var photo = await Permission.manageExternalStorage.status;
+                            if (photo.isGranted) {
+                              _pickImageFromGallery_cover(index);
+                            } else if (photo.isPermanentlyDenied) {
+                              openAppSettings();
+                            } else {
+                              await Permission.manageExternalStorage.request();
+                              _pickImageFromGallery_cover(index);
+                            }
+                          }else{
+                            print("android 13");
+                            var photo = await Permission
+                                .photos.status;
+                            if (photo.isGranted) {
+                              _pickImageFromGallery_cover(index);
+                            } else if (photo.isPermanentlyDenied) {
+                              openAppSettings();
+                            } else {
+                              await Permission.photos.request();
+                              _pickImageFromGallery_cover(index);
+                            }
+                          }
 
-                    thumbnail(width),
-                  ],
+                        }
+                      },
+                      child: Container(
+                        child: thumbnail(width,File(e.path)),
+                      ),
+                    );
+                  }).toList()
+
                 ),
               ),
             ),
