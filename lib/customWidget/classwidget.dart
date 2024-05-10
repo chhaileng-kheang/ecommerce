@@ -298,7 +298,7 @@ storepath(double width, BuildContext context) {
         ),
         child: GestureDetector(
           onTap: (){
-            _launchDeepLink("fb-messenger://user-thread/100068850592114");
+            _launchDeepLink("fb-messenger://user-thread/morescollagenoffical");
           },
           child: Row(
             children: [

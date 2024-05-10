@@ -42,6 +42,7 @@ class _videoShortState extends State<videoShort> {
   bool checkbot = false;
   bool len = false;
   int startLen = 0;
+  int i = 0;
   bool startStream = false;
   bool checkstream = false;
   @override
@@ -55,6 +56,7 @@ class _videoShortState extends State<videoShort> {
   @override
   void initState() {
     // TODO: implement initState
+    print("start class");
     startLen = videoUrl.length;
     super.initState();
     pageController = PageController(viewportFraction: 1);
@@ -170,7 +172,6 @@ class _videoShortState extends State<videoShort> {
   }
 
   mainscreen(double width, BuildContext context, int j) {
-
     return Scaffold(
       body: Center(
           child: Container(
