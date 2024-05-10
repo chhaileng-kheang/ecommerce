@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/searchPage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,16 +16,16 @@ import 'customWidget/classwidget.dart';
 import 'mobile.dart';
 
 class homePaage extends StatelessWidget {
-   homePaage({super.key,required this.controller});
+   homePaage({super.key,required this.controller, required this.scaffoldKey});
 
-   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-
-
-   var controller = Get.put(ProductController());
+   final GlobalKey<ScaffoldState> scaffoldKey;
+   final ProductController controller;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          key: scaffoldKey,
+            drawer: NavDrawer(),
             backgroundColor: Color.fromRGBO(234, 234, 234, 1.0),
             body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
               if(constraints.maxWidth < 800){
@@ -127,9 +128,7 @@ class homePaage extends StatelessWidget {
                                      controller: controller.Scroll_controller,
                                      children: [
                                        SizedBox(height: 8),
-                                       controller.check == "1" || controller.check == "2" || controller.check == "3"
-                                           ? RegisterMerchant(width, context)
-                                           : SizedBox(height: 0),
+                                       RegisterMerchant(width, context),
                                        SizedBox(height: 5),
                                        !kIsWeb
                                            ? Container(
@@ -478,7 +477,6 @@ class homePaage extends StatelessWidget {
            children: [
              GestureDetector(
                  onTap: () {
-                   var scaffoldKey;
                    scaffoldKey.currentState!.openDrawer();
                  },
                  child: ClipRRect(

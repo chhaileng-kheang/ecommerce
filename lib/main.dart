@@ -71,9 +71,6 @@ void main() {
           GetPage(name: "/qrscanner", page:()=> qrCam()),
 
 
-
-
-
         ],
       )
   ));

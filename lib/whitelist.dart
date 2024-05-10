@@ -74,7 +74,7 @@ class _whitelistState extends State<whitelist> {
                       setState(() {
                         items.removeAt(index);
                       });
-                      Get.snackbar("Removed", "message",margin: EdgeInsets.only(top: MediaQuery.sizeOf(context).height*0.8,left: 50,right: 50));
+                     showSimpleSnackbar(context, "Removed");
                     },
                     background: Container(
                       margin: EdgeInsets.only(bottom: 10),
@@ -83,7 +83,7 @@ class _whitelistState extends State<whitelist> {
                     child: Container(
                       padding: EdgeInsets.only(bottom: 10,top: 1),
                 decoration: BoxDecoration(),
-                child : favCard(width,"img","title","price"))
+                child : favCard(width,"img","Hello","price"))
                 );
 
               },)
@@ -93,6 +93,14 @@ class _whitelistState extends State<whitelist> {
       )
     );
 
+  }
+  void showSimpleSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      duration: Duration(seconds: 2),  // Adjust the duration as needed
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
   favCard(double width, String img, String title, String price) {
     return Container(
@@ -122,7 +130,7 @@ class _whitelistState extends State<whitelist> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Sneaker 01",style: GoogleFonts.montserrat(textStyle : TextStyle(
+                Text(title,style: GoogleFonts.montserrat(textStyle : TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500
                 )),),

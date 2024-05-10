@@ -49,6 +49,7 @@ class _videoShortState extends State<videoShort> {
   @override
   void dispose() {
     // TODO: implement dispose
+    print("Depose");
     super.dispose();
   }
   @override
@@ -78,11 +79,6 @@ class _videoShortState extends State<videoShort> {
 
         }); // Update UI once video is loaded
       })).toList();
-    // for (int i = 0 ; i < videoUrl.length ; i++) {
-    //   setState(() {
-    //     controllers.add(videoManager.getController(i, videoUrl)!);
-    //   });
-    // }
     streamVideo();
 
   }

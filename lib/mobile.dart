@@ -15,12 +15,15 @@ class mobile extends StatelessWidget {
   mobile({super.key});
   late double width;
   final controller = Get.put(ProductController());
+  final GlobalKey<ScaffoldState> scaffoldKey1 = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
 
     return GetBuilder<ProductController>(
       builder: (_) {
+
         return SafeArea(
+
           child: AnnotatedRegion(
             value: SystemUiOverlayStyle(
               statusBarColor: controller.navBG,
@@ -102,7 +105,7 @@ class mobile extends StatelessWidget {
                           .currentIndex
                           .value,
                       children: [
-                        homePaage(controller: controller),
+                        homePaage(controller: controller,scaffoldKey: scaffoldKey1,),
                         storeList(),
                         videoShort(),
                         whitelist(),
@@ -124,7 +127,7 @@ class mobile extends StatelessWidget {
                                 .currentIndex
                                 .value,
                             children: [
-                              homePaage(controller: controller),
+                              homePaage(controller: controller,scaffoldKey: scaffoldKey1,),
                               storeList(),
                               videoShort(),
                               whitelist(),

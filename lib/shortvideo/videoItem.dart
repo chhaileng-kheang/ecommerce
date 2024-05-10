@@ -157,22 +157,27 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 1.0,
-                            color: Color.fromARGB(255, 0, 0, 0),
-                          ),
-                        ]
-                      ),
-                      padding: EdgeInsets.all(2),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5),
-                        child: FadeInImage.assetNetwork(height: 50,width: 50, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/4490019/pexels-photo-4490019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
+                    GestureDetector(
+                      onTap: (){
+                        Get.toNamed("/product?store=12345&product=28222");
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 0),
+                              blurRadius: 1.0,
+                              color: Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ]
+                        ),
+                        padding: EdgeInsets.all(2),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: FadeInImage.assetNetwork(height: 50,width: 50, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/4490019/pexels-photo-4490019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
+                        ),
                       ),
                     ),
                     SizedBox(width: 5,),
@@ -206,16 +211,21 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
             child: Container(
               child: Column(
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
+                  GestureDetector(
+                    onTap: (){
+                      Get.toNamed("/store?id=28222");
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.white,
+                          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 2.0)]
+                      ),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        color: Colors.white,
-                        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 2.0)]
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child:   FadeInImage.assetNetwork(height: 40,width: 40, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/9537435/pexels-photo-9537435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
+                        child:   FadeInImage.assetNetwork(height: 40,width: 40, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/9537435/pexels-photo-9537435.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
+                      ),
                     ),
                   ),
                   SizedBox(height: 25,),

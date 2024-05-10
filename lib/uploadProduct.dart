@@ -44,7 +44,7 @@ class _uploadProductState extends State<uploadProduct> {
   bool status = false;
   var status2 = false;
   List<XFile> multipleImage= [];
-  File? ImgFile;
+  File? ImgFile,ImgDes;
   Widget build(BuildContext context) {
     double width;
     return SafeArea(
@@ -85,6 +85,7 @@ class _uploadProductState extends State<uploadProduct> {
           children: [
             InkWell(
                 onTap: (){
+                  Navigator.pop(context);
                 },
                 child: Icon(Icons.arrow_back_ios_sharp,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Container(
@@ -1082,10 +1083,10 @@ class _uploadProductState extends State<uploadProduct> {
                           child: TextField(
                               style: GoogleFonts.montserrat(
                                 textStyle: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 12,
                                 ),
                               ),
-                              maxLines: 5,
+                              maxLines: 4,
                               decoration: const InputDecoration(
                                 enabled: true,
                                 hintText: "Short Description",
@@ -1098,13 +1099,51 @@ class _uploadProductState extends State<uploadProduct> {
                       ],
                     ),
                   ),
-                  Container(
-                    width: width*0.9,
-                    margin: EdgeInsets.only(top: 15),
-                    child: ClipRRect(
+                 ImgDes == null ? GestureDetector(
+                    onTap: () async{
+                      if(Platform.isAndroid) {
+
+                        if (sdkInt < 33) {
+                          var photo = await Permission.manageExternalStorage.status;
+                          if (photo.isGranted) {
+                            _pickImageFromDes();
+                          } else if (photo.isPermanentlyDenied) {
+                            openAppSettings();
+                          } else {
+                            await Permission.manageExternalStorage.request();
+                            _pickImageFromDes();
+                          }
+                        }else{
+                          var photo = await Permission
+                              .photos.status;
+                          if (photo.isGranted) {
+                            _pickImageFromDes();
+                          } else if (photo.isPermanentlyDenied) {
+                            openAppSettings();
+                          } else {
+                            await Permission.photos.request();
+                            _pickImageFromDes();
+                          }
+                        }
+                      }
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 10, bottom: 5),
+                      width: width*0.9,
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(234,234,234,1),
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network("https://i.ibb.co/Hh8RLKJ/Facebook-image-sizes.png")),
-                  )
+                      ),
+                      child: Icon(Icons.add,color: Colors.black,size: 26,),
+                    ),
+                  ) :  Container(
+                   width: width*0.9,
+                   margin: EdgeInsets.only(top: 15),
+                   child: ClipRRect(
+                       borderRadius: BorderRadius.circular(10),
+                       child: Image.file(ImgDes!,fit: BoxFit.fitWidth,)),
+                 )
 
                 ],
                 SizedBox(height: 150,)
@@ -1131,7 +1170,12 @@ class _uploadProductState extends State<uploadProduct> {
       ImgFile = File(pickedFile!.path);
     });
   }
-
+  Future<void> _pickImageFromDes() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      ImgDes = File(pickedFile!.path);
+    });
+  }
   Future<void> _pickMultipleImage() async{
 
     final List<XFile>? selectedImages = await ImagePicker().pickMultiImage(limit: 5);

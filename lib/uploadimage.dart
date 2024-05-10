@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:http/http.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -79,8 +79,8 @@ class _uploadImageState extends State<uploadImage> {
                 Container(
                   width: width*0.9,
                   decoration: BoxDecoration(
-                    color: const Color.fromRGBO(234, 234, 234, 1.0),
-                    borderRadius: BorderRadius.circular(10)
+                      color: const Color.fromRGBO(234, 234, 234, 1.0),
+                      borderRadius: BorderRadius.circular(10)
                   ),
                   child: InkWell(
                     onTap: () async{
@@ -103,7 +103,7 @@ class _uploadImageState extends State<uploadImage> {
                               .photos.status;
                           if (photo.isGranted) {
                             _pickImageFromGallery_cover();
-                             } else if (photo.isPermanentlyDenied) {
+                          } else if (photo.isPermanentlyDenied) {
                             openAppSettings();
                           } else {
                             await Permission.photos.request();
@@ -122,99 +122,99 @@ class _uploadImageState extends State<uploadImage> {
                   ),
                 ),
                 Positioned(
-                  top: 150,
-                  child: Container(
-                    width: width*0.9,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 200,
-                          height: 200,
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(100)
-                          ),
-                          child: Container(
-                            margin: EdgeInsets.all(2),
+                    top: 150,
+                    child: Container(
+                      width: width*0.9,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 200,
+                            height: 200,
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Colors.black,
                                 borderRadius: BorderRadius.circular(100)
                             ),
-                            child: InkWell(
-                              onTap: () async {
-                                if(Platform.isAndroid) {
+                            child: Container(
+                              margin: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(100)
+                              ),
+                              child: InkWell(
+                                onTap: () async {
+                                  if(Platform.isAndroid) {
 
-                                  if (sdkInt < 33) {
-                                    print("android 12");
-                                    var photo = await Permission.manageExternalStorage.status;
-                                    if (photo.isGranted) {
-                                      _pickImageFromGallery();
-                                    } else if (photo.isPermanentlyDenied) {
-                                      openAppSettings();
-                                    } else {
-                                      await Permission.manageExternalStorage.request();
-                                      _pickImageFromGallery();
-                                    }
-                                  }else{
-                                    print("android 13");
-                                    var photo = await Permission
-                                        .photos.status;
-                                    if (photo.isGranted) {
-                                      _pickImageFromGallery();
-                                    } else if (photo.isPermanentlyDenied) {
-                                      openAppSettings();
-                                    } else {
-                                      await Permission.photos.request();
-                                      _pickImageFromGallery();
+                                    if (sdkInt < 33) {
+                                      print("android 12");
+                                      var photo = await Permission.manageExternalStorage.status;
+                                      if (photo.isGranted) {
+                                        _pickImageFromGallery();
+                                      } else if (photo.isPermanentlyDenied) {
+                                        openAppSettings();
+                                      } else {
+                                        await Permission.manageExternalStorage.request();
+                                        _pickImageFromGallery();
+                                      }
+                                    }else{
+                                      print("android 13");
+                                      var photo = await Permission
+                                          .photos.status;
+                                      if (photo.isGranted) {
+                                        _pickImageFromGallery();
+                                      } else if (photo.isPermanentlyDenied) {
+                                        openAppSettings();
+                                      } else {
+                                        await Permission.photos.request();
+                                        _pickImageFromGallery();
+                                      }
                                     }
                                   }
-                                }
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(1000),
-                                child: _image == null ? Container(
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  child: _image == null ? Container(
 
-                                  margin: EdgeInsets.only(top: 0,left: 0,right: 0),
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.bottomRight,
-                                          stops: [
-                                            0.1,
-                                            0.9
-                                          ],
-                                          colors: [
-                                            Colors.black.withOpacity(.8),
-                                            Colors.white.withOpacity(.3)
-                                          ]),
-                                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
-                                  ),
-                                  child: Container(
-                                      margin: EdgeInsets.only(top: 150),
-                                      child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
-                                ) : Image.file(_image!,fit: BoxFit.cover,),
+                                    margin: EdgeInsets.only(top: 0,left: 0,right: 0),
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.bottomRight,
+                                            stops: [
+                                              0.1,
+                                              0.9
+                                            ],
+                                            colors: [
+                                              Colors.black.withOpacity(.8),
+                                              Colors.white.withOpacity(.3)
+                                            ]),
+                                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
+                                    ),
+                                    child: Container(
+                                        margin: EdgeInsets.only(top: 150),
+                                        child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
+                                  ) : Image.file(_image!,fit: BoxFit.cover,),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
 
-                    ),
-                  )
+                      ),
+                    )
                 ),
                 Positioned(
                     right: 10,top: 10,
                     child: Container(
-                      padding: EdgeInsets.all(5),
+                        padding: EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [BoxShadow(
-                            color: Colors.black38,
-                            blurRadius: 1,
-                            spreadRadius: 1,
-                            offset: Offset(1,1)
-                          )]
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [BoxShadow(
+                                color: Colors.black38,
+                                blurRadius: 1,
+                                spreadRadius: 1,
+                                offset: Offset(1,1)
+                            )]
                         ),
                         child: Icon(Icons.edit_rounded)))
               ],
@@ -222,7 +222,7 @@ class _uploadImageState extends State<uploadImage> {
           ),
           InkWell(
             onTap: (){
-
+              uploadFile(_image!);
             },
             child: Container(
               width:  width*0.9,
@@ -254,7 +254,7 @@ class _uploadImageState extends State<uploadImage> {
           children: [
             InkWell(
                 onTap: (){
-
+                  Navigator.pop(context);
                 },
                 child: Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Upload Images",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
@@ -262,6 +262,26 @@ class _uploadImageState extends State<uploadImage> {
           ],
         )
     );
+  }
+  Future<void> uploadFile(File file) async {
+    try {
+      Uri uri = Uri.parse("http://192.168.100.25/web/upload.php"); // Change the URL
+      var request = MultipartRequest('POST', uri);
+
+      request.files.add(await MultipartFile.fromPath('image', file.path));
+
+      var streamedResponse = await request.send();
+      var response = await Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        print("Uploaded successfully");
+        print(response.body); // Handling the response from the server
+      } else {
+        print("Failed to upload");
+      }
+    } catch (e) {
+      print("Error uploading file: $e");
+    }
   }
   Future<void> _pickImageFromGallery() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);

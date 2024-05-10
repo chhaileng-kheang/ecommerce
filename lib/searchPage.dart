@@ -81,7 +81,7 @@ class _searchState extends State<search> {
           children: [
             GestureDetector(
                 onTap: (){
-
+                  Navigator.pop(context);
                 },
                 child: Container(
                     child: Icon(Icons.arrow_back_ios))),

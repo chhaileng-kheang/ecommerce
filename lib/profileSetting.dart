@@ -231,7 +231,7 @@ class profileSetting extends StatelessWidget {
           children: [
             InkWell(
                 onTap: (){
-
+                 Get.back();
                 },
                 child: Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Setting",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
