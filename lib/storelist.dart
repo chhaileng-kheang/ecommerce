@@ -73,70 +73,75 @@ class storeList extends StatelessWidget {
   storecard(BuildContext context,String cover, String profile, String name,String view,double width){
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Container(
-        width: width*0.9,
-        height: 250,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 0.5,
-              spreadRadius: 0.5,
-              offset: Offset(0,0)
-            )
-          ]
-        ),
-        child: Stack(
-          children: [
-            Container(
-              width: width,
-              height: 170,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
-                child: Image.network(cover,fit: BoxFit.cover),
-              ),
-            ),
-            Positioned(
-              top: 130,
-              left: 10,
-              child: Container(
-                padding:EdgeInsets.all(1),
-                decoration: BoxDecoration(
-                    color: Colors.blueGrey,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black38,
-                          offset: Offset(0,0),
-                          spreadRadius: 0.5,
-                          blurRadius: 0.5
-                      )
-                    ],
-                  borderRadius: BorderRadius.circular(10)
-                ),
+      child: GestureDetector(
+        onTap: (){
+          Get.toNamed("/store");
+        },
+        child: Container(
+          width: width*0.9,
+          height: 250,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 0.5,
+                spreadRadius: 0.5,
+                offset: Offset(0,0)
+              )
+            ]
+          ),
+          child: Stack(
+            children: [
+              Container(
+                width: width,
+                height: 170,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(profile,fit: BoxFit.cover,width: 100,height: 100,),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight: Radius.circular(5)),
+                  child: Image.network(cover,fit: BoxFit.cover),
                 ),
               ),
-            ),
-            Positioned(
-              top: 170,
-              left: 120,
-              child: Container(
-                margin: EdgeInsets.only(top: 10,bottom: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(name.toUpperCase(),style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14, color: Colors.black,fontWeight: FontWeight.w600)),),
-                    SizedBox(height: 2,),
-                    Text(view + " view",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11, color: Colors.black)),),
-                  ],
+              Positioned(
+                top: 130,
+                left: 10,
+                child: Container(
+                  padding:EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black38,
+                            offset: Offset(0,0),
+                            spreadRadius: 0.5,
+                            blurRadius: 0.5
+                        )
+                      ],
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(profile,fit: BoxFit.cover,width: 100,height: 100,),
+                  ),
                 ),
               ),
-            )
-          ],
+              Positioned(
+                top: 170,
+                left: 120,
+                child: Container(
+                  margin: EdgeInsets.only(top: 10,bottom: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(name.toUpperCase(),style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14, color: Colors.black,fontWeight: FontWeight.w600)),),
+                      SizedBox(height: 2,),
+                      Text(view + " view",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11, color: Colors.black)),),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

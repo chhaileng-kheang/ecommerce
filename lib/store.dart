@@ -80,7 +80,50 @@ class store extends StatelessWidget {
                     child: Contact(width, context),
                   ),
                 ),
-                BannerSponsor(width),
+               Container(
+                 height: 50,
+                 width: width,
+                 color: Colors.white,
+                 padding: EdgeInsets.all(10),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     Column(
+                       children: [
+                         Container(
+                           child: Text("Product",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w600)),),
+                         ),
+                         Container(
+                           height: 3,
+                           width: 30,
+                           decoration: BoxDecoration(
+                             color: Colors.black,
+                             borderRadius: BorderRadius.circular(100),
+                           ),
+                         )
+                       ],
+                     ),
+                     SizedBox(width: 25,),
+                     Column(
+                       children: [
+                         Container(
+                           child: Text("Videos",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w400))),
+                         ),
+                         Container(
+                           height: 3,
+                           width: 30,
+                           decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(100),
+                           ),
+                         )
+                       ],
+                     ),
+
+                   ],
+                 ),
+               ),
+               // BannerSponsor(width),
                 SizedBox(height: 5,),
                 category(categorylst, width),
                 SizedBox(height: 5,),
@@ -101,7 +144,7 @@ class store extends StatelessWidget {
   category(List<String> categorylist,double width){
     return Container(
       height:50,
-      width: width*0.9,
+      width: width*0.92,
       margin: EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),

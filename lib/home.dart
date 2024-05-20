@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ecomerce/leftmenu.dart';
 import 'package:ecomerce/searchPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -681,7 +682,7 @@ class homePaage extends StatelessWidget {
                bottom: 0,
                right: 0,
                child: Container(height: 120,
-                   child: Lottie.asset("asset/Animation - 1712806927475.json",animate: false)
+                   child: Lottie.asset("asset/Animation - 1712806927475.json",animate: true)
                ),
              ),
 
@@ -697,19 +698,24 @@ class homePaage extends StatelessWidget {
                      textStyle: TextStyle(fontSize: 20,
                          color: Colors.black,
                          fontWeight: FontWeight.bold))),
-                 Container(
-                   margin: EdgeInsets.only(top: 30),
-                   padding: EdgeInsets.only(
-                       left: 20, right: 20, top: 10, bottom: 10),
-                   decoration: BoxDecoration(
-                     color: Color(0xFF001F48),
-                     borderRadius: BorderRadius.circular(10),
+                 GestureDetector(
+                   onTap: (){
+                     Get.toNamed("/login");
+                   },
+                   child: Container(
+                     margin: EdgeInsets.only(top: 30),
+                     padding: EdgeInsets.only(
+                         left: 20, right: 20, top: 10, bottom: 10),
+                     decoration: BoxDecoration(
+                       color: Color(0xFF001F48),
+                       borderRadius: BorderRadius.circular(10),
+                     ),
+                     child: Text("Login / SignUp", textAlign: TextAlign.center,
+                         style: GoogleFonts.montserrat(textStyle: TextStyle(
+                             fontSize: 11,
+                             color: Colors.white,
+                             fontWeight: FontWeight.bold))),
                    ),
-                   child: Text("Register", textAlign: TextAlign.center,
-                       style: GoogleFonts.montserrat(textStyle: TextStyle(
-                           fontSize: 12,
-                           color: Colors.white,
-                           fontWeight: FontWeight.bold))),
                  )
                ],
              ),
