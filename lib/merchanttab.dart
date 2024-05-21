@@ -1,21 +1,10 @@
-import 'dart:convert';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/api/productAPI.dart';
-import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:ecomerce/imgviewLite.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-
 import 'customWidget/classwidget.dart';
-import 'customWidget/widgetSize.dart';
 import 'classobject/object.dart';
 class merchantTab extends StatefulWidget {
   merchantTab({super.key});
@@ -52,7 +41,7 @@ class _merchantTabState extends State<merchantTab> {
     double width;
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Color.fromRGBO(234, 234, 234, 1.0),
+            backgroundColor: const Color.fromRGBO(234, 234, 234, 1.0),
             body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
               if(constraints.maxWidth < 800){
                 width = MediaQuery.sizeOf(context).width;
@@ -84,7 +73,7 @@ class _merchantTabState extends State<merchantTab> {
      if(snapshot.hasData){
        return Text(snapshot.data![0].productTitle);
      }else{
-       return Text("failed");
+       return const Text("failed");
      }
 
    });
@@ -106,9 +95,9 @@ class _merchantTabState extends State<merchantTab> {
                   StoreInFo(width, context),
                   uploadAndSub(width),
                   category(categorylst, width),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   bodyGid(width, context, grid,false,true,Products),
-                  SizedBox(height: 100,),
+                  const SizedBox(height: 100,),
                 ],
               ),
             ),
@@ -125,17 +114,17 @@ class _merchantTabState extends State<merchantTab> {
     return Container(
       width: width,
       color: Colors.white,
-      padding: EdgeInsets.only(top: 5,bottom: 15),
+      padding: const EdgeInsets.only(top: 5,bottom: 15),
       child: Center(
         child: Container(
           height:50,
           width: width*0.9,
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Colors.white,
               boxShadow: [
-                BoxShadow(
+                const BoxShadow(
                   color: Colors.black12,
                   spreadRadius: 1,
                   blurRadius: 1,
@@ -148,7 +137,7 @@ class _merchantTabState extends State<merchantTab> {
             itemCount: categorylst.length,
             itemBuilder: (BuildContext context, int index) {
               return Container(
-                  margin: EdgeInsets.only(left: 10,right: 10,top: 15),
+                  margin: const EdgeInsets.only(left: 10,right: 10,top: 15),
                   child: Text(categorylst[index]));
             },
           ),
@@ -160,7 +149,7 @@ class _merchantTabState extends State<merchantTab> {
   Contact(double width, context) {
     return Container(
         child: Container(
-          margin: EdgeInsets.only(top: 5),
+          margin: const EdgeInsets.only(top: 5),
           child: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints){
               return Container(
@@ -175,7 +164,7 @@ class _merchantTabState extends State<merchantTab> {
                           Social(45,45,24,12),
                         ],
                       ),
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                       phone_Contact_Row(width,12),
                     ]
                     else if(constraints.maxWidth>350)...[
@@ -186,7 +175,7 @@ class _merchantTabState extends State<merchantTab> {
                           Social(38,20,18,8),
                         ],
                       ),
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                       phone_Contact_Row(width,8.5),
                     ]
                     else...[
@@ -199,7 +188,7 @@ class _merchantTabState extends State<merchantTab> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Social(38,20,18,8),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 phone_Contact_Row(width,8.5),
                               ],
                             ),
@@ -223,7 +212,7 @@ class _merchantTabState extends State<merchantTab> {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           height: width-7,
           padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
@@ -237,7 +226,7 @@ class _merchantTabState extends State<merchantTab> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10,left: 10),
+          margin: const EdgeInsets.only(top: 10,left: 10),
           height: width-7,
           padding: EdgeInsets.only(left: fontsize - 4,right: 10),
           decoration: BoxDecoration(color: Colors.black,
@@ -264,12 +253,12 @@ class _merchantTabState extends State<merchantTab> {
       children: [
         Container(
 
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(10)
           ),
-          padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+          padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
           child: Row(
               children: [
                 Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
@@ -277,14 +266,14 @@ class _merchantTabState extends State<merchantTab> {
               ]
           ),
         ),
-        SizedBox(width: 10,),
+        const SizedBox(width: 10,),
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(10)
           ),
-          padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+          padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
           child: Row(
               children: [
                 Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
@@ -301,7 +290,7 @@ class _merchantTabState extends State<merchantTab> {
   Header(double width) {
     return Container(
         height: 70,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient:  LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomLeft,
@@ -319,12 +308,12 @@ class _merchantTabState extends State<merchantTab> {
                 onTap: (){
                   Get.back();
                 },
-                child: Text("            ")),
+                child: const Text("            ")),
             Text("Profle",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16)),),
            IconButton(onPressed: (){
              Get.toNamed("/profilesetting");
 
-           }, icon: Icon(Icons.settings,color: Colors.white,))
+           }, icon: const Icon(Icons.settings,color: Colors.white,))
           ],
         )
     );
@@ -353,13 +342,13 @@ class _merchantTabState extends State<merchantTab> {
               width: width,
               height: 200,
               decoration: BoxDecoration(
-                  color: Color(0xFFFFF0BE),
+                  color: const Color(0xFFFFF0BE),
                   image: DecorationImage(
-                    image: NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                    image: const NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                     fit: BoxFit.cover,
                     onError: (exception, stackTrace) {
                       Container(
-                        color: Color(0xFFFFF0BE),
+                        color: const Color(0xFFFFF0BE),
                       );
                     },
                   )
@@ -372,7 +361,7 @@ class _merchantTabState extends State<merchantTab> {
             child: LayoutBuilder(
                 builder : (context,constraint){
                   return Container(
-                    padding: EdgeInsets.all(2),
+                    padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                         color: Colors.blueGrey,
                         borderRadius: BorderRadius.circular(100)
@@ -420,12 +409,12 @@ class _merchantTabState extends State<merchantTab> {
             top: 160,
             left: 10,
             child: Container(
-              padding: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+              padding: const EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(179, 252, 255, 1.0),
+                  color: const Color.fromRGBO(179, 252, 255, 1.0),
                   borderRadius: BorderRadius.circular(5),
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                         color: Colors.black12,
                         spreadRadius: 0.2,
                         offset: Offset(0,0),
@@ -433,7 +422,7 @@ class _merchantTabState extends State<merchantTab> {
                     )
                   ]
               ),
-              child: Text("D",style: TextStyle(fontWeight: FontWeight.bold),),
+              child: const Text("D",style: TextStyle(fontWeight: FontWeight.bold),),
             ),
           )
         ],
@@ -448,7 +437,7 @@ class _merchantTabState extends State<merchantTab> {
       children: [
 
         Container(
-          margin: EdgeInsets.only(top: 10,left: 2),
+          margin: const EdgeInsets.only(top: 10,left: 2),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.transparent,
               borderRadius: BorderRadius.circular(100)
@@ -464,7 +453,7 @@ class _merchantTabState extends State<merchantTab> {
     return Container(
       width: width,
       color: Colors.white,
-      padding: EdgeInsets.only(top: 10,bottom: 5),
+      padding: const EdgeInsets.only(top: 10,bottom: 5),
       child:Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -478,16 +467,16 @@ class _merchantTabState extends State<merchantTab> {
                     Get.toNamed("/uploadproduct");
                   },
                   child: Container(
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                    padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
                     child: Column(
                         children: [
-                          Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
-                          SizedBox(height: 5,),
+                          const Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
+                          const SizedBox(height: 5,),
                           Text("Upload",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                         ]
@@ -500,16 +489,16 @@ class _merchantTabState extends State<merchantTab> {
                   },
                   child: Container(
 
-                    margin: EdgeInsets.only(top: 10,left: 10),
+                    margin: const EdgeInsets.only(top: 10,left: 10),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                    padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
                     child: Column(
                         children: [
-                          Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
-                          SizedBox(height: 5,),
+                          const Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
+                          const SizedBox(height: 5,),
                           Text("Delivery",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                         ]
@@ -522,16 +511,16 @@ class _merchantTabState extends State<merchantTab> {
                   },
                   child: Container(
 
-                    margin: EdgeInsets.only(top: 10,left: 10),
+                    margin: const EdgeInsets.only(top: 10,left: 10),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(10)
                     ),
-                    padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+                    padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
                     child: Column(
                         children: [
-                          Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
-                          SizedBox(height: 5,),
+                          const Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
+                          const SizedBox(height: 5,),
                           Text("Upgrade",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                         ]

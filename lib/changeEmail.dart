@@ -46,7 +46,7 @@ class _changeEmailState extends State<changeEmail> {
     return Column(
       children: [
         Header(width),
-        SizedBox(height: 50,),
+        const SizedBox(height: 50,),
         Container(
           margin: const EdgeInsets.only(top: 10),
           width: width*0.9,
@@ -76,7 +76,7 @@ class _changeEmailState extends State<changeEmail> {
                   return TextFormField(
                     controller: textEditingController,
                     decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
+                        contentPadding: const EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
                         border: InputBorder.none,
                         prefixIconColor: Colors.black,
                         hintText: 'E-Mail',
@@ -87,12 +87,12 @@ class _changeEmailState extends State<changeEmail> {
                     focusNode: focusNode,
                     onFieldSubmitted: (String value) {
                       onFieldSubmitted();
-                      print('You just typed a new entry  $value');
+
                     },
                   );
                 },
                 onSelected: (String selection) {
-                  print('You just selected $selection');
+
                 },
               )
           ),
@@ -174,7 +174,7 @@ class _changeEmailState extends State<changeEmail> {
               ),
               Container(
                 width:  width*0.3,
-                padding: EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
+                padding: const EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5)
@@ -183,7 +183,7 @@ class _changeEmailState extends State<changeEmail> {
                   child: Text(
                     "Get Code",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                    style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
                   ),
                 ),
               )
@@ -196,8 +196,8 @@ class _changeEmailState extends State<changeEmail> {
           },
           child: Container(
             width:  width*0.9,
-            padding: EdgeInsets.only(left: 25,right: 25,top: 12,bottom: 12),
-            margin: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(left: 25,right: 25,top: 12,bottom: 12),
+            margin: const EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5)
@@ -205,7 +205,7 @@ class _changeEmailState extends State<changeEmail> {
             child: Center(
               child: Text(
                 "Save",
-                style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
               ),
             ),
           ),
@@ -226,7 +226,7 @@ class _changeEmailState extends State<changeEmail> {
                   Get.back();
 
                 },
-                child: Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Change Email",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             Text("        ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
           ],

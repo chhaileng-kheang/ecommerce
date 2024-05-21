@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +19,7 @@ class _qrCamState extends State<qrCam> {
   Widget build(BuildContext context) {
     double width;
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -61,7 +58,7 @@ mainscreen(double width,BuildContext context, int g){
 return  Column(
     children: [
       Expanded(
-        child: Container(
+        child: SizedBox(
             height: MediaQuery.sizeOf(context).height,
             width: width,
             child: QRScannerScreen()),
@@ -83,7 +80,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -97,7 +94,7 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
               child: IconButton(onPressed: (){
                 Navigator.pop(context);
 
-              },icon: Icon(Icons.close,color: Colors.white,),)
+              },icon: const Icon(Icons.close,color: Colors.white,),)
             )
           ],
         ),

@@ -24,7 +24,7 @@ class _withdrawState extends State<withdraw> {
 
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color.fromRGBO(234,234,234,1),
+          backgroundColor: const Color.fromRGBO(234,234,234,1),
           body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
             if(constraints.maxWidth < 800){
               width = MediaQuery.sizeOf(context).width;
@@ -47,47 +47,47 @@ class _withdrawState extends State<withdraw> {
   }
 
   mainscreen(double width, BuildContext context, int g) {
-    return Container(
+    return SizedBox(
       width: width,
       child: Stack(
         children: [
-          Container(
+          SizedBox(
             height: MediaQuery.sizeOf(context).height,
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   Header(width,context),
                   Container(
-                    margin: EdgeInsets.only(top: 15),
-                    padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 20),
+                    margin: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 20),
                     width: width*0.9,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5)
                     ),
                     child: Container(
-                      margin: EdgeInsets.only(left: 15,top: 10),
+                      margin: const EdgeInsets.only(left: 15,top: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Verify Your Bank",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
+                          Text("Verify Your Bank",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
                           Container(
-                            margin: EdgeInsets.only(left: 15,top: 20),
+                            margin: const EdgeInsets.only(left: 15,top: 20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
-                                    Text("Account Number (ABA) : ",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
-                                    Text("100 929 192",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
+                                    Text("Account Number (ABA) : ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
+                                    Text("100 929 192",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
 
                                   ],
                                 ),
-                                SizedBox(height: 10,),
+                                const SizedBox(height: 10,),
                                 Row(
                                   children: [
-                                    Text("Account Holder Name   : ",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
-                                   Text("Vong Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
+                                    Text("Account Holder Name   : ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
+                                   Text("Vong Vetana",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
                                   ],
                                 )
                               ],
@@ -99,31 +99,31 @@ class _withdrawState extends State<withdraw> {
                   ),
 
                   Container(
-                    margin: EdgeInsets.only(top: 15),
-                    padding: EdgeInsets.only(left: 5,right: 10,top: 10,bottom: 20),
+                    margin: const EdgeInsets.only(top: 15),
+                    padding: const EdgeInsets.only(left: 5,right: 10,top: 10,bottom: 20),
                     width: width*0.9,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5)
                     ),
                     child: Container(
-                      margin: EdgeInsets.only(left: 15,top: 10),
+                      margin: const EdgeInsets.only(left: 15,top: 10),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Balance :  ",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
-                          Text("\$455.20",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.redAccent,fontSize: 14,fontWeight: FontWeight.bold))),
+                          Text("Balance :  ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
+                          Text("\$455.20",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.redAccent,fontSize: 14,fontWeight: FontWeight.bold))),
                         ],
                       ),
                     ),
                   ),
                   Container(
                     width: width*0.9,
-                    margin: EdgeInsets.only(top: 10),
+                    margin: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text("* Your Payment Will Be Pending a Few Hour",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.redAccent,fontSize: 10,fontWeight: FontWeight.w400))),
+                        Text("* Your Payment Will Be Pending a Few Hour",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.redAccent,fontSize: 10,fontWeight: FontWeight.w400))),
                       ],
                     ),
                   ),
@@ -137,7 +137,7 @@ class _withdrawState extends State<withdraw> {
                     ),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: width*0.8,
                           child: TextField(
                               style: GoogleFonts.montserrat(
@@ -173,23 +173,23 @@ class _withdrawState extends State<withdraw> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: width*0.9,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => statement(),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const statement(),));
                           },
                           child: Container(
-                            margin: EdgeInsets.only(top: 15),
-                            padding: EdgeInsets.all(10),
+                            margin: const EdgeInsets.only(top: 15),
+                            padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 color: Colors.black,
                                 borderRadius: BorderRadius.circular(5)
                             ),
-                            child: Text("View Statement",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.w400))),
+                            child: Text("View Statement",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontSize: 12,fontWeight: FontWeight.w400))),
                           ),
                         ),
                       ],
@@ -204,7 +204,7 @@ class _withdrawState extends State<withdraw> {
             bottom: 40,
             child: Container(
               height: 45,
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: SliderButton(
                 action: () async{
                   ///Do something here OnSlide
@@ -212,14 +212,14 @@ class _withdrawState extends State<withdraw> {
                 },
 
                 ///Put label over here
-                label: Text(
+                label: const Text(
                   "Slide to Withdraw",
                   style: TextStyle(
                       color: Color(0xff4a4a4a),
                       fontWeight: FontWeight.w500,
                       fontSize: 14),
                 ),
-                icon: Center(
+                icon: const Center(
                     child: Icon(
                       Icons.keyboard_double_arrow_right_sharp,
                       color: Colors.white,
@@ -252,13 +252,13 @@ class _withdrawState extends State<withdraw> {
                 onTap: (){
                   Navigator.pop(context);
                 },
-                child: Icon(Icons.close,size: 28,color: Colors.black,)),
+                child: const Icon(Icons.close,size: 28,color: Colors.black,)),
             Text("Balance",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             InkWell(
                 onTap: (){
                   Get.toNamed("/login");
                 },
-                child: SizedBox(width: 30,)
+                child: const SizedBox(width: 30,)
             )
           ],
         )

@@ -2,21 +2,11 @@ import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'package:custom_qr_generator/custom_qr_generator.dart';
-import 'package:custom_qr_generator/options/options.dart';
-import 'package:custom_qr_generator/qr_painter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-import 'package:image/image.dart' as img;
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/classobject/object.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -25,7 +15,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 class viewImg extends StatefulWidget {
    viewImg({super.key});
@@ -42,7 +31,7 @@ class _viewImgState extends State<viewImg> {
     double width;
 
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -128,7 +117,7 @@ class _viewImgState extends State<viewImg> {
                         onTap: (){
                           Navigator.pop(context);
                         },
-                        child: Icon(Icons.close,color: Colors.white,)),
+                        child: const Icon(Icons.close,color: Colors.white,)),
                   )
               ),
               Positioned(
@@ -136,7 +125,7 @@ class _viewImgState extends State<viewImg> {
                   right: 15,
                   child: Visibility(
               visible: controller.isshow,
-                    child: Icon(Icons.link,color: Colors.white,),
+                    child: const Icon(Icons.link,color: Colors.white,),
               )
               ),
               Positioned(
@@ -184,26 +173,26 @@ class _viewImgState extends State<viewImg> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Container(
-                                                padding: EdgeInsets.all(5),
+                                                padding: const EdgeInsets.all(5),
                                                 child: AspectRatio(
                                                     aspectRatio: 1/1,
                                                     child: Image.network(gbImg,fit: BoxFit.cover)),
                                               ),
                                               Container(
-                                                margin: EdgeInsets.only(left: 20,top: 20,right: 20),
+                                                margin: const EdgeInsets.only(left: 20,top: 20,right: 20),
                                                 child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        Text("ID: 100541242",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.w400)),),
-                                                        Text("Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
-                                                        Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400)),),
+                                                        Text("ID: 100541242",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.w400)),),
+                                                        Text("Vetana",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
+                                                        Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400)),),
                                                         Row(
                                                           children: [
-                                                            Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                                            SizedBox(width: 10,),
+                                                            Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.black,textStyle: const TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                                            const SizedBox(width: 10,),
                                                             Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.redAccent),),
                                                           ],
                                                         ),
@@ -215,7 +204,7 @@ class _viewImgState extends State<viewImg> {
                                                           // painter: Painter(),
                                                           painter: QrPainter(
                                                               data: 'https://evagoo.com/product',
-                                                              options:  QrOptions(
+                                                              options:  const QrOptions(
                                                                   shapes: QrShapes(
                                                                       darkPixel: QrPixelShapeRoundCorners(cornerFraction: .5),
                                                                       frame:  QrFrameShapeRoundCorners(cornerFraction: .25),
@@ -263,11 +252,11 @@ class _viewImgState extends State<viewImg> {
                               });
                           },
                             child: Container(
-                              padding: EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
+                              padding: const EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(15, 15, 15, 0.7),
+                                  color: const Color.fromRGBO(15, 15, 15, 0.7),
                                   borderRadius: BorderRadius.circular(5),
-                                  boxShadow: [
+                                  boxShadow: const [
                                     BoxShadow(
                                         color: Colors.white30,
                                         blurRadius: 0.5,
@@ -278,9 +267,9 @@ class _viewImgState extends State<viewImg> {
                               ),
                               child: Row(
                                 children: [
-                                  controller.isloading == false ? Icon(Icons.save_alt,color: Colors.white, size: 24,) : Container(width: 10,height: 10, child: CircularProgressIndicator(color: Colors.white,)),
-                                  controller.isloading == false ?  SizedBox(width: 10,) :  SizedBox(width: 0,) ,
-                                  Text(controller.isloading == false ? "Save" : "",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),)
+                                  controller.isloading == false ? const Icon(Icons.save_alt,color: Colors.white, size: 24,) : Container(width: 10,height: 10, child: const CircularProgressIndicator(color: Colors.white,)),
+                                  controller.isloading == false ?  const SizedBox(width: 10,) :  const SizedBox(width: 0,) ,
+                                  Text(controller.isloading == false ? "Save" : "",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),)
                                 ],
                               ),
                             ),
@@ -299,8 +288,8 @@ class _viewImgState extends State<viewImg> {
                     child: Container(
                       width: width,
                       height: 100,
-                      padding: EdgeInsets.only(left: 15,right: 15,top: 5),
-                      color: Color.fromRGBO(15, 15, 15, 0.7),
+                      padding: const EdgeInsets.only(left: 15,right: 15,top: 5),
+                      color: const Color.fromRGBO(15, 15, 15, 0.7),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -308,11 +297,11 @@ class _viewImgState extends State<viewImg> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold)),),
+                              Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.white,fontWeight: FontWeight.bold)),),
                               Row(
                                 children: [
-                                  Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.white,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                  SizedBox(width: 10,),
+                                  Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.white,textStyle: const TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                  const SizedBox(width: 10,),
                                   Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.redAccent),),
                                 ],
                               ),
@@ -321,7 +310,7 @@ class _viewImgState extends State<viewImg> {
                           ),
                           Container(
                             child: Container(
-                              padding: EdgeInsets.all(1),
+                              padding: const EdgeInsets.all(1),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(100)

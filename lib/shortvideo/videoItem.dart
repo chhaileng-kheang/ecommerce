@@ -1,14 +1,10 @@
 import 'package:ecomerce/shortvideo/overlay.dart';
 import 'package:ecomerce/shortvideo/videoManager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import 'videoManager.dart';
 
 class VideoItem extends StatefulWidget {
   final double width;
@@ -134,7 +130,7 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                   child: BasicOverlayWidget(controller: widget.controllerVId))),
           Visibility(
               visible: clickPause,
-              child: Center(child: Icon(Icons.pause,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 60,))),
+              child: const Center(child: Icon(Icons.pause,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 60,))),
           Positioned(
               bottom: 1,
               child: Visibility(
@@ -165,7 +161,7 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               offset: Offset(0, 0),
                               blurRadius: 1.0,
@@ -173,21 +169,21 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                             ),
                           ]
                         ),
-                        padding: EdgeInsets.all(2),
+                        padding: const EdgeInsets.all(2),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: FadeInImage.assetNetwork(height: 50,width: 50, placeholder: "asset/aas.png", image: "https://images.pexels.com/photos/4490019/pexels-photo-4490019.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,),
                         ),
                       ),
                     ),
-                    SizedBox(width: 5,),
+                    const SizedBox(width: 5,),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Product A",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
+                          Text("Product A",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
                               shadows: [
                                 Shadow(
                                   offset: Offset(0, 0),
@@ -195,8 +191,8 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                                   color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                               ], fontSize: 12)),),
-                          SizedBox(height: 5,),
-                          Text("\$ 125.44",style: GoogleFonts.montserrat(textStyle : TextStyle(fontWeight: FontWeight.bold,color: Colors.redAccent,shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],)),)
+                          const SizedBox(height: 5,),
+                          Text("\$ 125.44",style: GoogleFonts.montserrat(textStyle : const TextStyle(fontWeight: FontWeight.bold,color: Colors.redAccent,shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],)),)
                         ],
                       ),
                     ),
@@ -216,11 +212,11 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                       Get.toNamed("/store?id=28222");
                     },
                     child: Container(
-                      padding: EdgeInsets.all(2),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           color: Colors.white,
-                          boxShadow: [BoxShadow(color: Colors.black, blurRadius: 2.0)]
+                          boxShadow: const [BoxShadow(color: Colors.black, blurRadius: 2.0)]
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
@@ -228,11 +224,11 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                       ),
                     ),
                   ),
-                  SizedBox(height: 25,),
+                  const SizedBox(height: 25,),
                   Column(
                     children: [
-                      Icon(Icons.favorite_outline_rounded,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 35,),
-                      Text("10.2K",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
+                      const Icon(Icons.favorite_outline_rounded,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 35,),
+                      Text("10.2K",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
                           shadows: [
                             Shadow(
                               offset: Offset(0, 0),
@@ -242,20 +238,20 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                           ], fontSize: 12)),)
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   Transform.scale(
                       scaleX: -1,
-                      child: Icon(Icons.reply,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 36,)),
-                  SizedBox(height: 50,),
+                      child: const Icon(Icons.reply,color: Colors.white, shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 2.0)],size: 36,)),
+                  const SizedBox(height: 50,),
                   Container(
-                    margin: EdgeInsets.only(top: 25),
+                    margin: const EdgeInsets.only(top: 25),
                     child: Center(
                       child: AnimatedBuilder(
                         animation: _controller,
                         child: Container(
                           width: 100,
                           height: 100,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               image: AssetImage('assets/music_disc.jpg'), // Your disc image asset
@@ -269,8 +265,8 @@ class _VideoItemState extends State<VideoItem> with SingleTickerProviderStateMix
                             child: Container(
                               height: 40,
                               width: 40,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(image: AssetImage('asset/gramophone.png')),
                               ),
                               child: ClipRRect(

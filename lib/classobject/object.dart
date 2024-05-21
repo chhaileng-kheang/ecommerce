@@ -68,7 +68,7 @@ class getxData extends GetxController{
 
 
     // Set a timer for 3 minutes
-    Timer(Duration(minutes: 1), () {
+    Timer(const Duration(minutes: 1), () {
 
         buttonEnabled = true;
     });
@@ -77,7 +77,7 @@ class getxData extends GetxController{
   void showcard() {
     isshowtemp = true;
     // Set a timer for 3 minutes
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
 
       isshowtemp = false;
       update();
@@ -85,7 +85,7 @@ class getxData extends GetxController{
     update();
   }
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
 
         if (countdown > 0) {
           countdown--;

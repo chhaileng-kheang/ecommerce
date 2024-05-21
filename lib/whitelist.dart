@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 class whitelist extends StatefulWidget {
@@ -51,18 +50,18 @@ class _whitelistState extends State<whitelist> {
         children: [
           Container(
             width: width,
-            padding: EdgeInsets.only(bottom: 15,top: 15),
+            padding: const EdgeInsets.only(bottom: 15,top: 15),
             margin: EdgeInsets.only(left: width*0.05,top: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text("Whitelist",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold))),
+                Text("Whitelist",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16, color: Colors.black,fontWeight: FontWeight.bold))),
               ],
             ),
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               width: width*0.9,
               color: Colors.transparent,
               child: ListView.builder(
@@ -78,12 +77,12 @@ class _whitelistState extends State<whitelist> {
                     },
                     background: Container(
 
-                      margin: EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.red), child: Center(child: Text("Remove"),),
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.red), child: const Center(child: Text("Remove"),),
                     ),
                     child: Container(
-                      padding: EdgeInsets.only(bottom: 10,top: 1),
-                decoration: BoxDecoration(),
+                      padding: const EdgeInsets.only(bottom: 10,top: 1),
+                decoration: const BoxDecoration(),
                 child : favCard(width,"img","Hello","price"))
                 );
 
@@ -98,7 +97,7 @@ class _whitelistState extends State<whitelist> {
   void showSimpleSnackbar(BuildContext context, String message) {
     final snackBar = SnackBar(
       content: Text(message),
-      duration: Duration(seconds: 2),  // Adjust the duration as needed
+      duration: const Duration(seconds: 2),  // Adjust the duration as needed
     );
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -110,10 +109,10 @@ class _whitelistState extends State<whitelist> {
       },
       child: Container(
         width: width*0.85,
-        margin: EdgeInsets.only(left: 15),
+        margin: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
             color: Colors.black38,
             blurRadius: 0.1,
             spreadRadius: 0.1,
@@ -126,24 +125,24 @@ class _whitelistState extends State<whitelist> {
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5)),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5)),
               child: Image.network("https://images.unsplash.com/photo-1571601035754-5c927f2d7edc?q=80&w=2432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",height: 120,width: 120,fit: BoxFit.cover,),
             ),
             Container(
-              margin: EdgeInsets.only(left: 15),
+              margin: const EdgeInsets.only(left: 15),
               height: 80,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title,style: GoogleFonts.montserrat(textStyle : TextStyle(
+                  Text(title,style: GoogleFonts.montserrat(textStyle : const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500
                   )),),
                   Row(
                     children: [
-                      Text("Price : "),
-                      Text("10.50\$",style: GoogleFonts.montserrat(textStyle : TextStyle(
+                      const Text("Price : "),
+                      Text("10.50\$",style: GoogleFonts.montserrat(textStyle : const TextStyle(
                           fontSize: 16,
                           color: Colors.red,
                           fontWeight: FontWeight.w500

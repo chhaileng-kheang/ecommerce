@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'package:ecomerce/createmerchant.dart';
-import 'package:ecomerce/merchant.dart';
 import 'package:ecomerce/signup.dart';
 import 'package:ecomerce/classobject/staticdata.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +14,6 @@ class login extends StatefulWidget {
 }
 
 class _loginState extends State<login> {
-  @override
   final String apiUrl = Data.ip + "/eiivanapiserver/loginuser.php";
   bool islogin = false;
   final TextEditingController usernametxt = TextEditingController();
@@ -54,12 +50,12 @@ class _loginState extends State<login> {
       throw Exception('Failed to post data: $error');
     }
   }
-
+  @override
   Widget build(BuildContext context) {
     double width;
 
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -89,20 +85,20 @@ class _loginState extends State<login> {
 
   mainscreen(double width, BuildContext context,int g){
     double height = MediaQuery.sizeOf(context).height;
-    return Container(
+    return SizedBox(
       height: height,
       width: width,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 200,
               child: Stack(
                 children: [
                   Container(
                     height: 150,
                     width: MediaQuery.sizeOf(context).width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),bottomRight: Radius.circular(15))
                     ),
@@ -111,12 +107,12 @@ class _loginState extends State<login> {
                     top: 100,
                     child: Hero(
                       tag: "heads",
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.sizeOf(context).width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
+                            SizedBox(
                               height: 100,
                               width: 100,
                               child: ClipRRect(
@@ -133,7 +129,7 @@ class _loginState extends State<login> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 50),
+              margin: const EdgeInsets.only(top: 50),
               width: width *0.9,
               child:Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +152,7 @@ class _loginState extends State<login> {
                     ),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: width*0.8,
                           child: TextField(
                               style: GoogleFonts.montserrat(
@@ -187,7 +183,7 @@ class _loginState extends State<login> {
                     ),
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: width*0.8,
                           child: TextField(
                               style: GoogleFonts.montserrat(
@@ -224,7 +220,7 @@ class _loginState extends State<login> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15),
+                    margin: const EdgeInsets.only(top: 15),
                     width: width*0.9,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -244,28 +240,28 @@ class _loginState extends State<login> {
                                       snackPosition: SnackPosition.BOTTOM, // SnackBar position
                                       backgroundColor: Colors.grey, // SnackBar background color
                                       colorText: Colors.white, // SnackBar text color
-                                      margin: EdgeInsets.only(bottom: 20,left: 20,right: 20)
+                                      margin: const EdgeInsets.only(bottom: 20,left: 20,right: 20)
                                   );
 
                                 }
                               }
                             }
 
-                          }, child: Text("Login",style: TextStyle(color: Colors.white),),
+                          }, child: const Text("Login",style: TextStyle(color: Colors.white),),
                             style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.only(left: 50,right: 50),
+                            padding: const EdgeInsets.only(left: 50,right: 50),
                             backgroundColor: Colors.black,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)
                             )
                           ),),
                         ),
-                        Text("Forgot Password!")
+                        const Text("Forgot Password!")
                       ],
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 80),
+                    margin: const EdgeInsets.only(top: 80),
                     width: width*0.9,
                     child: Column(
 
@@ -277,14 +273,14 @@ class _loginState extends State<login> {
                               MaterialPageRoute(builder: (_) => signup()),
                             );
                           },
-                          child: Text("Create New Account!",style: GoogleFonts.montserrat(textStyle: TextStyle(
+                          child: Text("Create New Account!",style: GoogleFonts.montserrat(textStyle: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 14
 
                           )),),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 30,bottom: 30),
+                          margin: const EdgeInsets.only(top: 30,bottom: 30),
                           width: 5,
                           height: 20,
                           decoration: BoxDecoration(
@@ -299,7 +295,7 @@ class _loginState extends State<login> {
                               MaterialPageRoute(builder: (_) => merchantReg()),
                             );
                           },
-                          child: Text("Register As Merchant!",style: GoogleFonts.montserrat(textStyle: TextStyle(
+                          child: Text("Register As Merchant!",style: GoogleFonts.montserrat(textStyle: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 14
 
@@ -311,7 +307,7 @@ class _loginState extends State<login> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             )
 

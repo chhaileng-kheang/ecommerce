@@ -1,11 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'customWidget/classwidget.dart';
 class detailOwn extends StatelessWidget {
   const detailOwn({super.key});
@@ -57,7 +53,7 @@ class detailOwn extends StatelessWidget {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: Container(
+                          child: SizedBox(
                             width: width*0.9,
                             height: MediaQuery.sizeOf(context).height-100,
                             child: SingleChildScrollView(
@@ -66,16 +62,16 @@ class detailOwn extends StatelessWidget {
                                   imageSection(width,context),
                                   Container(
                                     width: width*0.9,
-                                    margin: EdgeInsets.only(top: 15),
+                                    margin: const EdgeInsets.only(top: 15),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
-                                        SizedBox(height: 10,),
+                                        const SizedBox(height: 10,),
                                         Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
                                         Contact(width,context),
                                         Container(
-                                            margin: EdgeInsets.only(top: 20),
+                                            margin: const EdgeInsets.only(top: 20),
                                             child: Text(
                                               "Sneakers, an iconic fusion of fashion and function, transcend mere footwear. These sleek, cushioned marvels boast diverse designs,"
                                                 " from classic canvas to cutting-edge knit technology. Brands innovate with vibrant color palettes and avant-garde collaborations, ensuring every step"
@@ -87,7 +83,7 @@ class detailOwn extends StatelessWidget {
                                     ),
                                   ),
             
-                                  SizedBox(height: 150,)
+                                  const SizedBox(height: 150,)
                                 ],
                               ),
                             ),
@@ -99,7 +95,7 @@ class detailOwn extends StatelessWidget {
                         bottom: 0,
                         right: 0,
                         left: 0,
-                        child: Container(
+                        child: SizedBox(
                           width: width,
                           height: 100,
                           child: Row(
@@ -112,7 +108,7 @@ class detailOwn extends StatelessWidget {
                                 ),
                                 width: width*0.42,
                                 height: 50,
-                                child: Center(child: Text("Edit",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white)),)),
+                                child: Center(child: Text("Edit",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white)),)),
                               ),
                               Container(
                                 decoration: BoxDecoration(
@@ -121,7 +117,7 @@ class detailOwn extends StatelessWidget {
                                 ),
                                 width: width*0.42,
                                 height: 50,
-                                child: Center(child: Text("Delete",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white)),)),
+                                child: Center(child: Text("Delete",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.white)),)),
                               ),
                             ],
                           ),
@@ -147,7 +143,7 @@ class detailOwn extends StatelessWidget {
                   Get.back();
 
                 },
-                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             const Icon(Icons.link,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),),
 
@@ -172,7 +168,7 @@ class detailOwn extends StatelessWidget {
   thumnnail(double width) {
     return Container(
       width: width * 0.9,
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       child: Center(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5),

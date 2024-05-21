@@ -98,7 +98,7 @@ import '../classobject/object.dart';
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
-                      Text("\$" + price, style: GoogleFonts.montserrat(
+                      Text("\$$price", style: GoogleFonts.montserrat(
                           textStyle: const TextStyle(color: Colors.black,
                               fontWeight: FontWeight.w300,
                               fontSize: 16,
@@ -113,7 +113,7 @@ import '../classobject/object.dart';
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
-                      Text("\$" + price, style: GoogleFonts.montserrat(
+                      Text("\$$price", style: GoogleFonts.montserrat(
                           textStyle: const TextStyle(color: Color.fromRGBO(140,0,0,1),
                               fontWeight: FontWeight.w300,
                               fontSize: 16))),
@@ -135,12 +135,12 @@ import '../classobject/object.dart';
                 ),
                 child: Row(
                   children: [
-                    Text("-" + discount.toString() + "%",
+                    Text("-$discount%",
                         style: const TextStyle(color: Colors.black,
                             fontWeight: FontWeight.w300,
                             fontSize: 12)),
                     const SizedBox(width: 5,),
-                    Text("\$" + discountprice.toString(),
+                    Text("\$$discountprice",
                         style: const TextStyle(color: Colors.white,
                             fontWeight: FontWeight.w300,
                             fontSize: 14)),
@@ -389,7 +389,7 @@ BannerSponsorEx(double width, String img) {
               fit: BoxFit.cover,
               filterQuality: FilterQuality.low,
               errorBuilder: (context, error, stackTrace) {
-                return Container(
+                return SizedBox(
                   width: MediaQuery.sizeOf(context).width,
                   child: const Center(
                     child: Icon(Icons.error,color: Colors.black,),
@@ -415,7 +415,7 @@ RegisterMerchant(double width, BuildContext context) {
           const Color(0xFFFFAD5B),
 
         ],
-        stops: [0.1, 0.5],
+        stops: const [0.1, 0.5],
       ),
     ),
     margin: const EdgeInsets.only(top: 5, bottom: 3),
@@ -426,7 +426,7 @@ RegisterMerchant(double width, BuildContext context) {
           Positioned(
             bottom: 7,
             right: 0,
-            child: Container(height: 120,
+            child: SizedBox(height: 120,
                 child: Lottie.asset("asset/Animation - 1712806927475.json",animate: true)
             ),
           ),
@@ -487,7 +487,7 @@ store(String img) {
         image: NetworkImage(img),
         fit: BoxFit.cover,
         imageErrorBuilder: (context,error,StackTrace){
-          return Container(
+          return SizedBox(
             width: MediaQuery.sizeOf(context).width,
             child: const Center(
               child: Icon(Icons.error,color: Colors.white,),
@@ -532,12 +532,12 @@ storepath(double width, BuildContext context) {
   );
 }
 Contact(double width, context) {
-    print("width " + width.toString());
+    print("width $width");
   return Container(
     margin: const EdgeInsets.only(top: 5),
     child: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints){
-        return Container(
+        return SizedBox(
           width: width*0.9,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -579,7 +579,7 @@ Contact(double width, context) {
                   ]
                   else...[
                       //fold
-                      Container(
+                      SizedBox(
                         width: width*0.9,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
@@ -696,8 +696,8 @@ profile_store_mini(double width,double fontSize,double height) {
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            const BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Colors.black38,
               offset: Offset(0,0),
               blurRadius: 0.2,
@@ -728,7 +728,7 @@ profile_store_mini(double width,double fontSize,double height) {
                       width: 35,
                       fit: BoxFit.cover,
                       imageErrorBuilder: (context,error,StackTrace){
-                        return Container(
+                        return SizedBox(
                           width: MediaQuery.sizeOf(context).width,
                           child: const Center(
                             child: Icon(Icons.error),
@@ -751,7 +751,7 @@ profile_store_mini(double width,double fontSize,double height) {
                   height: 24,
                   fit: BoxFit.fitHeight,
                   imageErrorBuilder: (context,error,StackTrace){
-                    return Container(
+                    return SizedBox(
                       width: MediaQuery.sizeOf(context).width,
                       child: const Center(
                         child: Icon(Icons.error),
@@ -800,10 +800,10 @@ Future<void> _launchDeepLink(String url) async {
   }
 }
 Future<ImageInfo> getImageInfo(Image img) async {
-  final c = new Completer<ImageInfo>();
+  final c = Completer<ImageInfo>();
   img.image
-      .resolve(new ImageConfiguration())
-      .addListener(new ImageStreamListener((ImageInfo i, bool _) {
+      .resolve(const ImageConfiguration())
+      .addListener(ImageStreamListener((ImageInfo i, bool _) {
     c.complete(i);
   }));
   return c.future;

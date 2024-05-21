@@ -46,7 +46,7 @@ class _NavDrawerState extends State<NavDrawer> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(left: 10),
-                            child: Tooltip(
+                            child: const Tooltip(
                               showDuration: Duration(seconds: 5),
                               margin: EdgeInsets.only(left: 10, right: 10),
                               triggerMode: TooltipTriggerMode.tap,
@@ -84,7 +84,7 @@ class _NavDrawerState extends State<NavDrawer> {
                 ),
               ),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: MediaQuery.sizeOf(context).height -100,
                   width: MediaQuery.sizeOf(context).width,
                   child: ListView(
@@ -93,13 +93,13 @@ class _NavDrawerState extends State<NavDrawer> {
 
 
                       Container(
-                          margin: EdgeInsets.only(top: 30),
+                          margin: const EdgeInsets.only(top: 30),
                           width: MediaQuery.sizeOf(context).width,
                           child: Center(child: Text("Categories",style: GoogleFonts.montserrat(fontSize: 14, fontWeight: FontWeight.w800,color: Colors.black),))),
                       Container(
                         height: 3,
                         width:10,
-                        margin: EdgeInsets.only(left: 50,right: 50,top: 12),
+                        margin: const EdgeInsets.only(left: 50,right: 50,top: 12),
                         decoration: BoxDecoration(color: Colors.black,borderRadius: BorderRadius.circular(50)),
                       ),
                     ],

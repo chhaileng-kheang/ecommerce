@@ -1,15 +1,12 @@
 import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 class profileSetting extends StatefulWidget {
-  profileSetting({super.key});
+  const profileSetting({super.key});
 
   @override
   State<profileSetting> createState() => _profileSettingState();
@@ -24,9 +21,6 @@ class _profileSettingState extends State<profileSetting> {
     var androidInfo = await DeviceInfoPlugin().androidInfo;
     sdkInt = androidInfo.version.sdkInt;
   }
-
-  Map<String, dynamic> _deviceData = <String, dynamic>{};
-
   File? _image,cover;
 
   @override
@@ -81,7 +75,7 @@ class _profileSettingState extends State<profileSetting> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: 400,
                   child: Stack(
                     children: [
@@ -96,7 +90,6 @@ class _profileSettingState extends State<profileSetting> {
                             if(Platform.isAndroid) {
 
                               if (sdkInt < 33) {
-                                print("android 12");
                                 var photo = await Permission.manageExternalStorage.status;
                                 if (photo.isGranted) {
                                   _pickImageFromGallery_cover();
@@ -107,7 +100,6 @@ class _profileSettingState extends State<profileSetting> {
                                   _pickImageFromGallery_cover();
                                 }
                               }else{
-                                print("android 13");
                                 var photo = await Permission
                                     .photos.status;
                                 if (photo.isGranted) {
@@ -125,14 +117,14 @@ class _profileSettingState extends State<profileSetting> {
                             borderRadius: BorderRadius.circular(10),
                             child: AspectRatio(
                               aspectRatio: 4/3,
-                              child: cover == null ? Text("") : Image.file(cover!,fit: BoxFit.cover,),
-                            ), 
+                              child: cover == null ? const Text("") : Image.file(cover!,fit: BoxFit.cover,),
+                            ),
                           ),
                         ),
                       ),
                       Positioned(
                           top: 150,
-                          child: Container(
+                          child: SizedBox(
                             width: width*0.9,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -145,7 +137,7 @@ class _profileSettingState extends State<profileSetting> {
                                       borderRadius: BorderRadius.circular(100)
                                   ),
                                   child: Container(
-                                    margin: EdgeInsets.all(2),
+                                    margin: const EdgeInsets.all(2),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(100)
@@ -155,7 +147,6 @@ class _profileSettingState extends State<profileSetting> {
                                         if(Platform.isAndroid) {
 
                                           if (sdkInt < 33) {
-                                            print("android 12");
                                             var photo = await Permission.manageExternalStorage.status;
                                             if (photo.isGranted) {
                                               _pickImageFromGallery();
@@ -166,7 +157,6 @@ class _profileSettingState extends State<profileSetting> {
                                               _pickImageFromGallery();
                                             }
                                           }else{
-                                            print("android 13");
                                             var photo = await Permission
                                                 .photos.status;
                                             if (photo.isGranted) {
@@ -184,11 +174,11 @@ class _profileSettingState extends State<profileSetting> {
                                         borderRadius: BorderRadius.circular(1000),
                                         child: _image == null ? Container(
 
-                                          margin: EdgeInsets.only(top: 0,left: 0,right: 0),
+                                          margin: const EdgeInsets.only(top: 0,left: 0,right: 0),
                                           decoration: BoxDecoration(
                                               gradient: LinearGradient(
                                                   begin: Alignment.bottomRight,
-                                                  stops: [
+                                                  stops: const [
                                                     0.1,
                                                     0.9
                                                   ],
@@ -196,11 +186,11 @@ class _profileSettingState extends State<profileSetting> {
                                                     Colors.black.withOpacity(.8),
                                                     Colors.white.withOpacity(.3)
                                                   ]),
-                                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
+                                              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
                                           ),
                                           child: Container(
-                                              margin: EdgeInsets.only(top: 150),
-                                              child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
+                                              margin: const EdgeInsets.only(top: 150),
+                                              child: const Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
                                         ) : Image.file(_image!,fit: BoxFit.cover,),
                                       ),
                                     ),
@@ -214,28 +204,28 @@ class _profileSettingState extends State<profileSetting> {
                       Positioned(
                           right: 10,top: 10,
                           child: Container(
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [BoxShadow(
+                                  boxShadow: const [BoxShadow(
                                       color: Colors.black38,
                                       blurRadius: 1,
                                       spreadRadius: 1,
                                       offset: Offset(1,1)
                                   )]
                               ),
-                              child: Icon(Icons.edit_rounded)))
+                              child: const Icon(Icons.edit_rounded)))
                     ],
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10,bottom: 5),
-                  child: Text("Store_Name",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.w600)),),
+                  margin: const EdgeInsets.only(top: 10,bottom: 5),
+                  child: Text("Store_Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600)),),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 2,bottom: 10),
-                  child: Text("Membership : Free",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.red,fontWeight: FontWeight.w400,fontSize: 12)),),
+                  margin: const EdgeInsets.only(top: 2,bottom: 10),
+                  child: Text("Membership : Free",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.red,fontWeight: FontWeight.w400,fontSize: 12)),),
                 ),
                 InkWell(
                   onTap: (){
@@ -243,12 +233,12 @@ class _profileSettingState extends State<profileSetting> {
                   },
                   child: Container(
                     width: width*0.9,
-                    margin: EdgeInsets.only(top: 12),
-                    padding: EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black12,
                             offset: Offset(0,0),
@@ -258,7 +248,7 @@ class _profileSettingState extends State<profileSetting> {
                     ),
                     child: Text(
                       "Edit Store Information",
-                      style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+                      style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
                     ),
                   ),
                 ),
@@ -268,12 +258,12 @@ class _profileSettingState extends State<profileSetting> {
                   },
                   child: Container(
                     width: width*0.9,
-                    margin: EdgeInsets.only(top: 12),
-                    padding: EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Colors.black12,
                               offset: Offset(0,0),
@@ -283,7 +273,7 @@ class _profileSettingState extends State<profileSetting> {
                     ),
                     child: Text(
                       "Change Email",
-                      style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+                      style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
                     ),
                   ),
                 ),
@@ -293,12 +283,12 @@ class _profileSettingState extends State<profileSetting> {
                   },
                   child: Container(
                     width: width*0.9,
-                    margin: EdgeInsets.only(top: 12),
-                    padding: EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Colors.black12,
                               offset: Offset(0,0),
@@ -308,18 +298,18 @@ class _profileSettingState extends State<profileSetting> {
                     ),
                     child: Text(
                       "Change Password",
-                      style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+                      style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
                     ),
                   ),
                 ),
                 Container(
                   width: width*0.9,
-                  margin: EdgeInsets.only(top: 12),
-                  padding: EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
+                  margin: const EdgeInsets.only(top: 12),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8,top: 8),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                             color: Colors.black12,
                             offset: Offset(0,0),
@@ -329,7 +319,7 @@ class _profileSettingState extends State<profileSetting> {
                   ),
                   child: Text(
                     "Premium Subscription",
-                    style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.w400,color: Colors.red)),
+                    style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400,color: Colors.red)),
                   ),
                 ),
                 InkWell(
@@ -338,8 +328,8 @@ class _profileSettingState extends State<profileSetting> {
                   },
                   child: Container(
                     width:  width*0.9,
-                    padding: EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
-                    margin: EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
+                    margin: const EdgeInsets.only(top: 12),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(5)
@@ -347,7 +337,7 @@ class _profileSettingState extends State<profileSetting> {
                     child: Center(
                       child: Text(
                         "Sign Out",
-                        style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                        style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),
@@ -373,7 +363,7 @@ class _profileSettingState extends State<profileSetting> {
                 onTap: (){
                  Get.back();
                 },
-                child: Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Setting",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             Text("",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
           ],

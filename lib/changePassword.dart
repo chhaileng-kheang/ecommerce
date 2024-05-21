@@ -38,7 +38,7 @@ class _changePassword1State extends State<changePassword1> {
     return Column(
       children: [
         Header(width),
-        SizedBox(height: 50,),
+        const SizedBox(height: 50,),
         Container(
           margin: const EdgeInsets.only(top: 10),
           width: width*0.9,
@@ -67,7 +67,7 @@ class _changePassword1State extends State<changePassword1> {
                     )
                 ),
               ),
-              Icon(Icons.remove_red_eye_outlined)
+              const Icon(Icons.remove_red_eye_outlined)
             ],
           ),
         ),
@@ -99,7 +99,7 @@ class _changePassword1State extends State<changePassword1> {
                     )
                 ),
               ),
-              Icon(Icons.remove_red_eye_outlined)
+              const Icon(Icons.remove_red_eye_outlined)
             ],
           ),
         ),
@@ -131,7 +131,7 @@ class _changePassword1State extends State<changePassword1> {
                     )
                 ),
               ),
-              Icon(Icons.remove_red_eye_outlined)
+              const Icon(Icons.remove_red_eye_outlined)
             ],
           ),
         ),
@@ -141,13 +141,13 @@ class _changePassword1State extends State<changePassword1> {
           },
           child: Container(
             width:  width*0.9,
-            margin: EdgeInsets.only(top: 10,bottom: 5),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.only(top: 10,bottom: 5),
+            decoration: const BoxDecoration(
                 color: Colors.transparent,
             ),
             child: Text(
               "Reset By E-mail",
-              style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.red)),
+              style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.red)),
               textAlign: TextAlign.end,
             ),
           ),
@@ -158,8 +158,8 @@ class _changePassword1State extends State<changePassword1> {
           },
           child: Container(
             width:  width*0.9,
-            padding: EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
-            margin: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
+            margin: const EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5)
@@ -167,7 +167,7 @@ class _changePassword1State extends State<changePassword1> {
             child: Center(
               child: Text(
                 "Save",
-                style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
               ),
             ),
           ),
@@ -187,7 +187,7 @@ class _changePassword1State extends State<changePassword1> {
                 onTap: (){
 
                 },
-                child: Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Change Password",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             Text("",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
           ],

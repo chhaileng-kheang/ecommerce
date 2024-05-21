@@ -1,9 +1,6 @@
-import 'package:ecomerce/classobject/staticdata.dart';
 import 'package:ecomerce/uploadimage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 class customerInfo extends StatefulWidget {
@@ -22,7 +19,7 @@ class _customerInfoState extends State<customerInfo> {
     late double width;
 
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.black,
         statusBarIconBrightness: Brightness.light,
       ),
@@ -52,19 +49,19 @@ class _customerInfoState extends State<customerInfo> {
   }
   mainscreen(double width, BuildContext context, int g) {
 
-    return  Container(
+    return  SizedBox(
       height: MediaQuery.sizeOf(context).height,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 240,
               child: Stack(
                 children: [
                   Container(
                     height: 170,
                     width: MediaQuery.sizeOf(context).width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.black,
                     ),
                   ),
@@ -73,20 +70,19 @@ class _customerInfoState extends State<customerInfo> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                             width:  width*0.85,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Icon(Icons.arrow_back_ios,color: Colors.white,),
-                                SizedBox(width: 10,),
-                                Container(
-                                    child: Text("Add Delivery Package",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),)),
+                                const Icon(Icons.arrow_back_ios,color: Colors.white,),
+                                const SizedBox(width: 10,),
+                                Text("Add Delivery Package",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),),
                               ],
                             )),
 
-                        SizedBox(height: 20,),
-                        Container(
+                        const SizedBox(height: 20,),
+                        SizedBox(
                           width: MediaQuery.sizeOf(context).width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +93,7 @@ class _customerInfoState extends State<customerInfo> {
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.white,
                                   boxShadow: [
-                                    BoxShadow(
+                                    const BoxShadow(
                                       color: Colors.black12,
                                       spreadRadius: 0.5,
                                       offset: Offset(0,0),
@@ -106,7 +102,7 @@ class _customerInfoState extends State<customerInfo> {
                                   ]
                                 ),
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 15),
+                                  margin: const EdgeInsets.only(left: 15),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -115,41 +111,41 @@ class _customerInfoState extends State<customerInfo> {
                                         children: [
                                           Row(
                                             children: [
-                                              Icon(Icons.location_on_rounded,color: Colors.redAccent,),
+                                              const Icon(Icons.location_on_rounded,color: Colors.redAccent,),
                                               Container(
-                                                margin: EdgeInsets.only(top: 10,left: 10),
+                                                margin: const EdgeInsets.only(top: 10,left: 10),
                                                 width: width*0.5,
-                                                padding: EdgeInsets.all(8),
+                                                padding: const EdgeInsets.all(8),
                                                 decoration: BoxDecoration(
-                                                  color: Color.fromRGBO(243, 243, 243, 1.0),
+                                                  color: const Color.fromRGBO(243, 243, 243, 1.0),
                                                   borderRadius: BorderRadius.circular(5),
                                                 ),
         
-                                                child: Text("Location A"),
+                                                child: const Text("Location A"),
                                               ),
                                             ],
                                           ),
-                                          SizedBox(height: 10,),
+                                          const SizedBox(height: 10,),
                                           Row(
                                             children: [
-                                              Icon(Icons.my_location_outlined,color: Colors.blueAccent,),
+                                              const Icon(Icons.my_location_outlined,color: Colors.blueAccent,),
                                               Container(
-                                                margin: EdgeInsets.only(top: 10,left: 10),
+                                                margin: const EdgeInsets.only(top: 10,left: 10),
                                                 width: width*0.5,
-                                                padding: EdgeInsets.all(8),
+                                                padding: const EdgeInsets.all(8),
                                                 decoration: BoxDecoration(
-                                                  color: Color.fromRGBO(243, 243, 243, 1.0),
+                                                  color: const Color.fromRGBO(243, 243, 243, 1.0),
                                                   borderRadius: BorderRadius.circular(5),
                                                 ),
         
-                                                child: Text("Location B"),
+                                                child: const Text("Location B"),
                                               ),
                                             ],
                                           )
                                         ],
                                       ),
-                                      SizedBox(width: 10,),
-                                      Icon(Icons.swap_vert,color: Colors.black,size: 32,)
+                                      const SizedBox(width: 10,),
+                                      const Icon(Icons.swap_vert,color: Colors.black,size: 32,)
                                     ],
                                   ),
                                 ),
@@ -176,7 +172,7 @@ class _customerInfoState extends State<customerInfo> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width*0.75,
                         child: TextField(
                             style: GoogleFonts.montserrat(
@@ -194,8 +190,8 @@ class _customerInfoState extends State<customerInfo> {
                         ),
                       ),
                       Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: Icon(Icons.contact_page_sharp)
+                          margin: const EdgeInsets.only(right: 15),
+                          child: const Icon(Icons.contact_page_sharp)
                       )
                     ],
                   ),
@@ -211,7 +207,7 @@ class _customerInfoState extends State<customerInfo> {
                   ),
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: width*0.8,
                         child: TextField(
                             style: GoogleFonts.montserrat(
@@ -243,7 +239,7 @@ class _customerInfoState extends State<customerInfo> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: width*0.75,
                         child: TextField(
                             style: GoogleFonts.montserrat(
@@ -261,8 +257,8 @@ class _customerInfoState extends State<customerInfo> {
                         ),
                       ),
                       Container(
-                          margin: EdgeInsets.only(right: 15),
-                          child: Icon(Icons.add_circle,color: Colors.black,)
+                          margin: const EdgeInsets.only(right: 15),
+                          child: const Icon(Icons.add_circle,color: Colors.black,)
                       )
                     ],
                   ),
@@ -270,7 +266,7 @@ class _customerInfoState extends State<customerInfo> {
                 Container(
                   margin: const EdgeInsets.only(top: 10),
                   width: width*0.9,
-                  padding: EdgeInsets.only(top: 10,bottom: 10),
+                  padding: const EdgeInsets.only(top: 10,bottom: 10),
                   decoration: BoxDecoration(
                       color: const Color.fromRGBO(234, 234, 234, 1.0),
                       borderRadius: BorderRadius.circular(5)
@@ -278,35 +274,35 @@ class _customerInfoState extends State<customerInfo> {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 5,bottom: 5),
+                        margin: const EdgeInsets.only(top: 5,bottom: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                                margin: EdgeInsets.only(left: 20),
+                                margin: const EdgeInsets.only(left: 20),
                                 width: width*0.5,
-                                child: Text("051487541")
+                                child: const Text("051487541")
                             ),
                             Container(
-                                margin: EdgeInsets.only(right: 15),
-                                child: Icon(Icons.remove_circle_outlined,color: Colors.black,)
+                                margin: const EdgeInsets.only(right: 15),
+                                child: const Icon(Icons.remove_circle_outlined,color: Colors.black,)
                             )
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 5,bottom: 5),
+                        margin: const EdgeInsets.only(top: 5,bottom: 5),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                                margin: EdgeInsets.only(left: 20),
+                                margin: const EdgeInsets.only(left: 20),
                                 width: width*0.5,
-                                child: Text("051487541")
+                                child: const Text("051487541")
                             ),
                             Container(
-                                margin: EdgeInsets.only(right: 15),
-                                child: Icon(Icons.remove_circle_outlined,color: Colors.black,)
+                                margin: const EdgeInsets.only(right: 15),
+                                child: const Icon(Icons.remove_circle_outlined,color: Colors.black,)
                             )
                           ],
                         ),
@@ -324,7 +320,7 @@ class _customerInfoState extends State<customerInfo> {
                   child: Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         width: width*0.8,
                         child: TextField(
                             style: GoogleFonts.montserrat(
@@ -355,7 +351,7 @@ class _customerInfoState extends State<customerInfo> {
                   ),
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: width*0.8,
                         child: TextField(
                             style: GoogleFonts.montserrat(
@@ -377,9 +373,9 @@ class _customerInfoState extends State<customerInfo> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(top: 15),
                   width: width*0.9,
-                  child: Column(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -410,7 +406,7 @@ class _customerInfoState extends State<customerInfo> {
                                 fontSize: 12,
                               ),
                             ),),
-                            SizedBox(width: 10,),
+                            const SizedBox(width: 10,),
                             FlutterSwitch(
                               width: 40.0,
                               height: 25.0,
@@ -433,7 +429,7 @@ class _customerInfoState extends State<customerInfo> {
                         ),
                         Container(
                             margin: const EdgeInsets.only(top: 0, right: 0),
-                            child: Tooltip(
+                            child: const Tooltip(
                                 showDuration: Duration(seconds: 5),
                                 margin: EdgeInsets.only(left: 10, right: 10),
                                 triggerMode: TooltipTriggerMode.tap,
@@ -447,13 +443,13 @@ class _customerInfoState extends State<customerInfo> {
                   onTap: (){
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => uploadImage()),
+                      MaterialPageRoute(builder: (_) => const uploadImage()),
                     );
                   },
                   child: Container(
                     width:  width*0.9,
-                    padding: EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
-                    margin: EdgeInsets.only(left: 5,top: 10),
+                    padding: const EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
+                    margin: const EdgeInsets.only(left: 5,top: 10),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         borderRadius: BorderRadius.circular(5)
@@ -461,12 +457,12 @@ class _customerInfoState extends State<customerInfo> {
                     child: Center(
                       child: Text(
                         "Booking",
-                        style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                        style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 100,)
+                const SizedBox(height: 100,)
               ],
             )
           ],

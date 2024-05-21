@@ -35,22 +35,22 @@ class mobile extends StatelessWidget {
                   child: BottomNavigationBar(
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
-                        icon: controller.home == Icons.home ?Icon(controller.home) : Container(margin: EdgeInsets.only(bottom: 10), height: 26,width: 35,child:  Lottie.asset("asset/Animation - 1714655758814.json",animate: true,fit: BoxFit.cover),),
+                        icon: controller.home == Icons.home ?Icon(controller.home) : Container(margin: const EdgeInsets.only(bottom: 10), height: 26,width: 35,child:  Lottie.asset("asset/Animation - 1714655758814.json",animate: true,fit: BoxFit.cover),),
                         label: controller.home_title,
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.store),
                         label: 'Store',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.live_tv_outlined),
                         label: 'Short',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.favorite),
                         label: 'Whitelist',
                       ),
-                      BottomNavigationBarItem(
+                      const BottomNavigationBarItem(
                         icon: Icon(Icons.person),
                         label: 'Profile',
                       ),
@@ -92,7 +92,7 @@ class mobile extends StatelessWidget {
                     },
                   ),
                 ),
-                backgroundColor: Color.fromRGBO(234, 234, 234, 1.0),
+                backgroundColor: const Color.fromRGBO(234, 234, 234, 1.0),
                 body: LayoutBuilder(builder: (BuildContext context,
                     BoxConstraints constraints) {
                   if (constraints.maxWidth < 800) {
@@ -106,7 +106,7 @@ class mobile extends StatelessWidget {
                           .value,
                       children: [
                         homePaage(controller: controller,scaffoldKey: scaffoldKey1,),
-                        storeList(),
+                        const storeList(),
                         videoShort(),
                         whitelist(),
                         merchantTab(),
@@ -128,7 +128,7 @@ class mobile extends StatelessWidget {
                                 .value,
                             children: [
                               homePaage(controller: controller,scaffoldKey: scaffoldKey1,),
-                              storeList(),
+                              const storeList(),
                               videoShort(),
                               whitelist(),
                               merchantTab(),

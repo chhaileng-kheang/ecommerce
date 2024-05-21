@@ -6,7 +6,7 @@ class web extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-       backgroundColor: Color(0xFF251901),
+       backgroundColor: const Color(0xFF251901),
       body:  SingleChildScrollView(
         child: Container(
           width: MediaQuery.sizeOf(context).width,
@@ -16,7 +16,7 @@ class web extends StatelessWidget {
                   top: 30,
                   left: 30,
                   child: Text("APP-Name",style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),
+                    textStyle: const TextStyle(color: Colors.white,fontSize: 30,fontWeight: FontWeight.bold),
                   ))),
               Positioned(
                   top: 30,
@@ -25,9 +25,9 @@ class web extends StatelessWidget {
                     children: [
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           backgroundColor: Colors.transparent,
-                          shape: StadiumBorder(
+                          shape: const StadiumBorder(
                             side: BorderSide(
                               color: Colors.white,
                               width: 2
@@ -37,22 +37,22 @@ class web extends StatelessWidget {
                         onPressed: (){},
                         child: Row(
                           children: [
-                            Icon(Icons.font_download,color: Colors.white),
+                            const Icon(Icons.font_download,color: Colors.white),
                             Container(
-                              margin: EdgeInsets.only(left: 5),
+                              margin: const EdgeInsets.only(left: 5),
                               child: Text("App Store",style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w400),
+                                textStyle: const TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w400),
                               )),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      const SizedBox(width: 10,),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            padding: EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(20),
                             backgroundColor: Colors.transparent,
-                            shape: StadiumBorder(
+                            shape: const StadiumBorder(
                                 side: BorderSide(
                                     color: Colors.yellow,
                                     width: 2
@@ -62,11 +62,11 @@ class web extends StatelessWidget {
                         onPressed: (){},
                         child: Row(
                           children: [
-                            Icon(Icons.play_circle_outline,color: Colors.yellow),
+                            const Icon(Icons.play_circle_outline,color: Colors.yellow),
                             Container(
-                              margin: EdgeInsets.only(left: 5),
+                              margin: const EdgeInsets.only(left: 5),
                               child: Text("Play Store",style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(color: Colors.yellow,fontSize: 16,fontWeight: FontWeight.w400),
+                                textStyle: const TextStyle(color: Colors.yellow,fontSize: 16,fontWeight: FontWeight.w400),
                               )),
                             ),
                           ],
@@ -89,29 +89,29 @@ class web extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 600),
+                      margin: const EdgeInsets.only(top: 600),
                       child: Column(
                         children: [
                           Container(
                               child: Text("Best Thing Bring for cambodian's Business",style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(color: Colors.white,fontSize: 32,fontWeight: FontWeight.bold)
+                                  textStyle: const TextStyle(color: Colors.white,fontSize: 32,fontWeight: FontWeight.bold)
                               ),
                               )
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 40),
+                            margin: const EdgeInsets.only(top: 40),
                             child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(padding: EdgeInsets.only(top: 30,bottom: 30,left: 20,right: 20), backgroundColor: Colors.orange) ,
+                              style: ElevatedButton.styleFrom(padding: const EdgeInsets.only(top: 30,bottom: 30,left: 20,right: 20), backgroundColor: Colors.orange) ,
                             child: Text("Explore Mobile Experience now",style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
+                                textStyle: const TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold)
                             ),),
                             onPressed: (){},
                           ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 40),
+                            margin: const EdgeInsets.only(top: 40),
                               child: Text("What We Are?",style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(color: Colors.white,fontSize: 26,fontWeight: FontWeight.bold)
+                                  textStyle: const TextStyle(color: Colors.white,fontSize: 26,fontWeight: FontWeight.bold)
                               ),
                               )
                           ),
@@ -120,7 +120,7 @@ class web extends StatelessWidget {
                               margin: EdgeInsets.only(top: 10,left: MediaQuery.sizeOf(context).width*0),
                               child: Text("We are a dynamic e-commerce platform facilitating seamless market transactions. Empowering businesses, we offer a user-friendly interface, secure payment solutions, and a diverse marketplace to showcase products. Elevate your online presence with our comprehensive tools, driving success and connectivity in the digital marketplace.",
                                 style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w200),
+                                  textStyle: const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w200),
                               ),textAlign: TextAlign.center,
                               )
                           ),

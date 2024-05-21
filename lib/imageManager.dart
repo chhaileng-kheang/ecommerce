@@ -40,6 +40,7 @@ class _imageManagerHorizontalState extends State<imageManagerHorizontal> {
     multipleImages.clear();
     super.dispose();
   }
+  @override
   Widget build(BuildContext context) {
     double width;
     return SafeArea(

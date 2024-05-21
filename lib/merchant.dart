@@ -1,8 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 class merchant extends StatelessWidget {
   merchant({super.key});
@@ -51,7 +49,7 @@ class merchant extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          body: Container(
+          body: SizedBox(
             width: MediaQuery.sizeOf(context).width,
             height: MediaQuery.sizeOf(context).height,
             child: SingleChildScrollView(
@@ -60,11 +58,11 @@ class merchant extends StatelessWidget {
                   Header(width),
                   Store_info(width,context),
                   Contact(width, context),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   category(categorylst, width),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   uploadAndSub(width),
-                  SizedBox(height: 5,),
+                  const SizedBox(height: 5,),
                   bodyGid(width, context, grid)
                 ],
               ),
@@ -77,11 +75,11 @@ class merchant extends StatelessWidget {
     return Container(
       height:50,
       width: width*0.9,
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               spreadRadius: 1,
@@ -95,14 +93,14 @@ class merchant extends StatelessWidget {
         itemCount: categorylst.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-              margin: EdgeInsets.only(left: 10,right: 10,top: 15),
+              margin: const EdgeInsets.only(left: 10,right: 10,top: 15),
               child: Text(categorylst[index]));
         },
       ),
     );
   }
   Contact(double width, context) {
-      return Container(
+      return SizedBox(
       width: width *0.9,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -110,7 +108,7 @@ class merchant extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             phone_Contact_Row(width),
-            SizedBox(width: 10,),
+            const SizedBox(width: 10,),
             Social(35,35,20),
 
           ],
@@ -122,7 +120,7 @@ class merchant extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
+          margin: const EdgeInsets.only(top: 10,left: 5),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.black,
               borderRadius: BorderRadius.circular(100)
@@ -130,7 +128,7 @@ class merchant extends StatelessWidget {
           child: Icon(Icons.facebook, color: Colors.white,size: size,),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
+          margin: const EdgeInsets.only(top: 10,left: 5),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.black,
               borderRadius: BorderRadius.circular(100)
@@ -138,7 +136,7 @@ class merchant extends StatelessWidget {
           child: Icon(Icons.telegram, color: Colors.white,size: size,),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10,left: 5),
+          margin: const EdgeInsets.only(top: 10,left: 5),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.black,
               borderRadius: BorderRadius.circular(100)
@@ -153,12 +151,12 @@ class merchant extends StatelessWidget {
       children: [
         Container(
 
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(10)
           ),
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Row(
               children: [
                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
@@ -166,14 +164,14 @@ class merchant extends StatelessWidget {
               ]
           ),
         ),
-        SizedBox(width: 10,),
+        const SizedBox(width: 10,),
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.circular(10)
           ),
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Row(
               children: [
                 Text("+855(0)27 229 039",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
@@ -186,15 +184,15 @@ class merchant extends StatelessWidget {
   }
   profile_store_mini(double width) {
     return Padding(
-      padding: EdgeInsets.only(left: 3,right: 3),
+      padding: const EdgeInsets.only(left: 3,right: 3),
       child: Container(
         width: width,
         height: 40,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(100),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
                 offset: Offset(1,1),
@@ -208,13 +206,13 @@ class merchant extends StatelessWidget {
           },
           child: Row(
             children: [
-              SizedBox(width: 5,),
+              const SizedBox(width: 5,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 27,height: 27,fit: BoxFit.cover,),
               ),
-              SizedBox(width: 5,),
-              Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 9),)
+              const SizedBox(width: 5,),
+              const Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 9),)
             ],
           ),
         ),
@@ -232,7 +230,7 @@ class merchant extends StatelessWidget {
                 onTap: (){
                   Get.back();
                 },
-                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Merchant",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             profileControl_nobg(40,40,24)
           ],
@@ -243,23 +241,23 @@ class merchant extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: EdgeInsets.only(top: 20,bottom: 20,left: 10,right: 10),
+          padding: const EdgeInsets.only(top: 20,bottom: 20,left: 10,right: 10),
           width: width*0.9,
-          margin: EdgeInsets.only(top: 15),
+          margin: const EdgeInsets.only(top: 15),
           decoration: BoxDecoration(
-            color: Color(0XFFFFF0BE),
+            color: const Color(0XFFFFF0BE),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             children: [
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 65,height: 65,fit: BoxFit.cover,),
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   width: width*0.5,
                   height: width <420 ? 100 : 60,
                   child: Column(
@@ -328,7 +326,7 @@ class merchant extends StatelessWidget {
             Column(
               children: [
                 ConstrainedBox(
-                  constraints: new BoxConstraints(
+                  constraints: const BoxConstraints(
                       maxHeight: 300
                   ),
                   child: ClipRRect(
@@ -345,7 +343,7 @@ class merchant extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
-                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                      Text("\$$price",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16,decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
 
                     ],
                   )
@@ -354,7 +352,7 @@ class merchant extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
 
-                      Text("\$" +price,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16))),
+                      Text("\$$price",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 16))),
 
                     ],
                   ),
@@ -371,9 +369,9 @@ class merchant extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text("-" + discount.toString() + "%",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 12)),
+                    Text("-$discount%",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.w300,fontSize: 12)),
                     const SizedBox(width: 5,),
-                    Text("\$"+discountprice.toString(),style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 14)),
+                    Text("\$$discountprice",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w300,fontSize: 14)),
 
                   ],
                 ),
@@ -389,7 +387,7 @@ class merchant extends StatelessWidget {
       children: [
 
         Container(
-          margin: EdgeInsets.only(top: 10,left: 2),
+          margin: const EdgeInsets.only(top: 10,left: 2),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.transparent,
               borderRadius: BorderRadius.circular(100)
@@ -403,7 +401,7 @@ class merchant extends StatelessWidget {
   uploadAndSub(double width) {
     return Container(
       width: width*0.9,
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -412,16 +410,16 @@ class merchant extends StatelessWidget {
               Get.toNamed("/uploadproduct");
             },
             child: Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(10)
               ),
-              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
               child: Row(
                   children: [
-                    Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
-                    SizedBox(width: 5,),
+                    const Icon(Icons.add_business_outlined,color: Colors.white,size: 18,),
+                    const SizedBox(width: 5,),
                     Text("Add Product",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
                   ]
@@ -430,16 +428,16 @@ class merchant extends StatelessWidget {
           ),
           Container(
 
-            margin: EdgeInsets.only(top: 10,left: 10),
+            margin: const EdgeInsets.only(top: 10,left: 10),
             decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(10)
             ),
-            padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+            padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
             child: Row(
                 children: [
-                  Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 18,),
-                  SizedBox(width: 5,),
+                  const Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 18,),
+                  const SizedBox(width: 5,),
                   Text("Subscription",style: GoogleFonts.montserrat(fontSize: 10,fontWeight: FontWeight.w400,color: Colors.white),),
 
                 ]

@@ -1,10 +1,8 @@
-import 'dart:math';
-
-import 'package:video_player/video_player.dart';
+ import 'package:video_player/video_player.dart';
 
 class VideoManager {
   VideoManager({required this.preloadCount});
-  Map<int, VideoPlayerController> _controllers = {};
+  final Map<int, VideoPlayerController> _controllers = {};
   int preloadCount = 5;
   VideoPlayerController? getController(int index, List<String> videoUrls) {
     if (_controllers.containsKey(index) && !_controllers[index]!.hasListeners) {

@@ -1,21 +1,14 @@
 import 'dart:async';
 
 import 'package:ecomerce/leftmenu.dart';
-import 'package:ecomerce/searchPage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 import 'classobject/object.dart';
 import 'customWidget/classwidget.dart';
-import 'mobile.dart';
 
 class homePaage extends StatelessWidget {
    homePaage({super.key,required this.controller, required this.scaffoldKey});
@@ -28,7 +21,7 @@ class homePaage extends StatelessWidget {
         child: Scaffold(
           key: scaffoldKey,
             drawer: NavDrawer(),
-            backgroundColor: Color.fromRGBO(234, 234, 234, 1.0),
+            backgroundColor: const Color.fromRGBO(234, 234, 234, 1.0),
             body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
               if(constraints.maxWidth < 800){
                 controller.width = MediaQuery.sizeOf(context).width;
@@ -69,14 +62,14 @@ class homePaage extends StatelessWidget {
                children: [
                  Headerss(MediaQuery.sizeOf(context).width,context,scaffoldKey),
                  Expanded(
-                   child: Container(
+                   child: SizedBox(
                      width: width,
                      height: MediaQuery
                          .sizeOf(context)
                          .height-107,
                      child: Stack(
                        children: [
-                         Container(
+                         SizedBox(
                            width: MediaQuery.sizeOf(context).width,
                            height: MediaQuery.sizeOf(context).height,
                            child: LiquidPullToRefresh(
@@ -124,18 +117,18 @@ class homePaage extends StatelessWidget {
                                  return false;
                                },
                                child: Center(
-                                 child: Container(
+                                 child: SizedBox(
                                    width: width*0.9,
                                    child: ListView(
                                      controller: controller.Scroll_controller,
                                      children: [
-                                       SizedBox(height: 8),
+                                       const SizedBox(height: 8),
                                        RegisterMerchant(width, context),
-                                       SizedBox(height: 12),
+                                       const SizedBox(height: 12),
                                        !kIsWeb
                                            ? Container(
                                          width: width * 0.9,
-                                         margin: EdgeInsets.only(bottom: 10),
+                                         margin: const EdgeInsets.only(bottom: 10),
                                          child: Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                            children: [
@@ -146,9 +139,9 @@ class homePaage extends StatelessWidget {
                                                child: Container(
                                                  width: width * 0.5,
 
-                                                 margin: EdgeInsets.only(right: 10),
+                                                 margin: const EdgeInsets.only(right: 10),
                                                  height: 40,
-                                                 padding: EdgeInsets.only(left: 10),
+                                                 padding: const EdgeInsets.only(left: 10),
                                                  decoration: BoxDecoration(
                                                    borderRadius: BorderRadius.circular(5),
                                                    color: Colors.white,
@@ -157,8 +150,8 @@ class homePaage extends StatelessWidget {
                                                    mainAxisAlignment: MainAxisAlignment.start,
                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                    children: [
-                                                     Icon(Icons.storefront,color: Colors.black,),
-                                                     SizedBox(width: 10,),
+                                                     const Icon(Icons.storefront,color: Colors.black,),
+                                                     const SizedBox(width: 10,),
                                                      Text(
                                                        "Post Product...",
                                                        style: GoogleFonts.montserrat(
@@ -179,14 +172,14 @@ class homePaage extends StatelessWidget {
                                                },
                                                child: Container(
 
-                                                 margin: EdgeInsets.only(right: 10),
+                                                 margin: const EdgeInsets.only(right: 10),
                                                  width: 40,
                                                  height: 40,
                                                  decoration: BoxDecoration(
                                                    borderRadius: BorderRadius.circular(5),
                                                    color: Colors.white,
                                                  ),
-                                                 child: Icon(Icons.workspace_premium_sharp, color: Colors.black),
+                                                 child: const Icon(Icons.workspace_premium_sharp, color: Colors.black),
                                                ),
                                              ),
                                              GestureDetector(
@@ -195,20 +188,20 @@ class homePaage extends StatelessWidget {
                                                },
                                                child: Container(
 
-                                                 margin: EdgeInsets.only(right: 10),
+                                                 margin: const EdgeInsets.only(right: 10),
                                                  width: 40,
                                                  height: 40,
                                                  decoration: BoxDecoration(
                                                    borderRadius: BorderRadius.circular(5),
                                                    color: Colors.white,
                                                  ),
-                                                 child: Icon(Icons.delivery_dining),
+                                                 child: const Icon(Icons.delivery_dining),
                                                ),
                                              ),
                                            ],
                                          ),
                                        )
-                                           : SizedBox(height: 0),
+                                           : const SizedBox(height: 0),
 
                                        SizedBox(
                                          width: width * 0.9,
@@ -224,7 +217,7 @@ class homePaage extends StatelessWidget {
                                              ),
                                              Container(
                                                margin: const EdgeInsets.only(top: 15, right: 10),
-                                               child: Tooltip(
+                                               child: const Tooltip(
                                                  showDuration: Duration(seconds: 5),
                                                  margin: EdgeInsets.only(left: 10, right: 10),
                                                  triggerMode: TooltipTriggerMode.tap,
@@ -235,12 +228,12 @@ class homePaage extends StatelessWidget {
                                            ],
                                          ),
                                        ),
-                                       SizedBox(height: 5,),
+                                       const SizedBox(height: 5,),
                                        TrippleSponsor(width, context),
-                                       SizedBox(height: 10,),
+                                       const SizedBox(height: 10,),
                                        BannerSponsorEx(width, "https://i.ibb.co/0BwmgQ5/Untitled-3.png"),
                                        // banner 2 : https://i.ibb.co/YkPqdLk/Untitled-4.png
-                                       SizedBox(height: 10,),
+                                       const SizedBox(height: 10,),
                                        StreamBuilder<List<ProductObj>>(
                                          stream: controller.productsStream(),
                                          builder: (context, snapshot) {
@@ -250,7 +243,7 @@ class homePaage extends StatelessWidget {
                                        !kIsWeb
                                            ? controller.isloading == true
                                            ? Container(
-                                         margin: EdgeInsets.only(top: 10, bottom: 10),
+                                         margin: const EdgeInsets.only(top: 10, bottom: 10),
                                          height: 60,
                                          width: width * 0.9,
                                          decoration: BoxDecoration(
@@ -261,7 +254,7 @@ class homePaage extends StatelessWidget {
                                            highlightColor: Colors.white,
                                            baseColor: Colors.grey.withOpacity(0.3),
                                            child: Container(
-                                             margin: EdgeInsets.only(left: 20, right: 20),
+                                             margin: const EdgeInsets.only(left: 20, right: 20),
                                              child: Row(
                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                children: [
@@ -288,7 +281,7 @@ class homePaage extends StatelessWidget {
                                        )
                                            : Container(height: 80)
                                            : Container(
-                                             margin: EdgeInsets.only(top: 10, bottom: 10),
+                                             margin: const EdgeInsets.only(top: 10, bottom: 10),
                                              height: controller.Product.length <= 50 ? 60 : 100,
                                              width: width * 0.9,
                                              decoration: BoxDecoration(
@@ -297,23 +290,23 @@ class homePaage extends StatelessWidget {
                                                   ), child: Row(
                                                mainAxisAlignment: MainAxisAlignment.center,
                                                children: [
-                                                 controller.Product.length < 50 ? Text("Loading...") : Column(
+                                                 controller.Product.length < 50 ? const Text("Loading...") : Column(
                                                    children: [
-                                                     SizedBox(height: 15),
+                                                     const SizedBox(height: 15),
                                                      Text(
                                                        "Get APP To Enjoy Full Experience",
-                                                       style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold)),
+                                                       style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold)),
                                                      ),
                                                      Container(
-                                                       margin: EdgeInsets.only(top: 10),
-                                                       padding: EdgeInsets.all(10),
+                                                       margin: const EdgeInsets.only(top: 10),
+                                                       padding: const EdgeInsets.all(10),
                                                        decoration: BoxDecoration(
                                                          color: Colors.green,
                                                          borderRadius: BorderRadius.circular(10),
                                                        ),
                                                        child: Text(
                                                          "Download Now",
-                                                         style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                                                         style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
                                                        ),
                                                      ),
                                                    ],
@@ -322,7 +315,7 @@ class homePaage extends StatelessWidget {
                                              ),
                                            ),
                                        kIsWeb && controller.Product.length > 50
-                                           ? Container(
+                                           ? SizedBox(
                                          height: 100,
                                          width: width * 0.9,
                                          child: Center(
@@ -330,18 +323,18 @@ class homePaage extends StatelessWidget {
                                              children: [
                                                Text(
                                                  "- See More Massive Products In Mobile Application -",
-                                                 style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black)),
+                                                 style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.w400, color: Colors.black)),
                                                ),
-                                               SizedBox(height: 10),
+                                               const SizedBox(height: 10),
                                                Text(
                                                  "- Available : Play Store | App Store -",
-                                                 style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
+                                                 style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black)),
                                                ),
                                              ],
                                            ),
                                          ),
                                        )
-                                           : SizedBox(height: 0),
+                                           : const SizedBox(height: 0),
 
                                      ],
 
@@ -367,7 +360,7 @@ class homePaage extends StatelessWidget {
 }
 
 Future<void> _refresh() {
-  return Future.delayed(Duration(seconds: 2));
+  return Future.delayed(const Duration(seconds: 2));
 }
 
 class ProductController extends GetxController{
@@ -477,7 +470,7 @@ class ProductController extends GetxController{
   }
   Stream<List<ProductObj>> productsStream() async* {
     while (true) {
-      await Future.delayed(Duration(milliseconds: 2000));
+      await Future.delayed(const Duration(milliseconds: 2000));
       yield Product;
     }
   }
@@ -513,7 +506,7 @@ class ProductController extends GetxController{
     Scroll_controller
         .animateTo( //go to top of scroll
         0, //scroll offset to go
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         //duration of scroll
         curve: Curves.fastOutSlowIn //scroll type
     );

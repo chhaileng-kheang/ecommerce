@@ -56,10 +56,10 @@ class detail extends StatelessWidget {
     return Future.wait(futures);
   }
   Future<ImageInfo> getImageInfo(Image img) async {
-    final c = new Completer<ImageInfo>();
+    final c = Completer<ImageInfo>();
     img.image
-        .resolve(new ImageConfiguration())
-        .addListener(new ImageStreamListener((ImageInfo i, bool _) {
+        .resolve(const ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo i, bool _) {
       c.complete(i);
     }));
     return c.future;
@@ -74,7 +74,7 @@ class detail extends StatelessWidget {
             Header(MediaQuery.sizeOf(context).width),
             Expanded(
               flex: 1,
-              child: Container(
+              child: SizedBox(
                 width: width*0.9,
                 height: MediaQuery.sizeOf(context).height-70,
                 child: SingleChildScrollView(
@@ -83,19 +83,19 @@ class detail extends StatelessWidget {
                       imageSection(width,context,Images[0],Images.sublist(1)),
                       Container(
                         width: width*0.9,
-                        margin: EdgeInsets.only(top: 15),
+                        margin: const EdgeInsets.only(top: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
-                                    Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                    SizedBox(width: 10,),
+                                    Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.black,textStyle: const TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                    const SizedBox(width: 10,),
                                     Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
                                   ],
                                 ),
@@ -106,7 +106,7 @@ class detail extends StatelessWidget {
                             Contact(width,context),
                             sponsor(width),
                             Container(
-                                margin: EdgeInsets.only(top: 20),
+                                margin: const EdgeInsets.only(top: 20),
                                 child: Text("Sneakers, an iconic fusion of fashion and function, transcend mere footwear. These sleek, cushioned marvels boast diverse designs,"
                                     " from classic canvas to cutting-edge knit technology. Brands innovate with vibrant color palettes and avant-garde collaborations, ensuring every step"
                                     " is a style statement. Comfort meets culture in the world of sneakers.",
@@ -117,7 +117,7 @@ class detail extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(height: 50,)
+                      const SizedBox(height: 50,)
                     ],
                   ),
                 ),
@@ -142,7 +142,7 @@ class detail extends StatelessWidget {
                    Get.back();
 
                  },
-                 child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                 child: const Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             const Icon(Icons.link,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),),
 
@@ -151,14 +151,12 @@ class detail extends StatelessWidget {
     );
   }
   imageSection(double width,context,String thm, List<String> subimg) {
-    return Container(
-      child: Column(
-        children: [
-          thumnnail(width,thm),
-          SubImage(width,context,subimg),
+    return Column(
+      children: [
+        thumnnail(width,thm),
+        SubImage(width,context,subimg),
 
-        ],
-      ),
+      ],
     );
     
   }
@@ -169,25 +167,25 @@ class detail extends StatelessWidget {
       },
       child: Container(
         width: width * 0.9,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: Center(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: AspectRatio(
               aspectRatio: 16/9,
               child: FadeInImage(
-                placeholder: AssetImage('asset/aas.png'),
-                fadeInDuration: Duration(milliseconds: 100),
+                placeholder: const AssetImage('asset/aas.png'),
+                fadeInDuration: const Duration(milliseconds: 100),
                 image: NetworkImage(imgthm),
                 filterQuality: FilterQuality.low,
-                fadeOutDuration: Duration(milliseconds: 1),
+                fadeOutDuration: const Duration(milliseconds: 1),
                 fadeInCurve: Curves.linear,
                 width: width*0.9,
                 fit: BoxFit.cover,
                 imageErrorBuilder: (context,error,StackTrace){
-                  return Container(
+                  return SizedBox(
                     width: MediaQuery.sizeOf(context).width,
-                    child: Center(
+                    child: const Center(
                       child: Icon(Icons.error),
                     ),
                   );
@@ -203,10 +201,10 @@ class detail extends StatelessWidget {
     return FutureBuilder<List<ImageInfo>>(future: getImageinfoList(imgsub), builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         // Return a placeholder widget while waiting for the future to complete
-        return Container(
+        return SizedBox(
             width: width,
             child: Center(child: Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 width: 40,height: 20, child: Lottie.asset("asset/Animation - 1713422873683.json"))));
       } else if (snapshot.hasError) {
         // Return an error widget if the future encounters an error
@@ -241,19 +239,19 @@ class detail extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: FadeInImage(
-                                  placeholder: AssetImage('asset/aas.png'),
-                                  fadeInDuration: Duration(milliseconds: 100),
+                                  placeholder: const AssetImage('asset/aas.png'),
+                                  fadeInDuration: const Duration(milliseconds: 100),
                                   image: NetworkImage(e),
                                   filterQuality: FilterQuality.low,
-                                  fadeOutDuration: Duration(milliseconds: 1),
+                                  fadeOutDuration: const Duration(milliseconds: 1),
                                   fadeInCurve: Curves.linear,
                                   width: MediaQuery.sizeOf(context).width,
                                   height: 200,
                                   fit: BoxFit.cover,
                                   imageErrorBuilder: (context,error,StackTrace){
-                                    return Container(
+                                    return SizedBox(
                                       width: MediaQuery.sizeOf(context).width,
-                                      child: Center(
+                                      child: const Center(
                                         child: Icon(Icons.error),
                                       ),
                                     );
@@ -278,13 +276,13 @@ class detail extends StatelessWidget {
   }
   sponsor(double width){
     return Container(
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       child: FutureBuilder<ImageInfo>(
         future: getImageInfo(Image.network("https://i.ibb.co/0BwmgQ5/Untitled-3.png")),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Return a placeholder widget while waiting for the future to complete
-            return Text("");
+            return const Text("");
           } else if (snapshot.hasError) {
             // Return an error widget if the future encounters an error
             return Text('Error: ${snapshot.error}');
@@ -309,16 +307,16 @@ class detail extends StatelessWidget {
   }
   profile_store(double width) {
     return Padding(
-      padding: EdgeInsets.only(left: 3,right: 3),
+      padding: const EdgeInsets.only(left: 3,right: 3),
       child: Container(
         width: width,
         height: 60,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
             color: Colors.black12,
               offset: Offset(1,1),
               blurRadius: 2,
@@ -331,12 +329,12 @@ class detail extends StatelessWidget {
           },
           child: Row(
             children: [
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 40,height: 40,fit: BoxFit.cover,),
               ),
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Text("Vetana De Sneaker",style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),)
             ],
           ),

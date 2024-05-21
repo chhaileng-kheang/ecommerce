@@ -11,7 +11,7 @@ class paymentStore extends StatelessWidget {
   Widget build(BuildContext context) {
     double width;
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
       ),
@@ -51,13 +51,13 @@ Header(double width,context) {
               onTap: (){
                 Navigator.pop(context);
               },
-              child: Icon(Icons.close,size: 28,color: Colors.black,)),
+              child: const Icon(Icons.close,size: 28,color: Colors.black,)),
           Text("Balance",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
           InkWell(
             onTap: (){
               Get.toNamed("/login");
             },
-            child: SizedBox(width: 30,)
+            child: const SizedBox(width: 30,)
           )
         ],
       )
@@ -69,21 +69,21 @@ mainscreen(double width, BuildContext context, int g) {
       children: [
         Header(width, context),
         balancecard(width,context,"Vetana","275.00"),
-        SizedBox(height: 10,),
-        Container(
+        const SizedBox(height: 10,),
+        SizedBox(
           width: width*0.9,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text("History",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
+              Text("History",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
             ],
           ),
         ),
-        Expanded(child: Container(height: MediaQuery.sizeOf(context).height - 200,
+        Expanded(child: SizedBox(height: MediaQuery.sizeOf(context).height - 200,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               Container(
                 height: 1,
                 width: width*0.9,
@@ -104,7 +104,7 @@ mainscreen(double width, BuildContext context, int g) {
               history(width,context,"200","12/05/2025 - 12:00AM","success"),
               history(width,context,"200","12/05/2025 - 12:00AM","success"),
               history(width,context,"100","12/05/2025 - 12:00AM","success"),
-              SizedBox(height: 50,)
+              const SizedBox(height: 50,)
 
             ],
           ),
@@ -118,18 +118,18 @@ mainscreen(double width, BuildContext context, int g) {
 }
 
 history(double width, BuildContext context,String price, String dt, String status) {
-  return Container(
+  return SizedBox(
     width: width*0.9,
     child: Column(
       children: [
 
         Container(
-          padding: EdgeInsets.only(top: 10,bottom: 10),
+          padding: const EdgeInsets.only(top: 10,bottom: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("\$$price",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 16))),
-              Text("$dt",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 12)))
+              Text(dt,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w400,fontSize: 12)))
 
             ],
           ),
@@ -138,14 +138,14 @@ history(double width, BuildContext context,String price, String dt, String statu
           child: Row(
             children: [
               status == "success"
-                  ? Text("$status",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.green,fontWeight: FontWeight.w400,fontSize: 14)))
+                  ? Text(status,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.green,fontWeight: FontWeight.w400,fontSize: 14)))
                   : status == "failed"
-                    ? Text("$status",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.red,fontWeight: FontWeight.w400,fontSize: 14)))
-                    : Text("$status",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.orange,fontWeight: FontWeight.w400,fontSize: 14))),
+                    ? Text(status,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.red,fontWeight: FontWeight.w400,fontSize: 14)))
+                    : Text(status,style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.orange,fontWeight: FontWeight.w400,fontSize: 14))),
             ],
         ),
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         Container(
           height: 1,
           width: width,
@@ -159,16 +159,16 @@ history(double width, BuildContext context,String price, String dt, String statu
 balancecard(double width, BuildContext context, String name, String balance) {
   return Container(
       width: width,
-      padding: EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20),
     child: Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: const EdgeInsets.only(top: 20),
           height: 200,
           width: width*0.9,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-              gradient:  LinearGradient(
+              gradient:  const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
@@ -183,7 +183,7 @@ balancecard(double width, BuildContext context, String name, String balance) {
               Positioned(
                   top: 20,
                   left: 30,
-                  child: Text("APP_Name",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),)),
+                  child: Text("APP_Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),)),
               Positioned(
                   bottom: 20,
                   left: 30,
@@ -194,16 +194,16 @@ balancecard(double width, BuildContext context, String name, String balance) {
                       Row(
                         children: [
                           Text("Balance : ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 12)),),
-                          SizedBox(width: 3,),
+                          const SizedBox(width: 3,),
                           Text("\$500.00",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold,fontSize: 14)))
                         ],
                       ),
                       GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => withdraw(),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const withdraw(),));
                         },
                         child: Container(
-                          padding: EdgeInsets.only(left: 15,right: 15,bottom: 10,top: 10),
+                          padding: const EdgeInsets.only(left: 15,right: 15,bottom: 10,top: 10),
                           decoration: BoxDecoration(
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.circular(100)
@@ -221,17 +221,17 @@ balancecard(double width, BuildContext context, String name, String balance) {
                     children: [
                       Row(
                         children: [
-                          Text("Account Number (ABA)",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 10)),),
-                          SizedBox(width: 10,),
-                          Text("100 991 990",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 12)),),
+                          Text("Account Number (ABA)",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 10)),),
+                          const SizedBox(width: 10,),
+                          Text("100 991 990",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 12)),),
                         ],
                       ),
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Row(
                         children: [
-                          Text("Account Holder Name",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 10)),),
-                          SizedBox(width: 10,),
-                          Text("Vong Vothana",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 12)),),
+                          Text("Account Holder Name",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 10)),),
+                          const SizedBox(width: 10,),
+                          Text("Vong Vothana",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400,fontSize: 12)),),
                         ],
                       ),
                     ],

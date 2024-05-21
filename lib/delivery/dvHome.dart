@@ -11,7 +11,7 @@ class dvHome extends StatelessWidget {
   Widget build(BuildContext context) {
     double width;
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Color(0XFFFFF0BE),
         statusBarIconBrightness: Brightness.dark,
       ),
@@ -52,32 +52,32 @@ class dvHome extends StatelessWidget {
       child: Column(
         children: [
          Container(
-           decoration: BoxDecoration(
+           decoration: const BoxDecoration(
                color: Color(0XFFFFF0BE),
              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight: Radius.circular(30))
            ),
-           padding: EdgeInsets.only(bottom: 30),
+           padding: const EdgeInsets.only(bottom: 30),
            child: Column(
              children: [
                Header(MediaQuery.sizeOf(context).width),
-               SizedBox(height: 20,),
+               const SizedBox(height: 20,),
                Container(
                  width: width*0.9,
                  child:Column(
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
-                     Text("Vetana De Sneaker",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold))),
-                     SizedBox(height: 10,),
+                     Text("Vetana De Sneaker",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold))),
+                     const SizedBox(height: 10,),
                      Row(
                        children: [
-                         Text("Your Balance :  ",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400))),
-                         Text("21.57\$",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.red,fontWeight: FontWeight.bold))),
+                         Text("Your Balance :  ",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400))),
+                         Text("21.57\$",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.red,fontWeight: FontWeight.bold))),
                        ],
                      )
                  ],
                ),
                ),
-               SizedBox(height: 10,),
+               const SizedBox(height: 10,),
                bodyGrid(context, width),
              ],
            ),
@@ -85,49 +85,49 @@ class dvHome extends StatelessWidget {
           Expanded(
               child: Container(
                 width: width*0.9,
-                margin: EdgeInsets.only(top: 30),
+                margin: const EdgeInsets.only(top: 30),
                 height: MediaQuery.sizeOf(context).height *0.8,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         child: Row(
                           children: [
-                            Icon(Icons.location_on_rounded,size: 28,),
-                            SizedBox(width: 10,),
-                            Text("My Location",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
+                            const Icon(Icons.location_on_rounded,size: 28,),
+                            const SizedBox(width: 10,),
+                            Text("My Location",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
                   
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         child: Row(
                           children: [
-                            Icon(Icons.person,size: 28,),
-                            SizedBox(width: 10,),
-                            Text("Saved Customer",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
+                            const Icon(Icons.person,size: 28,),
+                            const SizedBox(width: 10,),
+                            Text("Saved Customer",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         child: Row(
                           children: [
-                            Icon(Icons.history,size: 28,),
-                            SizedBox(width: 10,),
-                            Text("Payment History",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
+                            const Icon(Icons.history,size: 28,),
+                            const SizedBox(width: 10,),
+                            Text("Payment History",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         child: Row(
                           children: [
-                            Icon(Icons.headphones,size: 28,),
-                            SizedBox(width: 10,),
-                            Text("Contact to Support",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
+                            const Icon(Icons.headphones,size: 28,),
+                            const SizedBox(width: 10,),
+                            Text("Contact to Support",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w600)),)
                           ],
                         ),
                       )
@@ -151,9 +151,9 @@ class dvHome extends StatelessWidget {
             InkWell(
                 onTap: (){
                 },
-                child: Icon(Icons.arrow_back_ios_new_rounded,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios_new_rounded,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Delivery",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-            SizedBox(width: 35,)
+            const SizedBox(width: 35,)
           ],
         )
     );
@@ -164,7 +164,7 @@ class dvHome extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 15),
+            margin: const EdgeInsets.only(top: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -175,12 +175,12 @@ class dvHome extends StatelessWidget {
                   child: Container(
                     width: 80,
                     height: 60,
-                    margin: EdgeInsets.only(left: 15),
+                    margin: const EdgeInsets.only(left: 15),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(
+                          const BoxShadow(
                               color: Colors.black26,
                               offset: Offset(0,0),
                               spreadRadius: 0.5,
@@ -191,8 +191,8 @@ class dvHome extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.delivery_dining_outlined,size: 26,),
-                        Text("Package",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
+                        const Icon(Icons.delivery_dining_outlined,size: 26,),
+                        Text("Package",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
 
                       ],
                     ),
@@ -205,12 +205,12 @@ class dvHome extends StatelessWidget {
                   child: Container(
                     width: 80,
                     height: 60,
-                    margin: EdgeInsets.only(left: 15),
+                    margin: const EdgeInsets.only(left: 15),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(
+                          const BoxShadow(
                               color: Colors.black26,
                               offset: Offset(0,0),
                               spreadRadius: 0.5,
@@ -223,8 +223,8 @@ class dvHome extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.list_alt,size: 26,),
-                          Text("Track",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
+                          const Icon(Icons.list_alt,size: 26,),
+                          Text("Track",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
 
                         ],
                       ),
@@ -238,12 +238,12 @@ class dvHome extends StatelessWidget {
                   child: Container(
                     width: 80,
                     height: 60,
-                    margin: EdgeInsets.only(left: 15),
+                    margin: const EdgeInsets.only(left: 15),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                         boxShadow: [
-                          BoxShadow(
+                          const BoxShadow(
                               color: Colors.black26,
                               offset: Offset(0,0),
                               spreadRadius: 0.5,
@@ -254,8 +254,8 @@ class dvHome extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.payment,size: 26,),
-                        Text("Payment",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
+                        const Icon(Icons.payment,size: 26,),
+                        Text("Payment",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.bold)),)
 
                       ],
                     ),

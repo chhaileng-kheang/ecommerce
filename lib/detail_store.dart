@@ -1,13 +1,8 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'customWidget/classwidget.dart';
 class detail_store extends StatelessWidget {
   detail_store({super.key});
@@ -56,10 +51,10 @@ class detail_store extends StatelessWidget {
     return Future.wait(futures);
   }
   Future<ImageInfo> getImageInfo(Image img) async {
-    final c = new Completer<ImageInfo>();
+    final c = Completer<ImageInfo>();
     img.image
-        .resolve(new ImageConfiguration())
-        .addListener(new ImageStreamListener((ImageInfo i, bool _) {
+        .resolve(const ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo i, bool _) {
       c.complete(i);
     }));
     return c.future;
@@ -72,10 +67,10 @@ class detail_store extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               // Return a placeholder widget while waiting for the future to complete
-              return Container(
+              return SizedBox(
                   width: width,
                   height: MediaQuery.sizeOf(context).height,
-                  child: Center(child: Container(width: 150,height: 150, child: Lottie.asset("asset/Animation - 1713422112684.json"))));
+                  child: Center(child: SizedBox(width: 150,height: 150, child: Lottie.asset("asset/Animation - 1713422112684.json"))));
             } else
             if (snapshot.hasError) {
               // Return an error widget if the future encounters an error
@@ -89,7 +84,7 @@ class detail_store extends StatelessWidget {
                     Header(MediaQuery.sizeOf(context).width),
                     Expanded(
                       flex: 1,
-                      child: Container(
+                      child: SizedBox(
                         width: width*0.9,
                         height: MediaQuery.sizeOf(context).height-70,
                         child: SingleChildScrollView(
@@ -98,19 +93,19 @@ class detail_store extends StatelessWidget {
                               imageSection(width,context,Images[0],Images.sublist(1)),
                               Container(
                                 width: width*0.9,
-                                margin: EdgeInsets.only(top: 15),
+                                margin: const EdgeInsets.only(top: 15),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text("white and red nike athletic shoe J2 Code : wAQDckus",style: GoogleFonts.montserrat(fontSize: 20,fontWeight: FontWeight.w600),),
-                                    SizedBox(height: 10,),
+                                    const SizedBox(height: 10,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
-                                            Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                            SizedBox(width: 10,),
+                                            Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 12,fontWeight: FontWeight.w400,color: Colors.black,textStyle: const TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                            const SizedBox(width: 10,),
                                             Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.redAccent),),
                                           ],
                                         ),
@@ -120,7 +115,7 @@ class detail_store extends StatelessWidget {
                                     Contact(width,context),
                                     sponsor(width),
                                     Container(
-                                        margin: EdgeInsets.only(top: 20),
+                                        margin: const EdgeInsets.only(top: 20),
                                         child: Text("Sneakers, an iconic fusion of fashion and function, transcend mere footwear. These sleek, cushioned marvels boast diverse designs,"
                                             " from classic canvas to cutting-edge knit technology. Brands innovate with vibrant color palettes and avant-garde collaborations, ensuring every step"
                                             " is a style statement. Comfort meets culture in the world of sneakers.",
@@ -131,7 +126,7 @@ class detail_store extends StatelessWidget {
                                 ),
                               ),
 
-                              SizedBox(height: 50,)
+                              const SizedBox(height: 50,)
                             ],
                           ),
                         ),
@@ -159,7 +154,7 @@ class detail_store extends StatelessWidget {
                   Get.back();
 
                 },
-                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             const Icon(Icons.link,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),),
 
@@ -188,7 +183,7 @@ class detail_store extends StatelessWidget {
       },
       child: Container(
         width: width * 0.9,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: Center(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
@@ -206,10 +201,10 @@ class detail_store extends StatelessWidget {
     return FutureBuilder<List<ImageInfo>>(future: getImageinfoList(imgsub), builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         // Return a placeholder widget while waiting for the future to complete
-        return Container(
+        return SizedBox(
             width: width,
             child: Center(child: Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 width: 40,height: 20, child: Lottie.asset("asset/Animation - 1713422873683.json"))));
       } else if (snapshot.hasError) {
         // Return an error widget if the future encounters an error
@@ -264,13 +259,13 @@ class detail_store extends StatelessWidget {
 
   sponsor(double width){
     return Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: FutureBuilder<ImageInfo>(
           future: getImageInfo(Image.network("https://i.ibb.co/0BwmgQ5/Untitled-3.png")),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               // Return a placeholder widget while waiting for the future to complete
-              return Text("");
+              return const Text("");
             } else if (snapshot.hasError) {
               // Return an error widget if the future encounters an error
               return Text('Error: ${snapshot.error}');

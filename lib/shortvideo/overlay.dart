@@ -22,7 +22,7 @@ class BasicOverlayWidget extends StatelessWidget {
     ],
   );
 
-  Widget buildIndicator() => Container(
+  Widget buildIndicator() => SizedBox(
     height: 8,
     child: VideoProgressIndicator(
       controller,

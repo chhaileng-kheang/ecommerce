@@ -33,13 +33,13 @@ class _subscription_detailState extends State<subscription_detail> {
   Widget build(BuildContext context) {
     double width;
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
       ),
       child: SafeArea(
         child: Scaffold(
-            backgroundColor: Color.fromRGBO(234,234,234,1),
+            backgroundColor: const Color.fromRGBO(234,234,234,1),
             body: LayoutBuilder(builder: (BuildContext context,BoxConstraints constraints){
               if(constraints.maxWidth < 800){
                 width = MediaQuery.sizeOf(context).width;
@@ -68,11 +68,11 @@ class _subscription_detailState extends State<subscription_detail> {
         child: Column(
           children: [
             Header(width, context),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Container(
               width: width*0.9,
               height: 40,
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.black
@@ -91,7 +91,7 @@ class _subscription_detailState extends State<subscription_detail> {
                 ],
               ),
             ),
-            SizedBox(height: 15,),
+            const SizedBox(height: 15,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,13 +115,13 @@ class _subscription_detailState extends State<subscription_detail> {
                           });
 
                         },
-                        child: Text("ABA"),
+                        child: const Text("ABA"),
                       ),
                     ),
                     Visibility(
                       visible: widget.aba == true ? true : false ,
                       child: Container(
-                        margin: EdgeInsets.only(top: 5),
+                        margin: const EdgeInsets.only(top: 5),
                         width: widget.size,
                         height: 5,
                         decoration: BoxDecoration(
@@ -132,9 +132,9 @@ class _subscription_detailState extends State<subscription_detail> {
                     )
                   ],
                 ),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
                 Container(
-                  margin: EdgeInsets.only(top: 2),
+                  margin: const EdgeInsets.only(top: 2),
                   width: 5, height: 20,
                   decoration: BoxDecoration(
                       color: Colors.black,
@@ -142,7 +142,7 @@ class _subscription_detailState extends State<subscription_detail> {
                   ),
 
                 ),
-                SizedBox(width: 15,),
+                const SizedBox(width: 15,),
                 Column(
                   children: [
                     WidgetSize(
@@ -161,13 +161,13 @@ class _subscription_detailState extends State<subscription_detail> {
                           });
 
                         },
-                        child: Text("ACLEDA"),
+                        child: const Text("ACLEDA"),
                       ),
                     ),
                     Visibility(
                       visible: widget.ac == true ? true : false ,
                       child: Container(
-                        margin: EdgeInsets.only(top: 5),
+                        margin: const EdgeInsets.only(top: 5),
                         width: widget.size,
                         height: 5,
                         decoration: BoxDecoration(
@@ -181,8 +181,8 @@ class _subscription_detailState extends State<subscription_detail> {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 15),
-              padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 20),
+              margin: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 20),
               width: width*0.9,
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -191,28 +191,28 @@ class _subscription_detailState extends State<subscription_detail> {
               child: Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 15,top: 10),
+                    margin: const EdgeInsets.only(left: 15,top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Reception",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
+                        Text("Reception",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold))),
                         Container(
-                          margin: EdgeInsets.only(left: 15,top: 20),
+                          margin: const EdgeInsets.only(left: 15,top: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
-                                  Text("Account Number  : ",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
-                                  Text("100 929 192",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
+                                  Text("Account Number  : ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
+                                  Text("100 929 192",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
 
                                 ],
                               ),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               Row(
                                 children: [
-                                  Text("Account Holder Name   : ",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
-                                  Text("Vong Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
+                                  Text("Account Holder Name   : ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 11,fontWeight: FontWeight.w400))),
+                                  Text("Vong Vetana",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
                                 ],
                               )
                             ],
@@ -221,7 +221,7 @@ class _subscription_detailState extends State<subscription_detail> {
                       ],
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                       bottom: 0,
                       right: 10,
                       child: Icon(Icons.copy))
@@ -229,35 +229,35 @@ class _subscription_detailState extends State<subscription_detail> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15),
-              padding: EdgeInsets.only(left: 5,right: 10,top: 10,bottom: 20),
+              margin: const EdgeInsets.only(top: 15),
+              padding: const EdgeInsets.only(left: 5,right: 10,top: 10,bottom: 20),
               width: width*0.9,
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5)
               ),
               child: Container(
-                margin: EdgeInsets.only(left: 15,top: 10),
+                margin: const EdgeInsets.only(left: 15,top: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Price :  ",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
-                    Text("\$16.00",style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.redAccent,fontSize: 14,fontWeight: FontWeight.bold))),
+                    Text("Price :  ",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w400))),
+                    Text("\$16.00",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.redAccent,fontSize: 14,fontWeight: FontWeight.bold))),
                   ],
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(top: 15),
               width: width*0.9,
               height: 100,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5)
               ),
-              padding: EdgeInsets.only(left: 15,top: 10,bottom: 10,right: 15),
-              child: Column(
+              padding: const EdgeInsets.only(left: 15,top: 10,bottom: 10,right: 15),
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -285,7 +285,7 @@ class _subscription_detailState extends State<subscription_detail> {
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: Container(
-                            margin: EdgeInsets.all(2),
+                            margin: const EdgeInsets.all(2),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(100),
@@ -293,7 +293,7 @@ class _subscription_detailState extends State<subscription_detail> {
                             child:  InkWell(
                               onTap: colorChanged,
                               child: Container(
-                                margin: EdgeInsets.all(2),
+                                margin: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                   color: b_color,
                                   borderRadius: BorderRadius.circular(100),
@@ -302,8 +302,8 @@ class _subscription_detailState extends State<subscription_detail> {
                             ),
                           )
                       ),
-                      SizedBox(width: 10,),
-                      Text("Submit will be under review in  a few hour",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11)),)
+                      const SizedBox(width: 10,),
+                      Text("Submit will be under review in  a few hour",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 11)),)
                     ],
                   ),
                 ],
@@ -315,8 +315,8 @@ class _subscription_detailState extends State<subscription_detail> {
               },
               child: Container(
                 width:  width*0.9,
-                padding: EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
-                margin: EdgeInsets.only(left: 5,top: 5),
+                padding: const EdgeInsets.only(left: 25,right: 25,top: 15,bottom: 15),
+                margin: const EdgeInsets.only(left: 5,top: 5),
                 decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5)
@@ -324,7 +324,7 @@ class _subscription_detailState extends State<subscription_detail> {
                 child: Center(
                   child: Text(
                     "Submit",
-                    style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                    style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
                   ),
                 ),
               ),
@@ -336,17 +336,17 @@ class _subscription_detailState extends State<subscription_detail> {
                 color: Colors.white,
               borderRadius: BorderRadius.circular(100),
               ),
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.only(bottom: 20,top: 30),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(bottom: 20,top: 30),
               child: Column(
                 children: [
-                  Icon(Icons.support_agent,size: 20,),
-                  SizedBox(height: 5,),
-                  Text("Support",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 7,color: Colors.black,fontWeight: FontWeight.w400)),)
+                  const Icon(Icons.support_agent,size: 20,),
+                  const SizedBox(height: 5,),
+                  Text("Support",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 7,color: Colors.black,fontWeight: FontWeight.w400)),)
                 ],
               ),
             ),
-            SizedBox(height: 100,)
+            const SizedBox(height: 100,)
           ],
         ),
       ),
@@ -364,13 +364,13 @@ class _subscription_detailState extends State<subscription_detail> {
                 onTap: (){
                   Navigator.pop(context);
                 },
-                child: Icon(Icons.close,size: 28,color: Colors.black,)),
+                child: const Icon(Icons.close,size: 28,color: Colors.black,)),
             Text("Subscription",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             InkWell(
                 onTap: (){
                   Get.toNamed("/login");
                 },
-                child: SizedBox(width: 30,)
+                child: const SizedBox(width: 30,)
             )
           ],
         )

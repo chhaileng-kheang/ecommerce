@@ -12,6 +12,8 @@ class editStore extends StatefulWidget {
 class _editStoreState extends State<editStore> {
   @override
   final TextEditingController _emailController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
     late double width;
     return SafeArea(
@@ -43,7 +45,7 @@ class _editStoreState extends State<editStore> {
     return Column(
       children: [
         Header(width),
-        SizedBox(height: 50,),
+        const SizedBox(height: 50,),
         Container(
           margin: const EdgeInsets.only(top: 10),
           width: width*0.9,
@@ -54,7 +56,7 @@ class _editStoreState extends State<editStore> {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: width*0.8,
                 child: TextField(
                     style: GoogleFonts.montserrat(
@@ -84,7 +86,7 @@ class _editStoreState extends State<editStore> {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: width*0.8,
                 child: TextField(
                     style: GoogleFonts.montserrat(
@@ -114,7 +116,7 @@ class _editStoreState extends State<editStore> {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: width*0.8,
                 child: TextField(
                     style: GoogleFonts.montserrat(
@@ -144,7 +146,7 @@ class _editStoreState extends State<editStore> {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: width*0.8,
                 child: TextField(
                     style: GoogleFonts.montserrat(
@@ -174,7 +176,7 @@ class _editStoreState extends State<editStore> {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: width*0.8,
                 child: TextField(
                     style: GoogleFonts.montserrat(
@@ -204,7 +206,7 @@ class _editStoreState extends State<editStore> {
           ),
           child: Row(
             children: [
-              Container(
+              SizedBox(
                 width: width*0.8,
                 child:   Autocomplete<String>(
                   optionsBuilder: (TextEditingValue textEditingValue) {
@@ -225,7 +227,7 @@ class _editStoreState extends State<editStore> {
                     return TextFormField(
                       controller: textEditingController,
                       decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
+                          contentPadding: const EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
                           border: InputBorder.none,
                           prefixIconColor: Colors.black,
                         hintText: 'E-Mail',
@@ -236,12 +238,10 @@ class _editStoreState extends State<editStore> {
                       focusNode: focusNode,
                       onFieldSubmitted: (String value) {
                         onFieldSubmitted();
-                        print('You just typed a new entry  $value');
                       },
                     );
                   },
                   onSelected: (String selection) {
-                    print('You just selected $selection');
                   },
                 )
               ),
@@ -259,7 +259,7 @@ class _editStoreState extends State<editStore> {
             children: [
               Container(
                 width: width*0.8,
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: TextField(
                     style: GoogleFonts.montserrat(
                       textStyle: const TextStyle(
@@ -285,8 +285,8 @@ class _editStoreState extends State<editStore> {
           },
           child: Container(
             width:  width*0.9,
-            padding: EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
-            margin: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(left: 25,right: 25,top: 8,bottom: 8),
+            margin: const EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(5)
@@ -294,7 +294,7 @@ class _editStoreState extends State<editStore> {
             child: Center(
               child: Text(
                 "Save",
-                style: GoogleFonts.montserrat(textStyle: TextStyle(color: Colors.white)),
+                style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white)),
               ),
             ),
           ),
@@ -314,7 +314,7 @@ class _editStoreState extends State<editStore> {
                 onTap: (){
 
                 },
-                child: Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Edit Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
             Text("",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
           ],

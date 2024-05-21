@@ -1,13 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecomerce/customWidget/widgetSize.dart';
 import 'package:ecomerce/classobject/object.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'customWidget/classwidget.dart';
 class store extends StatelessWidget {
@@ -75,7 +72,7 @@ class store extends StatelessWidget {
                 Container(
                   width: width,
                   color: Colors.white,
-                  padding: EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 20),
                   child: Center(
                     child: Contact(width, context),
                   ),
@@ -84,14 +81,14 @@ class store extends StatelessWidget {
                  height: 50,
                  width: width,
                  color: Colors.white,
-                 padding: EdgeInsets.all(10),
+                 padding: const EdgeInsets.all(10),
                  child: Row(
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: [
                      Column(
                        children: [
                          Container(
-                           child: Text("Product",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w600)),),
+                           child: Text("Product",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w600)),),
                          ),
                          Container(
                            height: 3,
@@ -103,11 +100,11 @@ class store extends StatelessWidget {
                          )
                        ],
                      ),
-                     SizedBox(width: 25,),
+                     const SizedBox(width: 25,),
                      Column(
                        children: [
                          Container(
-                           child: Text("Videos",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w400))),
+                           child: Text("Videos",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.w400))),
                          ),
                          Container(
                            height: 3,
@@ -124,11 +121,11 @@ class store extends StatelessWidget {
                  ),
                ),
                // BannerSponsor(width),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
                 category(categorylst, width),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
                 bodyGid(width, context, grid,true,false,Product),
-                SizedBox(height: 100,),
+                const SizedBox(height: 100,),
               ],
             ),
           ),
@@ -145,11 +142,11 @@ class store extends StatelessWidget {
     return Container(
       height:50,
       width: width*0.92,
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           color: Colors.white,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               spreadRadius: 1,
@@ -163,7 +160,7 @@ class store extends StatelessWidget {
         itemCount: categorylst.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
-              margin: EdgeInsets.only(left: 10,right: 10,top: 15),
+              margin: const EdgeInsets.only(left: 10,right: 10,top: 15),
               child: Text(categorylst[index]));
         },
       ),
@@ -207,7 +204,7 @@ class store extends StatelessWidget {
   Header(double width) {
     return Container(
         height: 100,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient:  LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomLeft,
@@ -225,14 +222,13 @@ class store extends StatelessWidget {
                 onTap: (){
                   Get.back();
                 },
-                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Colors.white,)),
-            Container(
-                child: Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16)),)),
-            Row(
-              children: [
-               Icon(Icons.share,color: Colors.white,)
-              ],
-            ),
+                child: const Icon(Icons.arrow_back_ios_new,size: 28,color: Colors.white,)),
+            Text("Store",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 16)),),
+            const Row(
+                    children: [
+                          Icon(Icons.share,color: Colors.white,)
+                        ],
+                    ),
           ],
         )
     );
@@ -249,13 +245,13 @@ class store extends StatelessWidget {
             width: width,
             height: 200,
             decoration: BoxDecoration(
-                color: Color(0xFFFFF0BE),
+                color: const Color(0xFFFFF0BE),
               image: DecorationImage(
-                image: NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                image: const NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                 fit: BoxFit.cover,
                 onError: (exception, stackTrace) {
                   Container(
-                    color: Color(0xFFFFF0BE),
+                    color: const Color(0xFFFFF0BE),
                   );
                 },
               )
@@ -267,7 +263,7 @@ class store extends StatelessWidget {
             child: LayoutBuilder(
               builder : (context,constraint){
                return Container(
-                 padding: EdgeInsets.all(2),
+                 padding: const EdgeInsets.all(2),
                  decoration: BoxDecoration(
                    color: Colors.blueGrey,
                    borderRadius: BorderRadius.circular(100)
@@ -310,11 +306,11 @@ class store extends StatelessWidget {
             top: 160,
             left: 10,
             child: Container(
-              padding: EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
+              padding: const EdgeInsets.only(left: 10,right: 10,top: 5,bottom: 5),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(179, 252, 255, 1.0),
+                color: const Color.fromRGBO(179, 252, 255, 1.0),
                 borderRadius: BorderRadius.circular(5),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,
                     spreadRadius: 0.2,
@@ -323,7 +319,7 @@ class store extends StatelessWidget {
                   )
                 ]
               ),
-              child: Text("D",style: TextStyle(fontWeight: FontWeight.bold),),
+              child: const Text("D",style: TextStyle(fontWeight: FontWeight.bold),),
             ),
           )
         ],
@@ -333,28 +329,28 @@ class store extends StatelessWidget {
     return Container(
       width: width,
       color: Colors.white,
-      padding: EdgeInsets.only(bottom: 10,top: 10),
+      padding: const EdgeInsets.only(bottom: 10,top: 10),
       child: Container(
         width: width,
         child: Center(
           child: Stack(
             children: [
               Container(
-                padding: EdgeInsets.only(top: 20,bottom: 20,left: 10,right: 10),
+                padding: const EdgeInsets.only(top: 20,bottom: 20,left: 10,right: 10),
                 width: width,
-                margin: EdgeInsets.only(top: 15),
+                margin: const EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(
-                  color: Color(0XFFFFF0BE),
+                  color: const Color(0XFFFFF0BE),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 65,height: 65,fit: BoxFit.cover,),
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Expanded(
                       child: Container(
                         width: width*0.5,
@@ -404,7 +400,7 @@ class store extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10,left: 2),
+          margin: const EdgeInsets.only(top: 10,left: 2),
           width: width,height: height,
           decoration: BoxDecoration(color: Colors.transparent,
               borderRadius: BorderRadius.circular(100)

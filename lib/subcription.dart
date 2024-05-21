@@ -58,7 +58,7 @@ class subscrption extends StatelessWidget {
                   subcriptionCard(width,"Premium","12", ['35 Photo','5 Category','Image Description','No Ads Banner'] ,"50",false,context),
                   subcriptionCard(width,"Premium Plus","20", ['50 Photo','10 Category','Image Description','No Ads Banner','Sponsor Feed'] ,"50",false,context),
                   subcriptionCard(width,"Diamond","30", ['80 Photo','15 Category','Image Description','No Ads Banner','Sponsor Feed','Recommend Feed'] ,"50",false,context),
-                  SizedBox(height: 50,)
+                  const SizedBox(height: 50,)
                 ],
               ),
             ),
@@ -81,9 +81,9 @@ class subscrption extends StatelessWidget {
                 onTap: (){
                   Get.back();
                 },
-                child: Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
+                child: const Icon(Icons.arrow_back_ios_new,size: 28,color: Color.fromRGBO(255, 75, 75, 1.0),)),
             Text("Subscription",style: GoogleFonts.montserrat(textStyle: const TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 16)),),
-            SizedBox(width: 30,)
+            const SizedBox(width: 30,)
 
           ],
         )
@@ -93,52 +93,52 @@ class subscrption extends StatelessWidget {
   subcriptionCard(double width,String plan_name, String price, List Detail,String discount,bool selected,BuildContext context) {
     return Container(
       width: width*0.9,
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        color: Color(0xFFFFF0BE),
+        color: const Color(0xFFFFF0BE),
         borderRadius: BorderRadius.circular(5),
       ),
 
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 15),
+            padding: const EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(plan_name,style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 14)),),
-                    discount == "0" ? Text("\$" + price,style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 14)),) :
+                    Text(plan_name,style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold,color: Colors.black,fontSize: 14)),),
+                    discount == "0" ? Text("\$" + price,style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 14)),) :
                         Row(
                           children: [
                             Container(
-                              padding: EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
+                              padding: const EdgeInsets.only(left: 5,right: 5,top: 2,bottom: 2),
                               decoration: BoxDecoration(
                                   color: Colors.redAccent,
                                   borderRadius: BorderRadius.circular(3)
                               ),
                               child: Row(
                                 children: [
-                                  Text("-"+discount + "%",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),),
-                                  SizedBox(width: 10,),
-                                  Text("\$" + price,style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 14,
+                                  Text("-"+discount + "%",style: GoogleFonts.montserrat(textStyle : const TextStyle(color: Colors.white)),),
+                                  const SizedBox(width: 10,),
+                                  Text("\$" + price,style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 14,
                                       decoration: TextDecoration.lineThrough, decorationThickness: 1.5, decorationColor: Colors.white)),),
 
                                 ],
                               ),
 
                             ),
-                            SizedBox(width: 10,),
-                             Text("\$" + (double.parse(price) - (double.parse(price) * double.parse(discount)/100)).toString(),style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 16)),),
+                            const SizedBox(width: 10,),
+                             Text("\$" + (double.parse(price) - (double.parse(price) * double.parse(discount)/100)).toString(),style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 16)),),
 
                           ],
                         )
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 5,bottom: 5),
+                  margin: const EdgeInsets.only(top: 5,bottom: 5),
                   height: 3,
                   width: width*0.9,
                   decoration: BoxDecoration(
@@ -149,13 +149,13 @@ class subscrption extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: Detail.map((e) => Container(
-                      margin: EdgeInsets.only(top: 3),
+                      margin: const EdgeInsets.only(top: 3),
 
                       child: e.toString().contains("Sponsor") ? Row(
                         children: [
-                          Text("- $e",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 12))),
-                          SizedBox(width: 10,),
-                          Tooltip(
+                          Text("- $e",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 12))),
+                          const SizedBox(width: 10,),
+                          const Tooltip(
                               showDuration: Duration(seconds: 5),
                               margin: EdgeInsets.only(left: 5, right: 5),
                               triggerMode: TooltipTriggerMode.tap,
@@ -164,16 +164,16 @@ class subscrption extends StatelessWidget {
                         ],
                       ) : e.toString().contains("Feed") ? Row(
                     children: [
-                      Text("- $e",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 12))),
-                  SizedBox(width: 10,),
-                  Tooltip(
+                      Text("- $e",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 12))),
+                  const SizedBox(width: 10,),
+                  const Tooltip(
                   showDuration: Duration(seconds: 5),
                       margin: EdgeInsets.only(left: 5, right: 5),
                       triggerMode: TooltipTriggerMode.tap,
                       message: "ផលិតផលរបស់អ្នកនិងបង្ហាញនៅលើ Product Feed រៀងរាល់ 5 ផលិតផលម្ដង",
                       child: Icon(Icons.info_outline,size: 14,)),
                     ],
-                  ) : Text("- $e",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 12)))
+                  ) : Text("- $e",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.w400,color: Colors.black,fontSize: 12)))
                   )).toList(),
                 )
               ],
@@ -187,12 +187,12 @@ class subscrption extends StatelessWidget {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => subscription_detail(),));
                 } : (){},
                 child: Container(
-                  padding: EdgeInsets.only(left: 10,right: 10,top: 8,bottom: 8),
+                  padding: const EdgeInsets.only(left: 10,right: 10,top: 8,bottom: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: selected == true ? Colors.grey : Colors.black,
                   ),
-                  child: selected == true ? Text("currently",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),) : Text("Select",style: GoogleFonts.montserrat(textStyle : TextStyle(color: Colors.white)),
+                  child: selected == true ? Text("currently",style: GoogleFonts.montserrat(textStyle : const TextStyle(color: Colors.white)),) : Text("Select",style: GoogleFonts.montserrat(textStyle : const TextStyle(color: Colors.white)),
                 ),
                             ),
               ),

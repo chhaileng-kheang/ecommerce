@@ -2,16 +2,12 @@ import 'dart:async';
 
 import 'package:ecomerce/shortvideo/videoItem.dart';
 import 'package:ecomerce/shortvideo/videoManager.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:video_player/video_player.dart';
 class videoShort extends StatefulWidget {
-  videoShort({super.key});
+  const videoShort({super.key});
 
   @override
   State<videoShort> createState() => _videoShortState();
@@ -50,13 +46,11 @@ class _videoShortState extends State<videoShort> {
   @override
   void dispose() {
     // TODO: implement dispose
-    print("Depose");
     super.dispose();
   }
   @override
   void initState() {
     // TODO: implement initState
-    print("start class");
     startLen = videoUrl.length;
     super.initState();
     pageController = PageController(viewportFraction: 1);
@@ -86,7 +80,7 @@ class _videoShortState extends State<videoShort> {
   }
   Stream<List<String>> getVideo() async*{
     while(true){
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(const Duration(seconds: 5));
       yield videoUrl;
     }
 
@@ -213,7 +207,7 @@ class _videoShortState extends State<videoShort> {
                             builder: (context, snapshot) {
                               return PageView.builder(
                                 controller: pageController,
-                                physics: HighScrollResistancePhysics(), // Your custom scroll physics
+                                physics: const HighScrollResistancePhysics(), // Your custom scroll physics
                                 scrollDirection: Axis.vertical,
                                 onPageChanged: (index) {
                                   if (index >= controllers.length - 1) {
@@ -244,14 +238,12 @@ class _videoShortState extends State<videoShort> {
                                 itemBuilder: (BuildContext context, int index) {
                                   var controller = controllers[index]; // Controller at the given index
 
-                                  return Container(
-                                    child: VideoItem(
-                                      width: width,
-                                      videoUrls: videoUrl,
-                                      videoManager: videoManager,
-                                      controllerVId: controller,
-                                      index: index,
-                                    ),
+                                  return VideoItem(
+                                    width: width,
+                                    videoUrls: videoUrl,
+                                    videoManager: videoManager,
+                                    controllerVId: controller,
+                                    index: index,
                                   );
                                 },
                               );
@@ -271,7 +263,7 @@ class _videoShortState extends State<videoShort> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Category",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Color.fromRGBO(
+                                Text("Category",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Color.fromRGBO(
                                     175, 175, 175, 1.0),
                                   shadows: [
                                   Shadow(
@@ -283,14 +275,14 @@ class _videoShortState extends State<videoShort> {
                                   fontSize: 16
                                 )
                                 ),),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Container(
                                   width: 3,
                                   height: 20,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(100),
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         offset: Offset(0, 0),
                                         blurRadius: 1.0,
@@ -299,8 +291,8 @@ class _videoShortState extends State<videoShort> {
                                     ]
                                   ),
                                 ),
-                                SizedBox(width: 10,),
-                                Text("Explore",style: GoogleFonts.montserrat(textStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
+                                const SizedBox(width: 10,),
+                                Text("Explore",style: GoogleFonts.montserrat(textStyle: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white,
                                   shadows: [
                                     Shadow(
                                       offset: Offset(0, 0),
@@ -328,7 +320,7 @@ class _videoShortState extends State<videoShort> {
                         ),
                     ),
                   )
-                  ) : SizedBox(height: 0,)
+                  ) : const SizedBox(height: 0,)
                  ],
               )
           )
@@ -347,9 +339,7 @@ class HighScrollResistancePhysics extends PageScrollPhysics {
   }
 
   // Override the `getMinFlingVelocity` to increase the minimum velocity required for page change
-  @override
   double getMinFlingVelocity() => 2000.0;  // Adjust this value as needed
-  @override
   double getMinFlingDistance() => 5000.0; // Adjust this value as needed
   // Override `applyPhysicsToUserOffset` to apply a resistance effect on scrolling
   @override

@@ -29,7 +29,7 @@ class _searchState extends State<search> {
   Widget build(BuildContext context) {
     double width;
     return AnnotatedRegion(
-      value: SystemUiOverlayStyle(
+      value: const SystemUiOverlayStyle(
         statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
       ),
@@ -84,8 +84,8 @@ class _searchState extends State<search> {
                   Navigator.pop(context);
                 },
                 child: Container(
-                    child: Icon(Icons.arrow_back_ios))),
-            SizedBox(width: 10,),
+                    child: const Icon(Icons.arrow_back_ios))),
+            const SizedBox(width: 10,),
             SearchBars(width*0.85)
           ],
 
@@ -129,7 +129,7 @@ class _searchState extends State<search> {
             Hero(
               tag: "search",
               child: Container(
-                  margin: EdgeInsets.only(right: 0),
+                  margin: const EdgeInsets.only(right: 0),
                   child: IconButton(onPressed: () async{
                     if(Platform.isAndroid) {
 
@@ -160,7 +160,7 @@ class _searchState extends State<search> {
                     }
 
                     },
-                      icon: Icon(Icons.fit_screen_outlined))),
+                      icon: const Icon(Icons.fit_screen_outlined))),
             )
           ],
         ),
