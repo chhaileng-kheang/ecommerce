@@ -62,7 +62,7 @@ class _whitelistState extends State<whitelist> {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(top: 10,left: width*0.025),
+              padding: EdgeInsets.only(top: 10),
               width: width*0.9,
               color: Colors.transparent,
               child: ListView.builder(
@@ -77,6 +77,7 @@ class _whitelistState extends State<whitelist> {
                      showSimpleSnackbar(context, "Removed");
                     },
                     background: Container(
+
                       margin: EdgeInsets.only(bottom: 10),
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: Colors.red), child: Center(child: Text("Remove"),),
                     ),
@@ -103,52 +104,58 @@ class _whitelistState extends State<whitelist> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
   favCard(double width, String img, String title, String price) {
-    return Container(
-      width: width*0.85,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-          color: Colors.black38,
-          blurRadius: 0.1,
-          spreadRadius: 0.1,
-          offset: Offset(0,0)
-        )
-        ],
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(5)
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5)),
-            child: Image.network("https://images.unsplash.com/photo-1571601035754-5c927f2d7edc?q=80&w=2432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",height: 120,width: 120,fit: BoxFit.cover,),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 15),
-            height: 80,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title,style: GoogleFonts.montserrat(textStyle : TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500
-                )),),
-                Row(
-                  children: [
-                    Text("Price : "),
-                    Text("10.50\$",style: GoogleFonts.montserrat(textStyle : TextStyle(
-                        fontSize: 16,
-                        color: Colors.red,
-                        fontWeight: FontWeight.w500
-                    )),)
-                  ],
-                )
-              ],
-            ),
+    return GestureDetector(
+      onTap: (){
+        Get.toNamed("/product");
+      },
+      child: Container(
+        width: width*0.85,
+        margin: EdgeInsets.only(left: 15),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+            color: Colors.black38,
+            blurRadius: 0.1,
+            spreadRadius: 0.1,
+            offset: Offset(0,0)
           )
+          ],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5)
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(5),bottomLeft: Radius.circular(5)),
+              child: Image.network("https://images.unsplash.com/photo-1571601035754-5c927f2d7edc?q=80&w=2432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",height: 120,width: 120,fit: BoxFit.cover,),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 15),
+              height: 80,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,style: GoogleFonts.montserrat(textStyle : TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500
+                  )),),
+                  Row(
+                    children: [
+                      Text("Price : "),
+                      Text("10.50\$",style: GoogleFonts.montserrat(textStyle : TextStyle(
+                          fontSize: 16,
+                          color: Colors.red,
+                          fontWeight: FontWeight.w500
+                      )),)
+                    ],
+                  )
+                ],
+              ),
+            )
 
-        ],
+          ],
+        ),
       ),
     );
   }

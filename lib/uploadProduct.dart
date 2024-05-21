@@ -40,11 +40,11 @@ class _uploadProductState extends State<uploadProduct> {
     super.initState();
     checkAndroidVersion();
   }
-  @override
   bool status = false;
   var status2 = false;
   List<XFile> multipleImage= [];
   File? ImgFile,ImgDes;
+  @override
   Widget build(BuildContext context) {
     double width;
     return SafeArea(
@@ -854,9 +854,9 @@ class _uploadProductState extends State<uploadProduct> {
                                 fontSize: 14,
                               ),
                             ),
-                            decoration: const InputDecoration(
-                              enabled: true,
-                              hintText: "Price",
+                            decoration:  InputDecoration(
+                              enabled: status2,
+                              hintText: status2 ? "Price" : "Price Hidden",
                               contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
                               border: InputBorder.none,
                               prefixIconColor: Colors.black,
@@ -912,9 +912,9 @@ class _uploadProductState extends State<uploadProduct> {
                                 fontSize: 14,
                               ),
                             ),
-                            decoration: const InputDecoration(
-                              enabled: true,
-                              hintText: "Discount Price",
+                            decoration: InputDecoration(
+                              enabled: status,
+                              hintText: status ? "Discount Price" : "Not Discount",
                               contentPadding: EdgeInsets.only(left: 20,right: 20,top: 5,bottom: 10),
                               border: InputBorder.none,
                               prefixIconColor: Colors.black,

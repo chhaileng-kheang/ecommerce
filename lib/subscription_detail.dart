@@ -303,7 +303,7 @@ class _subscription_detailState extends State<subscription_detail> {
                           )
                       ),
                       SizedBox(width: 10,),
-                      Text("Your Submit will be under review in  a few hour")
+                      Text("Submit will be under review in  a few hour",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 11)),)
                     ],
                   ),
                 ],
@@ -342,7 +342,7 @@ class _subscription_detailState extends State<subscription_detail> {
                 children: [
                   Icon(Icons.support_agent,size: 20,),
                   SizedBox(height: 5,),
-                  Text("Support",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 9,color: Colors.black,fontWeight: FontWeight.w400)),)
+                  Text("Support",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 7,color: Colors.black,fontWeight: FontWeight.w400)),)
                 ],
               ),
             ),

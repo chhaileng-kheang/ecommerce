@@ -1,11 +1,51 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:google_fonts/google_fonts.dart';
-class profileSetting extends StatelessWidget {
-  const profileSetting({super.key});
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+class profileSetting extends StatefulWidget {
+  profileSetting({super.key});
 
+  @override
+  State<profileSetting> createState() => _profileSettingState();
+}
+
+class _profileSettingState extends State<profileSetting> {
+  String androidVersion = 'Unknown';
+
+  int sdkInt = 0 ;
+
+  Future<void> checkAndroidVersion() async {
+    var androidInfo = await DeviceInfoPlugin().androidInfo;
+    sdkInt = androidInfo.version.sdkInt;
+  }
+
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
+
+  File? _image,cover;
+
+  @override
+  void initState() {
+    super.initState();
+    checkAndroidVersion();
+  }
+  Future<void> _pickImageFromGallery() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = File(pickedFile!.path);
+    });
+  }
+  Future<void> _pickImageFromGallery_cover() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      cover = File(pickedFile!.path);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     late double width;
@@ -42,33 +82,66 @@ class profileSetting extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  height: 350,
+                  height: 400,
                   child: Stack(
                     children: [
                       Container(
                         width: width*0.9,
-
                         decoration: BoxDecoration(
                             color: const Color.fromRGBO(234, 234, 234, 1.0),
                             borderRadius: BorderRadius.circular(10)
                         ),
-                        child: AspectRatio(
-                          aspectRatio: 4/3,
-                          child: Text(""),
+                        child: InkWell(
+                          onTap: () async{
+                            if(Platform.isAndroid) {
+
+                              if (sdkInt < 33) {
+                                print("android 12");
+                                var photo = await Permission.manageExternalStorage.status;
+                                if (photo.isGranted) {
+                                  _pickImageFromGallery_cover();
+                                } else if (photo.isPermanentlyDenied) {
+                                  openAppSettings();
+                                } else {
+                                  await Permission.manageExternalStorage.request();
+                                  _pickImageFromGallery_cover();
+                                }
+                              }else{
+                                print("android 13");
+                                var photo = await Permission
+                                    .photos.status;
+                                if (photo.isGranted) {
+                                  _pickImageFromGallery_cover();
+                                } else if (photo.isPermanentlyDenied) {
+                                  openAppSettings();
+                                } else {
+                                  await Permission.photos.request();
+                                  _pickImageFromGallery_cover();
+                                }
+                              }
+                            }
+                          },
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: AspectRatio(
+                              aspectRatio: 4/3,
+                              child: cover == null ? Text("") : Image.file(cover!,fit: BoxFit.cover,),
+                            ), 
+                          ),
                         ),
                       ),
                       Positioned(
-                          top: 200,
+                          top: 150,
                           child: Container(
                             width: width*0.9,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 150,
-                                  height: 150,
+                                  width: 200,
+                                  height: 200,
                                   decoration: BoxDecoration(
-                                      color: Colors.black12,
+                                      color: Colors.black,
                                       borderRadius: BorderRadius.circular(100)
                                   ),
                                   child: Container(
@@ -76,6 +149,60 @@ class profileSetting extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(100)
+                                    ),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        if(Platform.isAndroid) {
+
+                                          if (sdkInt < 33) {
+                                            print("android 12");
+                                            var photo = await Permission.manageExternalStorage.status;
+                                            if (photo.isGranted) {
+                                              _pickImageFromGallery();
+                                            } else if (photo.isPermanentlyDenied) {
+                                              openAppSettings();
+                                            } else {
+                                              await Permission.manageExternalStorage.request();
+                                              _pickImageFromGallery();
+                                            }
+                                          }else{
+                                            print("android 13");
+                                            var photo = await Permission
+                                                .photos.status;
+                                            if (photo.isGranted) {
+                                              _pickImageFromGallery();
+                                            } else if (photo.isPermanentlyDenied) {
+                                              openAppSettings();
+                                            } else {
+                                              await Permission.photos.request();
+                                              _pickImageFromGallery();
+                                            }
+                                          }
+                                        }
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(1000),
+                                        child: _image == null ? Container(
+
+                                          margin: EdgeInsets.only(top: 0,left: 0,right: 0),
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.bottomRight,
+                                                  stops: [
+                                                    0.1,
+                                                    0.9
+                                                  ],
+                                                  colors: [
+                                                    Colors.black.withOpacity(.8),
+                                                    Colors.white.withOpacity(.3)
+                                                  ]),
+                                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(500), bottomRight: Radius.circular(500))
+                                          ),
+                                          child: Container(
+                                              margin: EdgeInsets.only(top: 150),
+                                              child: Center(child: Icon(Icons.camera_alt_outlined,color: Colors.white,))),
+                                        ) : Image.file(_image!,fit: BoxFit.cover,),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -86,7 +213,19 @@ class profileSetting extends StatelessWidget {
                       ),
                       Positioned(
                           right: 10,top: 10,
-                          child: Icon(Icons.edit_rounded))
+                          child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [BoxShadow(
+                                      color: Colors.black38,
+                                      blurRadius: 1,
+                                      spreadRadius: 1,
+                                      offset: Offset(1,1)
+                                  )]
+                              ),
+                              child: Icon(Icons.edit_rounded)))
                     ],
                   ),
                 ),
@@ -222,6 +361,7 @@ class profileSetting extends StatelessWidget {
     );
 
   }
+
   Header(double width) {
     return Container(
         height: 50,
@@ -240,7 +380,6 @@ class profileSetting extends StatelessWidget {
         )
     );
   }
-
 }
 
 

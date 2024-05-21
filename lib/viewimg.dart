@@ -26,8 +26,16 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:url_launcher/url_launcher.dart';
-class viewImg extends StatelessWidget {
+import 'package:visibility_detector/visibility_detector.dart';
+class viewImg extends StatefulWidget {
    viewImg({super.key});
+
+  @override
+  State<viewImg> createState() => _viewImgState();
+}
+
+class _viewImgState extends State<viewImg> {
+   String gbImg = "";
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +70,9 @@ class viewImg extends StatelessWidget {
       ),
     );
   }
+
   final screenshotController = ScreenshotController();
+
   imgviewer(double width,BuildContext context) {
     final List<String> imgList = [
       'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -98,25 +108,13 @@ class viewImg extends StatelessWidget {
                   child: Container(
                     width: width,
 
-                    child: SingleChildScrollView(
-                      physics: PageScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children:imgList
-                            .map((item) => SizedBox(
-                                width: width,
-                                child: PhotoView(
-                                  imageProvider: NetworkImage(
-                                    item,
-                                  ),
-                                  enableRotation: false,
-                                  minScale: PhotoViewComputedScale.contained,
-                                  maxScale: PhotoViewComputedScale.contained, // Disable zoom out
-                                )
-                            )
+                    child: PageView.builder(
+                      itemBuilder: (context, index) => SizedBox(
+                        width: width,
+                        child: imgItem(imgList[index]),
+                    ),
+                    itemCount: imgList.length,
 
-                        ).toList(),
-                      ),
                     ),
                   ),
                 ),
@@ -174,101 +172,95 @@ class viewImg extends StatelessWidget {
                             }: ()  async {
                               controller.isloading = true;
                               controller.update();
-                          screenshotController.capture().then((value) => {
-                            controller.imageFile = value,
-                          controller.update(),
-                          screenshotController.captureFromWidget(
-                            Container(
-                              width: 400,
-                              color: Colors.white,
-                                child: AspectRatio(
-                                  aspectRatio: 3/4,
-                                  child: Stack(
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.all(5),
-                                              child: AspectRatio(aspectRatio: 1/1,
-                                                child: Image.memory(controller.imageFile!,fit: BoxFit.cover),
-                                                ),
-                                            ),
-                                            Container(
-                                              margin: EdgeInsets.only(left: 20,top: 20,right: 20),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text("ID: 100541242",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.w400)),),
-                                                      Text("Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
-                                                      Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400)),),
-                                                      Row(
-                                                        children: [
-                                                          Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
-                                                          SizedBox(width: 10,),
-                                                          Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.redAccent),),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      CustomPaint(
-                                                        // painter: Painter(),
-                                                        painter: QrPainter(
-                                                            data: 'https://evagoo.com/product',
-                                                            options:  QrOptions(
-                                                                shapes: QrShapes(
-                                                                    darkPixel: QrPixelShapeRoundCorners(cornerFraction: .5),
-                                                                    frame:  QrFrameShapeRoundCorners(cornerFraction: .25),
-                                                                    ball: QrBallShapeRoundCorners(cornerFraction: .25)
-                                                                ),
-                                                                colors: QrColors(
-                                                                    dark: QrColorLinearGradient(
-                                                                        colors: [
-                                                                          Color(0xFF444100),
-                                                                          Color(0xFF0a2108)
-                                                                        ],
-                                                                        orientation: GradientOrientation.leftDiagonal
-                                                                    )
-                                                                )
-                                                            )),
-                                                        size: const Size(80, 80),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                              screenshotController.captureFromWidget(
+                                  Container(
+                                    width: 400,
+                                    color: Colors.white,
+                                    child: AspectRatio(
+                                      aspectRatio: 3/4,
+                                      child: Stack(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.all(5),
+                                                child: AspectRatio(
+                                                    aspectRatio: 1/1,
+                                                    child: Image.network(gbImg,fit: BoxFit.cover)),
                                               ),
-                                            ),
+                                              Container(
+                                                margin: EdgeInsets.only(left: 20,top: 20,right: 20),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Text("ID: 100541242",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 10,color: Colors.black,fontWeight: FontWeight.w400)),),
+                                                        Text("Vetana",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold)),),
+                                                        Text("Sneaker 001",style: GoogleFonts.montserrat(textStyle: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.w400)),),
+                                                        Row(
+                                                          children: [
+                                                            Text("\$ 275.00",style: GoogleFonts.montserrat(fontSize: 14,fontWeight: FontWeight.w400,color: Colors.black,textStyle: TextStyle(decoration: TextDecoration.lineThrough,decorationThickness: 1.5,decorationColor: Colors.red))),
+                                                            SizedBox(width: 10,),
+                                                            Text("\$ 125.00",style: GoogleFonts.montserrat(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.redAccent),),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        CustomPaint(
+                                                          // painter: Painter(),
+                                                          painter: QrPainter(
+                                                              data: 'https://evagoo.com/product',
+                                                              options:  QrOptions(
+                                                                  shapes: QrShapes(
+                                                                      darkPixel: QrPixelShapeRoundCorners(cornerFraction: .5),
+                                                                      frame:  QrFrameShapeRoundCorners(cornerFraction: .25),
+                                                                      ball: QrBallShapeRoundCorners(cornerFraction: .25)
+                                                                  ),
+                                                                  colors: QrColors(
+                                                                      dark: QrColorLinearGradient(
+                                                                          colors: [
+                                                                            Color(0xFF444100),
+                                                                            Color(0xFF0a2108)
+                                                                          ],
+                                                                          orientation: GradientOrientation.leftDiagonal
+                                                                      )
+                                                                  )
+                                                              )),
+                                                          size: const Size(80, 80),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                             ],
-                                      ),
-                                      Positioned(
-                                        top: 340,
-                                        child:   Container(
-                                          width: 380,
-                                          child: Center(
-                                            child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(100),
-                                            child: Image.asset("asset/logo1.png",width: 60,height: 60,fit: BoxFit.cover,),
-                                            ),
                                           ),
-                                        ),)
-                                    ],
-                                  ),
-                                ),
-                            )).then((value) => {
-                          controller.imageFile = value,
-                          controller.update(),
-                          // Save image to a file (see platform-specific methods below)
-                          saveImageToDevice(controller.imageFile!),
-                          controller.isloading = false, controller.showcard()
-                          })
-                          });
-
-
+                                          Positioned(
+                                            top: 340,
+                                            child: Container(
+                                              width: 380,
+                                              child: Center(
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(100),
+                                                  child: Image.asset("asset/logo1.png",width: 60,height: 60,fit: BoxFit.cover,),
+                                                ),
+                                              ),
+                                            ),)
+                                        ],
+                                      ),
+                                    ),
+                                  )).then((value) => {
+                                controller.imageFile = value,
+                                controller.update(),
+                                // Save image to a file (see platform-specific methods below)
+                                saveImageToDevice(controller.imageFile!),
+                                controller.isloading = false, controller.showcard()
+                              });
                           },
                             child: Container(
                               padding: EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 10),
@@ -352,7 +344,9 @@ class viewImg extends StatelessWidget {
 
     });
   }
+
   final GlobalKey containerKey = GlobalKey();
+
   Future<Uint8List?> captureWidgetAsImage(GlobalKey key) async {
     try {
       RenderRepaintBoundary boundary = key.currentContext!.findRenderObject() as RenderRepaintBoundary;
@@ -371,6 +365,7 @@ class viewImg extends StatelessWidget {
       await saveImageToDevice(imageBytes);
     }
   }
+
    Future<void> saveImageToDevice(Uint8List imageBytes) async {
      int sdkInt = 0 ;
      var androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -407,7 +402,9 @@ class viewImg extends StatelessWidget {
        }
      }
   }
+
   String path = "";
+
   Future<void> SaveImageforPer(Uint8List imageBytes) async{
     final directory = await getDownloadsDirectory();
     final imagePath = '${directory!.path}/captured_image.png';
@@ -424,4 +421,25 @@ class viewImg extends StatelessWidget {
     print('Image saved to: $imagePath');
   }
 
+  imgItem(String img) {
+    return VisibilityDetector(key: Key(img), onVisibilityChanged: (info) {
+      if(info.visibleFraction >= 0.9){
+        setState(() {
+          gbImg = img;
+        });
+        print("$gbImg is visibility");
+      }
+
+    },
+    child: PhotoView(
+      imageProvider: NetworkImage(
+        img,
+      ),
+      enableRotation: false,
+      minScale: PhotoViewComputedScale.contained,
+      maxScale: PhotoViewComputedScale.contained, // Disable zoom out
+    ),
+    );
+
+  }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecomerce/api/productAPI.dart';
 import 'package:ecomerce/classobject/staticdata.dart';
+import 'package:ecomerce/imgviewLite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -344,20 +345,25 @@ class _merchantTabState extends State<merchantTab> {
       color: Colors.white,
       child: Stack(
         children: [
-          Container(
-            width: width,
-            height: 200,
-            decoration: BoxDecoration(
-                color: Color(0xFFFFF0BE),
-                image: DecorationImage(
-                  image: NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                  fit: BoxFit.cover,
-                  onError: (exception, stackTrace) {
-                    Container(
-                      color: Color(0xFFFFF0BE),
-                    );
-                  },
-                )
+          GestureDetector(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => viewimg(img: "https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),));
+            },
+            child: Container(
+              width: width,
+              height: 200,
+              decoration: BoxDecoration(
+                  color: Color(0xFFFFF0BE),
+                  image: DecorationImage(
+                    image: NetworkImage("https://images.unsplash.com/photo-1511317590834-e985451ca5c7?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                    fit: BoxFit.cover,
+                    onError: (exception, stackTrace) {
+                      Container(
+                        color: Color(0xFFFFF0BE),
+                      );
+                    },
+                  )
+              ),
             ),
           ),
           Positioned(
@@ -371,9 +377,14 @@ class _merchantTabState extends State<merchantTab> {
                         color: Colors.blueGrey,
                         borderRadius: BorderRadius.circular(100)
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 80,height: 80,fit: BoxFit.cover,),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => viewimg(img: "https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),));
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",width: 80,height: 80,fit: BoxFit.cover,),
+                      ),
                     ),
                   );
                 }

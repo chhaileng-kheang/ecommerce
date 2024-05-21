@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:ecomerce/searchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../classobject/object.dart';
@@ -108,11 +110,11 @@ import '../classobject/object.dart';
                   )
                       :
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
 
                       Text("\$" + price, style: GoogleFonts.montserrat(
-                          textStyle: const TextStyle(color: Colors.black,
+                          textStyle: const TextStyle(color: Color.fromRGBO(140,0,0,1),
                               fontWeight: FontWeight.w300,
                               fontSize: 16))),
 
@@ -152,6 +154,322 @@ import '../classobject/object.dart';
       ),
     );
   }
+
+uploadAndSub(double width) {
+  return Container(
+    width: width*0.9,
+    margin: EdgeInsets.only(top: 0),
+    child:SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: (){
+              Get.toNamed("/uploadproduct");
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              child: Column(
+                  children: [
+                    Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
+                    SizedBox(height: 5,),
+                    Text("Upload",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                  ]
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: (){
+              Get.toNamed("/delivery");
+            },
+            child: Container(
+
+              margin: EdgeInsets.only(top: 10,left: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              child: Column(
+                  children: [
+                    Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
+                    SizedBox(height: 5,),
+                    Text("Delivery",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                  ]
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: (){
+              Get.toNamed("/subscription");
+            },
+            child: Container(
+
+              margin: EdgeInsets.only(top: 10,left: 10),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+              ),
+              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              child: Column(
+                  children: [
+                    Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
+                    SizedBox(height: 5,),
+                    Text("Upgrade",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
+
+                  ]
+              ),
+            ),
+          ),
+
+        ],
+      ),
+    ),
+  );
+
+}
+
+Headerss(double width,BuildContext context, scaffoldKey) {
+  return Container(
+      height: 50,
+      color: Colors.white,
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+              onTap: () {
+                scaffoldKey.currentState!.openDrawer();
+              },
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Icon(Icons.menu)
+              )
+          ),
+          Text("App-Name", style: GoogleFonts.montserrat(
+              textStyle: const TextStyle(color: Colors.black,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16)),),
+          Hero(
+            tag: "search",
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return search();
+                },));
+              },
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Icon(Icons.search)
+              ),
+            ),
+          )
+        ],
+      )
+  );
+}
+
+TrippleSponsor(double width, BuildContext context) {
+  return Container(
+    margin: const EdgeInsets.only(top: 10),
+    width: width * 0.9,
+    child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SponsorCard(width, context,
+              "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?q=80&w=1492&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          SponsorCard(width, context,
+              "https://plus.unsplash.com/premium_photo-1675186049409-f9f8f60ebb5e?q=80&w=2187&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          SponsorCard(width, context,
+              "https://images.stylight.net/image/upload/t_web_post_500x667/q_auto,f_auto/post-3515bce73e333a3a5bb3d9127bdc6d0c35c88a9cffed7da8425a7148.webp"),
+          SponsorCard(width, context,
+              "https://www.dhresource.com/webp/m/0x0/f2/albu/g19/M00/5F/C5/rBVap2DIXmGAaCmOAAGt0CgPIok342.jpg"),
+          SponsorCard(width, context,
+              "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=2610&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+          SponsorCard(width, context,
+              "https://images.unsplash.com/photo-1560769629-975ec94e6a86?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+        ],
+      ),
+    ),
+  );
+}
+
+SponsorCard(double width, BuildContext context, String img) {
+  return GestureDetector(
+    onTap: (){
+      Get.toNamed("/product");
+    },
+    child: Container(
+      margin: EdgeInsets.only(right: 10),
+      width: width / 2.5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              AspectRatio(
+                aspectRatio: 3.5 / 4,
+                child: Container(
+                  width: width / 2,
+                  color: Color.fromRGBO(234,234,234,1),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: FadeInImage.assetNetwork(placeholder: "asset/aas.png", image: img,imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,)
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 0,
+                  bottom: 0,
+                  child: Container(
+                    height: 30,
+                    width: 60,
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(234,234,234,1),
+                        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(15),topRight: Radius.circular(15))
+                    ),
+                    child: Center(
+                      child: Text("-10%",style: const TextStyle(
+                          color: Color.fromRGBO(148, 0, 0, 1.0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),),
+                    ),
+                  )
+              )
+            ],
+          ),
+          SizedBox(height: 15,),
+          Text("online Men Printed...", style: GoogleFonts.montserrat( textStyle: TextStyle(color: Colors.black, fontSize: 14,fontWeight: FontWeight.w500))),
+
+          SizedBox(height: 5,),
+          Row(
+            children: [
+              Text("\$ 125", style: GoogleFonts.montserrat( textStyle: TextStyle(color: Colors.red, fontSize: 12,
+                  decoration: TextDecoration.lineThrough, decorationThickness: 1.5, decorationColor: Colors.red)),),
+              SizedBox(width: 15,),
+              Container(
+                  padding: EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(148, 0, 0, 1.0),
+                      borderRadius: BorderRadius.circular(100)
+                  ),
+                  child: Text("\$ 85", style: GoogleFonts.montserrat( textStyle: TextStyle(color: Colors.white, fontSize: 12)),)),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+BannerSponsorEx(double width, String img) {
+
+  return Container(
+    width: width * 0.9,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(5),
+
+      color: Colors.grey,
+    ),
+    margin: EdgeInsets.only(top: 5, bottom: 2),
+    child: AspectRatio(aspectRatio: 4 / 1,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(5),
+            child: Image.network(img,
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.low,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  child: Center(
+                    child: Icon(Icons.error,color: Colors.black,),
+                  ),
+                );
+              },)
+        )
+    ),
+  );
+}
+
+RegisterMerchant(double width, BuildContext context) {
+  return Container(
+    width: width * 0.9,
+    height: 150,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(5),
+      gradient: RadialGradient(
+        center: Alignment.centerRight,
+        radius: 5,
+        colors: [
+          Colors.orange.shade100,
+          Color(0xFFFFAD5B),
+
+        ],
+        stops: [0.1, 0.5],
+      ),
+    ),
+    margin: EdgeInsets.only(top: 5, bottom: 3),
+    child: Container(
+      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 7,
+            right: 0,
+            child: Container(height: 120,
+                child: Lottie.asset("asset/Animation - 1712806927475.json",animate: true)
+            ),
+          ),
+
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Register As Merchant", style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(fontSize: 15,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold)),),
+              Text("For Free", style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold))),
+              GestureDetector(
+                onTap: (){
+                  Get.toNamed("/login");
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 35),
+                  padding: EdgeInsets.only(
+                      left: 15, right: 15, top: 12, bottom: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text("Login / SignUp", textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(textStyle: TextStyle(
+                          fontSize: 11,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold))),
+                ),
+              )
+            ],
+          ),
+
+        ],
+      ),
+    ),
+  );
+}
 store(String img) {
   return Container(
     margin: EdgeInsets.only(right: 10),
@@ -213,7 +531,7 @@ storepath(double width, BuildContext context) {
     ),
   );
 }
-  Contact(double width, context) {
+Contact(double width, context) {
     print("width " + width.toString());
   return Container(
     margin: EdgeInsets.only(top: 5),
@@ -286,7 +604,7 @@ storepath(double width, BuildContext context) {
     ),
   );
 }
-  Social(double width, double height ,double size,double fontsize) {
+Social(double width, double height ,double size,double fontsize) {
   return Row(
     children: [
       Container(
@@ -330,7 +648,7 @@ storepath(double width, BuildContext context) {
 
     ],);
 }
-  phone_Contact_Row(double width,double size) {
+phone_Contact_Row(double width,double size) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -368,7 +686,7 @@ storepath(double width, BuildContext context) {
     ],
   );
 }
-  profile_store_mini(double width,double fontSize,double height) {
+profile_store_mini(double width,double fontSize,double height) {
   return Padding(
     padding: EdgeInsets.only(left: 1,right: 1,bottom: 5),
     child: Container(
