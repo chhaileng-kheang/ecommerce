@@ -59,11 +59,11 @@ import '../classobject/object.dart';
           color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
-            width >= 800 ? BoxShadow(
+            width >= 800 ? const BoxShadow(
               color: Colors.black12,
               offset: Offset(0,0),
               spreadRadius: 0.5,
-              blurRadius: 0.5,) : BoxShadow(
+              blurRadius: 0.5,) : const BoxShadow(
 
               color: Colors.black12,
               offset: Offset(0,0),
@@ -158,7 +158,7 @@ import '../classobject/object.dart';
 uploadAndSub(double width) {
   return Container(
     width: width*0.9,
-    margin: EdgeInsets.only(top: 0),
+    margin: const EdgeInsets.only(top: 0),
     child:SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -169,16 +169,16 @@ uploadAndSub(double width) {
               Get.toNamed("/uploadproduct");
             },
             child: Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(10)
               ),
-              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
               child: Column(
                   children: [
-                    Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
-                    SizedBox(height: 5,),
+                    const Icon(Icons.add_business_outlined,color: Colors.white,size: 24,),
+                    const SizedBox(height: 5,),
                     Text("Upload",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                   ]
@@ -191,16 +191,16 @@ uploadAndSub(double width) {
             },
             child: Container(
 
-              margin: EdgeInsets.only(top: 10,left: 10),
+              margin: const EdgeInsets.only(top: 10,left: 10),
               decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(10)
               ),
-              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
               child: Column(
                   children: [
-                    Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
-                    SizedBox(height: 5,),
+                    const Icon(Icons.delivery_dining,color: Colors.white,size: 24,),
+                    const SizedBox(height: 5,),
                     Text("Delivery",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                   ]
@@ -213,16 +213,16 @@ uploadAndSub(double width) {
             },
             child: Container(
 
-              margin: EdgeInsets.only(top: 10,left: 10),
+              margin: const EdgeInsets.only(top: 10,left: 10),
               decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(10)
               ),
-              padding: EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 10,bottom: 10),
               child: Column(
                   children: [
-                    Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
-                    SizedBox(height: 5,),
+                    const Icon(Icons.workspace_premium_sharp,color: Colors.white,size: 24,),
+                    const SizedBox(height: 5,),
                     Text("Upgrade",style: GoogleFonts.montserrat(fontSize: 9,fontWeight: FontWeight.w400,color: Colors.white),),
 
                   ]
@@ -251,7 +251,7 @@ Headerss(double width,BuildContext context, scaffoldKey) {
               },
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Icon(Icons.menu)
+                  child: const Icon(Icons.menu)
               )
           ),
           Text("App-Name", style: GoogleFonts.montserrat(
@@ -263,12 +263,12 @@ Headerss(double width,BuildContext context, scaffoldKey) {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return search();
+                  return const search();
                 },));
               },
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(100),
-                  child: Icon(Icons.search)
+                  child: const Icon(Icons.search)
               ),
             ),
           )
@@ -310,7 +310,7 @@ SponsorCard(double width, BuildContext context, String img) {
       Get.toNamed("/product");
     },
     child: Container(
-      margin: EdgeInsets.only(right: 10),
+      margin: const EdgeInsets.only(right: 10),
       width: width / 2.5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,7 +321,7 @@ SponsorCard(double width, BuildContext context, String img) {
                 aspectRatio: 3.5 / 4,
                 child: Container(
                   width: width / 2,
-                  color: Color.fromRGBO(234,234,234,1),
+                  color: const Color.fromRGBO(234,234,234,1),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: FadeInImage.assetNetwork(placeholder: "asset/aas.png", image: img,imageCacheWidth: 500,filterQuality: FilterQuality.low,fit: BoxFit.cover,)
@@ -334,12 +334,12 @@ SponsorCard(double width, BuildContext context, String img) {
                   child: Container(
                     height: 30,
                     width: 60,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Color.fromRGBO(234,234,234,1),
                         borderRadius: BorderRadius.only(bottomLeft:Radius.circular(15),topRight: Radius.circular(15))
                     ),
-                    child: Center(
-                      child: Text("-10%",style: const TextStyle(
+                    child: const Center(
+                      child: Text("-10%",style: TextStyle(
                           color: Color.fromRGBO(148, 0, 0, 1.0),
                           fontWeight: FontWeight.bold,
                           fontSize: 12),),
@@ -348,22 +348,22 @@ SponsorCard(double width, BuildContext context, String img) {
               )
             ],
           ),
-          SizedBox(height: 15,),
-          Text("online Men Printed...", style: GoogleFonts.montserrat( textStyle: TextStyle(color: Colors.black, fontSize: 14,fontWeight: FontWeight.w500))),
+          const SizedBox(height: 15,),
+          Text("online Men Printed...", style: GoogleFonts.montserrat( textStyle: const TextStyle(color: Colors.black, fontSize: 14,fontWeight: FontWeight.w500))),
 
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           Row(
             children: [
-              Text("\$ 125", style: GoogleFonts.montserrat( textStyle: TextStyle(color: Colors.red, fontSize: 12,
+              Text("\$ 125", style: GoogleFonts.montserrat( textStyle: const TextStyle(color: Colors.red, fontSize: 12,
                   decoration: TextDecoration.lineThrough, decorationThickness: 1.5, decorationColor: Colors.red)),),
-              SizedBox(width: 15,),
+              const SizedBox(width: 15,),
               Container(
-                  padding: EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
+                  padding: const EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 5),
                   decoration: BoxDecoration(
-                      color: Color.fromRGBO(148, 0, 0, 1.0),
+                      color: const Color.fromRGBO(148, 0, 0, 1.0),
                       borderRadius: BorderRadius.circular(100)
                   ),
-                  child: Text("\$ 85", style: GoogleFonts.montserrat( textStyle: TextStyle(color: Colors.white, fontSize: 12)),)),
+                  child: Text("\$ 85", style: GoogleFonts.montserrat( textStyle: const TextStyle(color: Colors.white, fontSize: 12)),)),
             ],
           ),
         ],
@@ -381,7 +381,7 @@ BannerSponsorEx(double width, String img) {
 
       color: Colors.grey,
     ),
-    margin: EdgeInsets.only(top: 5, bottom: 2),
+    margin: const EdgeInsets.only(top: 5, bottom: 2),
     child: AspectRatio(aspectRatio: 4 / 1,
         child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
@@ -391,7 +391,7 @@ BannerSponsorEx(double width, String img) {
               errorBuilder: (context, error, stackTrace) {
                 return Container(
                   width: MediaQuery.sizeOf(context).width,
-                  child: Center(
+                  child: const Center(
                     child: Icon(Icons.error,color: Colors.black,),
                   ),
                 );
@@ -412,15 +412,15 @@ RegisterMerchant(double width, BuildContext context) {
         radius: 5,
         colors: [
           Colors.orange.shade100,
-          Color(0xFFFFAD5B),
+          const Color(0xFFFFAD5B),
 
         ],
         stops: [0.1, 0.5],
       ),
     ),
-    margin: EdgeInsets.only(top: 5, bottom: 3),
+    margin: const EdgeInsets.only(top: 5, bottom: 3),
     child: Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+      margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
       child: Stack(
         children: [
           Positioned(
@@ -436,11 +436,11 @@ RegisterMerchant(double width, BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text("Register As Merchant", style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(fontSize: 15,
+                  textStyle: const TextStyle(fontSize: 15,
                       color: Colors.white,
                       fontWeight: FontWeight.bold)),),
               Text("For Free", style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(fontSize: 20,
+                  textStyle: const TextStyle(fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold))),
               GestureDetector(
@@ -448,15 +448,15 @@ RegisterMerchant(double width, BuildContext context) {
                   Get.toNamed("/login");
                 },
                 child: Container(
-                  margin: EdgeInsets.only(top: 35),
-                  padding: EdgeInsets.only(
+                  margin: const EdgeInsets.only(top: 35),
+                  padding: const EdgeInsets.only(
                       left: 15, right: 15, top: 12, bottom: 12),
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text("Login / SignUp", textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(textStyle: TextStyle(
+                      style: GoogleFonts.montserrat(textStyle: const TextStyle(
                           fontSize: 11,
                           color: Colors.white,
                           fontWeight: FontWeight.bold))),
@@ -472,10 +472,10 @@ RegisterMerchant(double width, BuildContext context) {
 }
 store(String img) {
   return Container(
-    margin: EdgeInsets.only(right: 10),
+    margin: const EdgeInsets.only(right: 10),
     height: 70,
     width: 70,
-    padding: EdgeInsets.all(2),
+    padding: const EdgeInsets.all(2),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(100),
       color: Colors.black,
@@ -483,13 +483,13 @@ store(String img) {
     child: ClipRRect(
       borderRadius: BorderRadius.circular(100),
       child: FadeInImage(
-        placeholder: AssetImage("asset/aas.png"),
+        placeholder: const AssetImage("asset/aas.png"),
         image: NetworkImage(img),
         fit: BoxFit.cover,
         imageErrorBuilder: (context,error,StackTrace){
           return Container(
             width: MediaQuery.sizeOf(context).width,
-            child: Center(
+            child: const Center(
               child: Icon(Icons.error,color: Colors.white,),
             ),
           );
@@ -500,7 +500,7 @@ store(String img) {
 }
 storepath(double width, BuildContext context) {
   return Container(
-    padding: EdgeInsets.only(top: 10, bottom: 20),
+    padding: const EdgeInsets.only(top: 10, bottom: 20),
     color: Colors.white,
     width: width,
     height: 100,
@@ -508,7 +508,7 @@ storepath(double width, BuildContext context) {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
-          SizedBox(width: 20,),
+          const SizedBox(width: 20,),
           store(
               "https://plus.unsplash.com/premium_photo-1690263583138-155eca49f57d?q=80&w=2660&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
           store(
@@ -534,7 +534,7 @@ storepath(double width, BuildContext context) {
 Contact(double width, context) {
     print("width " + width.toString());
   return Container(
-    margin: EdgeInsets.only(top: 5),
+    margin: const EdgeInsets.only(top: 5),
     child: LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints){
         return Container(
@@ -548,7 +548,7 @@ Contact(double width, context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Social(45,45,24,11),
-                      SizedBox(width: 5,),
+                      const SizedBox(width: 5,),
                       phone_Contact_Row(width,11),
                     ],
                   ),
@@ -559,7 +559,7 @@ Contact(double width, context) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Social(45,20,18,11),
-                      SizedBox(width: 3,),
+                      const SizedBox(width: 3,),
                       phone_Contact_Row(width,11),
                     ],
                   ),
@@ -571,7 +571,7 @@ Contact(double width, context) {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Social(38,20,18,8.5),
-                        SizedBox(width: 5,),
+                        const SizedBox(width: 5,),
                         phone_Contact_Row(width,8.5),
                       ],
                     ),
@@ -587,7 +587,7 @@ Contact(double width, context) {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Social(38,20,18,8.5),
-                              SizedBox(width: 10,),
+                              const SizedBox(width: 10,),
                               phone_Contact_Row(width,8.5),
                             ],
                           ),
@@ -608,7 +608,7 @@ Social(double width, double height ,double size,double fontsize) {
   return Row(
     children: [
       Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         height: width-7,
         padding: EdgeInsets.only(left: fontsize - 4,right: 10),
         decoration: BoxDecoration(color: Colors.black,
@@ -627,7 +627,7 @@ Social(double width, double height ,double size,double fontsize) {
         ),
       ),
       Container(
-        margin: EdgeInsets.only(top: 10,left: 10),
+        margin: const EdgeInsets.only(top: 10,left: 10),
         height: width-7,
         padding: EdgeInsets.only(left: fontsize - 4,right: 10),
         decoration: BoxDecoration(color: Colors.black,
@@ -654,12 +654,12 @@ phone_Contact_Row(double width,double size) {
     children: [
       Container(
 
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(10)
         ),
-        padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+        padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
         child: Row(
             children: [
               Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
@@ -667,14 +667,14 @@ phone_Contact_Row(double width,double size) {
             ]
         ),
       ),
-      SizedBox(width: 10,),
+      const SizedBox(width: 10,),
       Container(
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(10)
         ),
-        padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+        padding: const EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
         child: Row(
             children: [
               Text("027 229 039",style: GoogleFonts.montserrat(fontSize: size,fontWeight: FontWeight.w400,color: Colors.white),),
@@ -688,16 +688,16 @@ phone_Contact_Row(double width,double size) {
 }
 profile_store_mini(double width,double fontSize,double height) {
   return Padding(
-    padding: EdgeInsets.only(left: 1,right: 1,bottom: 5),
+    padding: const EdgeInsets.only(left: 1,right: 1,bottom: 5),
     child: Container(
       width: width,
       height: height,
-      margin: EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 10),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               color: Colors.black38,
               offset: Offset(0,0),
               blurRadius: 0.2,
@@ -709,20 +709,20 @@ profile_store_mini(double width,double fontSize,double height) {
           Get.toNamed("/store?id=28222");
         },
         child: Container(
-          margin: EdgeInsets.only(right: 10),
+          margin: const EdgeInsets.only(right: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  SizedBox(width: 5,),
+                  const SizedBox(width: 5,),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child : FadeInImage(
-                      placeholder: AssetImage('asset/aas.png'),
-                      fadeInDuration: Duration(milliseconds: 100),
-                      image: NetworkImage("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
-                      fadeOutDuration: Duration(milliseconds: 1),
+                      placeholder: const AssetImage('asset/aas.png'),
+                      fadeInDuration: const Duration(milliseconds: 100),
+                      image: const NetworkImage("https://images.unsplash.com/photo-1605326152964-56fb991b95ff?q=80&w=2160&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+                      fadeOutDuration: const Duration(milliseconds: 1),
                       fadeInCurve: Curves.linear,
                       height: 35,
                       width: 35,
@@ -730,30 +730,30 @@ profile_store_mini(double width,double fontSize,double height) {
                       imageErrorBuilder: (context,error,StackTrace){
                         return Container(
                           width: MediaQuery.sizeOf(context).width,
-                          child: Center(
+                          child: const Center(
                             child: Icon(Icons.error),
                           ),
                         );
                       },
                     ),
                   ),
-                  SizedBox(width: 5,),
+                  const SizedBox(width: 5,),
                   Text("Vetana De Sneaker",style: TextStyle(fontWeight: FontWeight.w500,fontSize: fontSize),)
                 ],
               ),
               ClipRRect(
                 child : FadeInImage(
-                  placeholder: AssetImage('asset/aas.png'),
-                  fadeInDuration: Duration(milliseconds: 100),
-                  image: NetworkImage("https://flagsapi.com/KH/flat/64.png"),
-                  fadeOutDuration: Duration(milliseconds: 1),
+                  placeholder: const AssetImage('asset/aas.png'),
+                  fadeInDuration: const Duration(milliseconds: 100),
+                  image: const NetworkImage("https://flagsapi.com/KH/flat/64.png"),
+                  fadeOutDuration: const Duration(milliseconds: 1),
                   fadeInCurve: Curves.linear,
                   height: 24,
                   fit: BoxFit.fitHeight,
                   imageErrorBuilder: (context,error,StackTrace){
                     return Container(
                       width: MediaQuery.sizeOf(context).width,
-                      child: Center(
+                      child: const Center(
                         child: Icon(Icons.error),
                       ),
                     );
